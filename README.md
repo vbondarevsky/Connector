@@ -7,6 +7,12 @@
 
 В данной статье я расскажу о библиотеке Коннектор - “Requests” для мира 1С.
 
+## Требования
+Платформа 8.3.10 и выше
+
+## Использование
+Скопируйте модуль к себе в конфигурацию
+
 ## Пример мощи библиотеки.
     Чем же хороша библиотека? Давай уже покажи пример.
 
@@ -71,33 +77,49 @@ https://httpbin.org/anything/params?name=%D0%9C%D0%B0%D1%81%D1%81%D0%B8%D0%B2&na
 Закодировал строку используя ``URLEncoding``
 Массив значений перевел последовательность ключ=значение
 
-## Обработка ответа
-## Текст
-## JSON
-## Двоичные данные
+## Содержимое ответа
+### Текст
+### JSON
+### Двоичные данные
 
 ## Произвольные заголовки
+
 ## Form-encoded POST
+
 ## POST a Multipart-Encoded File
 https://wonderland.v8.1c.ru/blog/novye-instrumenty-dlya-raboty-s-dvoichnymi-dannymi-obespechivayut-kak-posledovatelnyy-dostup-k-danny/
+
+## Response Status Codes
+
 ## Response Headers
+
 ## Cookies
+
 ## Redirection and History
 TODO: например, переадресация http -> https в yandex.ru.
-## Можно показать пример поискового запроса 
+TODO: Можно показать пример поискового запроса 
 ## Timeouts
 ## Errors and Exceptions
+
+
 ## Продвинутые возможности
 ## Session Objects
 TODO: можно пример получения списка обновлений с сайта 1С с авторизацией
 https://infostart.ru/public/255881/
+
 ## SSL Cert Verification
+
 ## Client Side Certificates
 
 ## POST Multiple Multipart-Encoded Files
 
 ## Custom Authentication
+
 ## Proxies
 ## Encodings
 
+## HTTP Verbs
+## Custom Verbs
 
+
+## ZGip и deflate encoding - автоматически
