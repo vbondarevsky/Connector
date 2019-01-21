@@ -126,7 +126,54 @@ TODO: в типовых сценариях заголовки подставля
 Результат = КоннекторHTTP.GetJson("http://httpbin.org/headers",, Новый Структура("Заголовки", Заголовки));
 ```
 
-## Form-encoded POST
+## Отправка данных формы
+Отправить данные формы очень просто.
+Передаем наши данные (`Структура` или `Соответствие`) в метод `POST` и все. 
+```bsl
+Данные = Новый Структура;
+Данные.Вставить("comments", "Постучать в дверь");
+Данные.Вставить("custemail", "vasya@mail.ru");
+Данные.Вставить("custname", "Вася");
+Данные.Вставить("custtel", "112");
+Данные.Вставить("delivery", "20:20");
+Данные.Вставить("size", "medium");
+Данные.Вставить("topping", СтрРазделить("bacon,mushroom", ","));
+
+Ответ = КоннекторHTTP.Post("http://httpbin.org/post", Данные);
+```
+
+Данные будут закодированы, заголовок `Content-Type` автоматически будет установлено значение `application/x-www-form-urlencoded`.
+
+## Отправка JSON
+Передаем данные `Структура` или `Соответствие`
+```bsl
+Json = Новый Структура;
+Json.Вставить("Сотрудник", "Иванов Иван Петрович");
+Json.Вставить("Должность", "Разнорабочий");
+``` 
+в параметр `Json` метода `POST`
+```bsl
+Ответ = КоннекторHTTP.Post("http://httpbin.org/post",, Json);
+```
+или в свойство `Json` параметра `ДополнительныеПараметры` для всех методов отправки данных
+```bsl
+Ответ = КоннекторHTTP.Put("http://httpbin.org/put",, Новый Структура("Json", Json));
+```
+
+Данные будут сериализованы в JSON, установлен заголовок `application/json`.
+
+## Упрощенная работа с JSON
+Для облегчения работы с JSON есть методы: 
+`GetJson`, `PostJson`, `PutJson`, `DeleteJson`.
+Запросы отправляются в формате JSON, ответы - JSON прочитанный в `Соответствие`/`Структура`. 
+```bsl
+Результат = КоннекторHTTP.GetJson("http://httpbin.org/get");
+Результат = КоннекторHTTP.PostJson("http://httpbin.org/post", Новый Структура("Название", "КоннекторHTTP"));
+Результат = КоннекторHTTP.PutJson("http://httpbin.org/put", Новый Структура("Название", "КоннекторHTTP"));
+Результат = КоннекторHTTP.DeleteJson("http://httpbin.org/delete", Новый Структура("Название", "КоннекторHTTP"));
+```
+
+Сериализация в JSON и десериализация из JSON настраиваются с помощью параметров в `ДополнительныеПараметры.ПараметрыПреобразованияJSON`.
 
 ## POST a Multipart-Encoded File
 https://wonderland.v8.1c.ru/blog/novye-instrumenty-dlya-raboty-s-dvoichnymi-dannymi-obespechivayut-kak-posledovatelnyy-dostup-k-danny/
@@ -140,7 +187,28 @@ https://wonderland.v8.1c.ru/blog/novye-instrumenty-dlya-raboty-s-dvoichnymi-dann
 ## Redirection and History
 TODO: например, переадресация http -> https в yandex.ru.
 TODO: Можно показать пример поискового запроса 
-## Timeouts
+
+## Таймаут
+```bsl
+Ответ = КоннекторHTTP.Get("https://httpbin.org/delay/10",, Новый Структура("Таймаут", 1));
+```
+Значение по умолчанию - 30 сек.
+
+## Basic-аутентификация
+Параметры Basic-аутентификации можно передать через свойство `ДополнительныеПараметры.Аутентификация`
+```bsl
+Аутентификация = Новый Структура("Пользователь, Пароль", "user", "pass");
+Результат = КоннекторHTTP.GetJson(
+    "https://httpbin.org/basic-auth/user/pass",,
+    Новый Структура("Аутентификация", Аутентификация));
+```
+или в `URL`
+```bsl
+Результат = КоннекторHTTP.GetJson("https://user:pass@httpbin.org/basic-auth/user/pass");
+```
+
+## Digest-аутентификация
+
 ## Errors and Exceptions
 
 
@@ -157,7 +225,15 @@ https://infostart.ru/public/255881/
 
 ## Custom Authentication
 
-## Proxies
+## Доступ через прокси-сервер
+
+```bsl
+Прокси = Новый ИнтернетПрокси;
+Прокси.Установить("http", "192.168.1.51", 8192);
+КоннекторHTTP.GetJson("http://httpbin.org/headers",,, Новый Структура("Прокси", Прокси));
+```
+Если в конфигурации используется `БСП`, то настройки прокси по умолчанию берутся из `БСП`.
+
 ## Encodings
 
 ## HTTP Verbs
