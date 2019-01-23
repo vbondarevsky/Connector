@@ -42,19 +42,9 @@
 При этом библиотека сама разбила URL на составляющие, установила защищенное соединение, порт. Определила кодировку ответа из заголовков и десериализовала JSON. И это достаточно простой пример. Всю мощь библиотеки рассмотрим далее от простого к сложному.
 
 ## Возможности
+- JSON
 TODO
-TODO
-TODO
-TODO
-TODO
-Создаем запрос
-```bsl
-r = requests.get('http://httpbin.org/put')
-r = requests.put('http://httpbin.org/put', data = {'key':'value'})
-r = requests.delete('http://httpbin.org/delete')
-r = requests.head('http://httpbin.org/get')
-r = requests.options('http://httpbin.org/get')
-```
+
 Для ``GET``, ``OPTIONS``, ``HEAD``, ``POST``, ``PUT``, ``PATCH``, ``DELETE`` есть соответствующие методы.
 Или любой другой из HTTP-методов через вызов ``КоннекторHTTP.ВызватьМетод``
 
@@ -178,15 +168,11 @@ Json.Вставить("Должность", "Разнорабочий");
 ## POST a Multipart-Encoded File
 https://wonderland.v8.1c.ru/blog/novye-instrumenty-dlya-raboty-s-dvoichnymi-dannymi-obespechivayut-kak-posledovatelnyy-dostup-k-danny/
 
+## POST Multiple Multipart-Encoded Files
+
 ## Response Status Codes
 
 ## Response Headers
-
-## Cookies
-
-## Redirection and History
-TODO: например, переадресация http -> https в yandex.ru.
-TODO: Можно показать пример поискового запроса 
 
 ## Таймаут
 ```bsl
@@ -217,24 +203,14 @@ TODO: Можно показать пример поискового запрос
     Новый Структура("Аутентификация", Аутентификация));
 ```
 
-## Errors and Exceptions
-
-
-## Продвинутые возможности
-## Session Objects
-TODO: можно пример получения списка обновлений с сайта 1С с авторизацией
-https://infostart.ru/public/255881/
-
-## SSL Cert Verification
-
-## Client Side Certificates
-
-## POST Multiple Multipart-Encoded Files
-
-## Custom Authentication
+## GZip-кодирование
+По умолчанию **Коннектор** просит сервер кодировать ответы в формате `GZip`.
+Декодирование выполняется прозрачным образом в методах `GetJson`, `PostJson`, `PutJson`, `DeleteJson`, `КакJson`, `КакТекст`, `КакДвоичныеДанные`.
+```bsl
+Результат = КоннекторHTTP.GetJson("http://httpbin.org/gzip");
+```
 
 ## Доступ через прокси-сервер
-
 ```bsl
 Прокси = Новый ИнтернетПрокси;
 Прокси.Установить("http", "192.168.1.51", 8192);
@@ -242,10 +218,21 @@ https://infostart.ru/public/255881/
 ```
 Если в конфигурации используется `БСП`, то настройки прокси по умолчанию берутся из `БСП`.
 
-## Encodings
+## Cookies
 
+## Redirection and History
+TODO: например, переадресация http -> https в yandex.ru.
+TODO: Можно показать пример поискового запроса 
+
+## Errors and Exceptions
+
+
+## Session Objects
+TODO: можно пример получения списка обновлений с сайта 1С с авторизацией
+https://infostart.ru/public/255881/
+
+## Encodings
 ## HTTP Verbs
 ## Custom Verbs
-
-
-## ZGip и deflate encoding - автоматически
+## SSL Cert Verification
+## Client Side Certificates
