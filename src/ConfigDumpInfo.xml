@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ConfigDumpInfo xmlns="http://v8.1c.ru/8.3/xcf/dumpinfo" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" format="Hierarchical" version="2.8">
 	<ConfigVersions>
-		<Metadata name="CommonModule.КоннекторHTTP" id="b410e6fc-2af6-4b78-8dde-12f5e259926c" configVersion="5e3467ec711a424180c3828731a1083400000000"/>
-		<Metadata name="CommonModule.КоннекторHTTP.Module" id="b410e6fc-2af6-4b78-8dde-12f5e259926c.0" configVersion="a167cc2f1cf82e43948db1c981f27e8000000000"/>
+		<Metadata name="CommonModule.КоннекторHTTP" id="b410e6fc-2af6-4b78-8dde-12f5e259926c" configVersion="fb83dac1496c8c49b5883f9a121f982c00000000"/>
+		<Metadata name="CommonModule.КоннекторHTTP.Module" id="b410e6fc-2af6-4b78-8dde-12f5e259926c.0" configVersion="def1275958a8174fa4927845094e0e4400000000"/>
 		<Metadata name="Configuration.Конфигурация" id="5eb9462b-b393-47be-933f-eee461b0776c" configVersion="0057811e9f88644e913ddbfd3d54452500000000"/>
 		<Metadata name="Configuration.Конфигурация.HomePageWorkArea" id="d50a38bd-46a7-49df-b1c1-97a268165f22.8" configVersion="11d0048f1adb354897dfaea6652a7af300000000"/>
 		<Metadata name="Constant.Логин" id="8bd340d0-18e1-11e9-928d-9801a79f9261" configVersion="d3732e36a923e348b68566183995259000000000"/>
 		<Metadata name="Constant.Пароль" id="a9b2d2d8-18e1-11e9-928d-9801a79f9261" configVersion="ad4a5526dac7ad4199ad90825436293800000000"/>
-		<Metadata name="DataProcessor.Тесты" id="9f97ab24-5fa8-4904-97a8-ba436e571008" configVersion="90da5ec43eede9429545d60685bb9a4900000000"/>
+		<Metadata name="DataProcessor.Тесты" id="9f97ab24-5fa8-4904-97a8-ba436e571008" configVersion="9bd772e5aa6b934d905511a5d3a00d8800000000"/>
 		<Metadata name="DataProcessor.Тесты.Form.Форма" id="16f1d17a-2ee6-412e-8eb7-aaa7d4ff8526" configVersion="9c88f1b8f051124d9ba2aa6a448c220800000000"/>
 		<Metadata name="DataProcessor.Тесты.Form.Форма.Form" id="16f1d17a-2ee6-412e-8eb7-aaa7d4ff8526.0" configVersion="08af72e1dee7cd4bab9e6b3c732176e500000000"/>
-		<Metadata name="DataProcessor.Тесты.ObjectModule" id="9f97ab24-5fa8-4904-97a8-ba436e571008.0" configVersion="ad82f55b7e1d6f4a95f6c421a766cc4000000000"/>
+		<Metadata name="DataProcessor.Тесты.ObjectModule" id="9f97ab24-5fa8-4904-97a8-ba436e571008.0" configVersion="4fc149b0717c874db392ebda037268da00000000"/>
 		<Metadata name="Language.Русский" id="f58d5f4e-e29f-439e-ae9f-58b2015e0061" configVersion="3d6c3937a27e474ab74385d3d524188800000000"/>
 	</ConfigVersions>
 </ConfigDumpInfo>
