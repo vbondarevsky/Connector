@@ -1,1 +1,0 @@
-src/CommonModules/КоннекторHTTP/Ext/Module.bsl
