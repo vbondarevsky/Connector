@@ -1,3 +1,5 @@
+Публикация на [Инфостарт](https://infostart.ru/public/709325/)
+
 # Коннектор: удобный HTTP-клиент для 1С:Предприятие 8
 В мире python очень популярна библиотека для работы с HTTP запросами - [Requests](http://docs.python-requests.org/en/master) (автор: Kenneth Reitz).
 Библиотека берет на себя всю рутину работы с HTTP запросами. 
