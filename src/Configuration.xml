@@ -134,8 +134,6 @@
 		<ChildObjects>
 			<Language>Русский</Language>
 			<CommonModule>КоннекторHTTP</CommonModule>
-			<Constant>Логин</Constant>
-			<Constant>Пароль</Constant>
 			<DataProcessor>Тесты</DataProcessor>
 		</ChildObjects>
 	</Configuration>
