@@ -5,23 +5,77 @@
 		<Autofill>false</Autofill>
 	</AutoCommandBar>
 	<ChildItems>
-		<CheckBoxField name="ТестироватьСоединениеЧерезПрокси" id="3">
-			<DataPath>Объект.ТестироватьСоединениеЧерезПрокси</DataPath>
-			<TitleLocation>Right</TitleLocation>
-			<CheckBoxType>Auto</CheckBoxType>
-			<ContextMenu name="ТестироватьСоединениеЧерезПроксиКонтекстноеМеню" id="4"/>
-			<ExtendedTooltip name="ТестироватьСоединениеЧерезПроксиРасширеннаяПодсказка" id="5"/>
-		</CheckBoxField>
-		<InputField name="Логин" id="6">
-			<DataPath>Объект.Логин</DataPath>
-			<ContextMenu name="ЛогинКонтекстноеМеню" id="7"/>
-			<ExtendedTooltip name="ЛогинРасширеннаяПодсказка" id="8"/>
-		</InputField>
-		<InputField name="Пароль" id="9">
-			<DataPath>Объект.Пароль</DataPath>
-			<ContextMenu name="ПарольКонтекстноеМеню" id="10"/>
-			<ExtendedTooltip name="ПарольРасширеннаяПодсказка" id="11"/>
-		</InputField>
+		<UsualGroup name="Группа3" id="22">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройки прокси-сервера</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Vertical</Group>
+			<Representation>None</Representation>
+			<ExtendedTooltip name="Группа3РасширеннаяПодсказка" id="23"/>
+			<ChildItems>
+				<CheckBoxField name="ТестироватьСоединениеЧерезПрокси" id="3">
+					<DataPath>Объект.ТестироватьСоединениеЧерезПрокси</DataPath>
+					<TitleLocation>Right</TitleLocation>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="ТестироватьСоединениеЧерезПроксиКонтекстноеМеню" id="4"/>
+					<ExtendedTooltip name="ТестироватьСоединениеЧерезПроксиРасширеннаяПодсказка" id="5"/>
+				</CheckBoxField>
+				<UsualGroup name="Группа1" id="18">
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="Группа1РасширеннаяПодсказка" id="19"/>
+					<ChildItems>
+						<InputField name="ПроксиСервер" id="12">
+							<DataPath>Объект.ПроксиСервер</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Сервер</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ПроксиСерверКонтекстноеМеню" id="13"/>
+							<ExtendedTooltip name="ПроксиСерверРасширеннаяПодсказка" id="14"/>
+						</InputField>
+						<InputField name="ПроксиПорт" id="15">
+							<DataPath>Объект.ПроксиПорт</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Порт</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ПроксиПортКонтекстноеМеню" id="16"/>
+							<ExtendedTooltip name="ПроксиПортРасширеннаяПодсказка" id="17"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа2" id="20">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Пользователь ИТС</v8:content>
+				</v8:item>
+			</Title>
+			<Representation>None</Representation>
+			<ExtendedTooltip name="Группа2РасширеннаяПодсказка" id="21"/>
+			<ChildItems>
+				<InputField name="Логин" id="6">
+					<DataPath>Объект.Логин</DataPath>
+					<ContextMenu name="ЛогинКонтекстноеМеню" id="7"/>
+					<ExtendedTooltip name="ЛогинРасширеннаяПодсказка" id="8"/>
+				</InputField>
+				<InputField name="Пароль" id="9">
+					<DataPath>Объект.Пароль</DataPath>
+					<ContextMenu name="ПарольКонтекстноеМеню" id="10"/>
+					<ExtendedTooltip name="ПарольРасширеннаяПодсказка" id="11"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
 		<Button name="Команда1" id="1">
 			<Type>UsualButton</Type>
 			<CommandName>Form.Command.ВыполнитьТесты</CommandName>
@@ -37,6 +91,8 @@
 			<Save>
 				<Field>Объект.Логин</Field>
 				<Field>Объект.Пароль</Field>
+				<Field>Объект.ПроксиПорт</Field>
+				<Field>Объект.ПроксиСервер</Field>
 				<Field>Объект.ТестироватьСоединениеЧерезПрокси</Field>
 			</Save>
 		</Attribute>
