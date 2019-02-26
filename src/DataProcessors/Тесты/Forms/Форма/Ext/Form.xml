@@ -54,26 +54,41 @@
 				</UsualGroup>
 			</ChildItems>
 		</UsualGroup>
-		<UsualGroup name="Группа2" id="20">
+		<UsualGroup name="Группа4" id="27">
 			<Title>
 				<v8:item>
 					<v8:lang>ru</v8:lang>
-					<v8:content>Пользователь ИТС</v8:content>
+					<v8:content>Настройки аутентификации на сайтах 1С</v8:content>
 				</v8:item>
 			</Title>
+			<Group>Vertical</Group>
 			<Representation>None</Representation>
-			<ExtendedTooltip name="Группа2РасширеннаяПодсказка" id="21"/>
+			<ExtendedTooltip name="Группа4РасширеннаяПодсказка" id="28"/>
 			<ChildItems>
-				<InputField name="Логин" id="6">
-					<DataPath>Объект.Логин</DataPath>
-					<ContextMenu name="ЛогинКонтекстноеМеню" id="7"/>
-					<ExtendedTooltip name="ЛогинРасширеннаяПодсказка" id="8"/>
-				</InputField>
-				<InputField name="Пароль" id="9">
-					<DataPath>Объект.Пароль</DataPath>
-					<ContextMenu name="ПарольКонтекстноеМеню" id="10"/>
-					<ExtendedTooltip name="ПарольРасширеннаяПодсказка" id="11"/>
-				</InputField>
+				<CheckBoxField name="ТестироватьПолучениеСпискаРелизовВСайта1С" id="24">
+					<DataPath>Объект.ТестироватьПолучениеСпискаРелизовВСайта1С</DataPath>
+					<TitleLocation>Right</TitleLocation>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="ТестироватьПолучениеСпискаРелизовВСайта1СКонтекстноеМеню" id="25"/>
+					<ExtendedTooltip name="ТестироватьПолучениеСпискаРелизовВСайта1СРасширеннаяПодсказка" id="26"/>
+				</CheckBoxField>
+				<UsualGroup name="Группа2" id="20">
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="Группа2РасширеннаяПодсказка" id="21"/>
+					<ChildItems>
+						<InputField name="Логин" id="6">
+							<DataPath>Объект.Логин</DataPath>
+							<ContextMenu name="ЛогинКонтекстноеМеню" id="7"/>
+							<ExtendedTooltip name="ЛогинРасширеннаяПодсказка" id="8"/>
+						</InputField>
+						<InputField name="Пароль" id="9">
+							<DataPath>Объект.Пароль</DataPath>
+							<ContextMenu name="ПарольКонтекстноеМеню" id="10"/>
+							<ExtendedTooltip name="ПарольРасширеннаяПодсказка" id="11"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
 			</ChildItems>
 		</UsualGroup>
 		<Button name="Команда1" id="1">
@@ -93,6 +108,7 @@
 				<Field>Объект.Пароль</Field>
 				<Field>Объект.ПроксиПорт</Field>
 				<Field>Объект.ПроксиСервер</Field>
+				<Field>Объект.ТестироватьПолучениеСпискаРелизовВСайта1С</Field>
 				<Field>Объект.ТестироватьСоединениеЧерезПрокси</Field>
 			</Save>
 		</Attribute>
