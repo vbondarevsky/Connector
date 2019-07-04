@@ -43,6 +43,8 @@
 	Тест_ОтправитьCookies();
 	Тест_POST_MultipartFormData_ТолькоФайл();
 	Тест_POST_MultipartFormData_ФайлыИПоляФормы();
+	Тест_ПараметрыЗапросаТолькоКлюч();
+	Тест_ОтправкаXml();
 	
 КонецПроцедуры
 
@@ -541,6 +543,42 @@
 	УтверждениеВерно(Результат["form"]["field2"], "Значение2");
 	
 	ТестПройден("Тест_POST_MultipartFormData_ФайлыИПоляФормы");
+	
+КонецПроцедуры
+
+Процедура Тест_ПараметрыЗапросаТолькоКлюч()
+
+	Результат = КоннекторHTTP.GetJson("https://httpbin.org/get?key");
+	УтверждениеВерно(Результат["args"]["key"], "");
+	
+	ТестПройден("Тест_ПараметрыЗапросаТолькоКлюч");
+	
+КонецПроцедуры
+
+Процедура Тест_ОтправкаXml()
+	
+	XML = 
+	"<?xml version=""1.0"" encoding=""utf-8""?>
+	|<soap:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
+	|  <soap:Body>
+	|    <GetCursOnDate xmlns=""http://web.cbr.ru/"">
+	|      <On_date>2019-07-05</On_date>
+	|    </GetCursOnDate>
+	|  </soap:Body>
+	|</soap:Envelope>";
+	
+	Заголовки = Новый Соответствие;
+	Заголовки.Вставить("Content-Type", "text/xml; charset=utf-8");
+	Заголовки.Вставить("SOAPAction", "http://web.cbr.ru/GetCursOnDate");
+	Ответ = КоннекторHTTP.Post(
+		"https://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx",
+		XML, 
+		Новый Структура("Заголовки", Заголовки));
+	
+	УтверждениеВерно(Ответ.КодСостояния, 200);
+	УтверждениеВерно(Ответ.Заголовки.Получить("Content-Type"), "text/xml; charset=utf-8");
+	
+	ТестПройден("Тест_ОтправкаXml");
 	
 КонецПроцедуры
 
