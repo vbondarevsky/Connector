@@ -23,10 +23,16 @@
 					<ContextMenu name="ТестироватьСоединениеЧерезПроксиКонтекстноеМеню" id="4"/>
 					<ExtendedTooltip name="ТестироватьСоединениеЧерезПроксиРасширеннаяПодсказка" id="5"/>
 				</CheckBoxField>
-				<UsualGroup name="Группа1" id="18">
+				<UsualGroup name="ГруппаСерверПорт" id="18">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сервер и порт</v8:content>
+						</v8:item>
+					</Title>
 					<Representation>None</Representation>
 					<ShowTitle>false</ShowTitle>
-					<ExtendedTooltip name="Группа1РасширеннаяПодсказка" id="19"/>
+					<ExtendedTooltip name="ГруппаСерверПортРасширеннаяПодсказка" id="19"/>
 					<ChildItems>
 						<InputField name="ПроксиСервер" id="12">
 							<DataPath>Объект.ПроксиСервер</DataPath>
@@ -72,10 +78,16 @@
 					<ContextMenu name="ТестироватьПолучениеСпискаРелизовВСайта1СКонтекстноеМеню" id="25"/>
 					<ExtendedTooltip name="ТестироватьПолучениеСпискаРелизовВСайта1СРасширеннаяПодсказка" id="26"/>
 				</CheckBoxField>
-				<UsualGroup name="Группа2" id="20">
+				<UsualGroup name="ГруппаЛогинПароль" id="20">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Логин и пароль</v8:content>
+						</v8:item>
+					</Title>
 					<Representation>None</Representation>
 					<ShowTitle>false</ShowTitle>
-					<ExtendedTooltip name="Группа2РасширеннаяПодсказка" id="21"/>
+					<ExtendedTooltip name="ГруппаЛогинПарольРасширеннаяПодсказка" id="21"/>
 					<ChildItems>
 						<InputField name="Логин" id="6">
 							<DataPath>Объект.Логин</DataPath>

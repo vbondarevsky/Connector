@@ -28,9 +28,14 @@
 			</xr:ContainedObject>
 		</InternalInfo>
 		<Properties>
-			<Name>Конфигурация</Name>
-			<Synonym/>
-			<Comment/>
+			<Name>Коннектор</Name>
+			<Synonym>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Коннектор</v8:content>
+				</v8:item>
+			</Synonym>
+			<Comment>Коннектор: удобный HTTP-клиент для 1С:Предприятие 8</Comment>
 			<NamePrefix/>
 			<ConfigurationExtensionCompatibilityMode>Version8_3_14</ConfigurationExtensionCompatibilityMode>
 			<DefaultRunMode>ManagedApplication</DefaultRunMode>
@@ -43,7 +48,7 @@
 			<Version/>
 			<UpdateCatalogAddress/>
 			<IncludeHelpInContents>false</IncludeHelpInContents>
-			<UseManagedFormInOrdinaryApplication>false</UseManagedFormInOrdinaryApplication>
+			<UseManagedFormInOrdinaryApplication>true</UseManagedFormInOrdinaryApplication>
 			<UseOrdinaryFormInManagedApplication>false</UseOrdinaryFormInManagedApplication>
 			<AdditionalFullTextSearchDictionaries/>
 			<CommonSettingsStorage/>
