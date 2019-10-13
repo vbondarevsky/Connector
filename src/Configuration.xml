@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.8">
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.9">
 	<Configuration uuid="5eb9462b-b393-47be-933f-eee461b0776c">
 		<InternalInfo>
 			<xr:ContainedObject>
@@ -37,10 +37,11 @@
 			</Synonym>
 			<Comment>Коннектор: удобный HTTP-клиент для 1С:Предприятие 8</Comment>
 			<NamePrefix/>
-			<ConfigurationExtensionCompatibilityMode>Version8_3_14</ConfigurationExtensionCompatibilityMode>
+			<ConfigurationExtensionCompatibilityMode>Version8_3_15</ConfigurationExtensionCompatibilityMode>
 			<DefaultRunMode>ManagedApplication</DefaultRunMode>
 			<UsePurposes>
 				<v8:Value xsi:type="app:ApplicationUsePurpose">PlatformApplication</v8:Value>
+				<v8:Value xsi:type="app:ApplicationUsePurpose">MobilePlatformApplication</v8:Value>
 			</UsePurposes>
 			<ScriptVariant>Russian</ScriptVariant>
 			<DefaultRoles/>
@@ -65,59 +66,96 @@
 			<DefaultDataHistoryChangeHistoryForm/>
 			<DefaultDataHistoryVersionDataForm/>
 			<DefaultDataHistoryVersionDifferencesForm/>
+			<DefaultCollaborationSystemUsersChoiceForm/>
 			<RequiredMobileApplicationPermissions>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">Multimedia</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">Location</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">Contacts</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">Calendars</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">Telephony</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">PushNotification</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">LocalNotification</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">Print</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">InAppPurchases</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">Ads</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">BackgroundLocation</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">BackgroundAudioPlayback</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
-				<v8:pair>
-					<v8:Key xsi:type="app:RequiredMobileApplicationPermissions">FileExchangeWithPersonalComputer</v8:Key>
-					<v8:Value xsi:type="xs:boolean">false</v8:Value>
-				</v8:pair>
+				<app:permission>
+					<app:permission>Location</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>Contacts</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>Calendars</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>PushNotification</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>LocalNotification</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>Print</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>InAppPurchases</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>Ads</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>BackgroundLocation</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>BackgroundAudioPlayback</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>FileExchangeWithPersonalComputer</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>CallPhone</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>CallLog</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>HandlePhoneCalls</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>SendSMS</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>ReceiveSMS</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>SMSLog</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>Camera</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>Microphone</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>MusicLibrary</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>PicturesAndVideoLibraries</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
+				<app:permission>
+					<app:permission>AudioAndVibrationPlayback</app:permission>
+					<app:use>false</app:use>
+				</app:permission>
 			</RequiredMobileApplicationPermissions>
 			<MainClientApplicationWindowMode>Normal</MainClientApplicationWindowMode>
 			<DefaultInterface/>
