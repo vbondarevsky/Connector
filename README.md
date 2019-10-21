@@ -1,5 +1,10 @@
 Публикация на [Инфостарт](https://infostart.ru/public/709325/)
 
+
+[![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=connector&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=connector)
+[![Stars](https://img.shields.io/github/stars/vbondarevsky/Connector.svg?label=Github%20%E2%98%85&a)](https://github.com/vbondarevsky/Connector/stargazers)
+[![Release](https://img.shields.io/github/tag/vbondarevsky/Connector.svg?label=Last%20release&a)](https://github.com/vbondarevsky/Connector/releases)
+
 # Коннектор: удобный HTTP-клиент для 1С:Предприятие 8
 В мире python очень популярна библиотека для работы с HTTP запросами - [Requests](http://docs.python-requests.org/en/master) (автор: Kenneth Reitz).
 Библиотека берет на себя всю рутину работы с HTTP запросами. 
