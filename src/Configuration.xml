@@ -201,6 +201,7 @@
 		<ChildObjects>
 			<Language>Русский</Language>
 			<CommonModule>КоннекторHTTP</CommonModule>
+			<DataProcessor>Тесты</DataProcessor>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

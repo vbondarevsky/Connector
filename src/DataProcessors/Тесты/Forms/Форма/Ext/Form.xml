@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.9">
+	<AutoSaveDataInSettings>Use</AutoSaveDataInSettings>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+		<ChildItems>
+			<Button name="Команда1" id="1">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.Command.ВыполнитьТесты</CommandName>
+				<ExtendedTooltip name="Команда1РасширеннаяПодсказка" id="2"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<ChildItems>
+		<UsualGroup name="Группа3" id="22">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройки прокси-сервера</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Vertical</Group>
+			<Representation>None</Representation>
+			<ExtendedTooltip name="Группа3РасширеннаяПодсказка" id="23"/>
+			<ChildItems>
+				<CheckBoxField name="ТестироватьСоединениеЧерезПрокси" id="3">
+					<DataPath>Объект.ТестироватьСоединениеЧерезПрокси</DataPath>
+					<TitleLocation>Right</TitleLocation>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="ТестироватьСоединениеЧерезПроксиКонтекстноеМеню" id="4"/>
+					<ExtendedTooltip name="ТестироватьСоединениеЧерезПроксиРасширеннаяПодсказка" id="5"/>
+				</CheckBoxField>
+				<UsualGroup name="ГруппаСерверПорт" id="18">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сервер и порт</v8:content>
+						</v8:item>
+					</Title>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаСерверПортРасширеннаяПодсказка" id="19"/>
+					<ChildItems>
+						<InputField name="ПроксиСервер" id="12">
+							<DataPath>Объект.ПроксиСервер</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Сервер</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ПроксиСерверКонтекстноеМеню" id="13"/>
+							<ExtendedTooltip name="ПроксиСерверРасширеннаяПодсказка" id="14"/>
+						</InputField>
+						<InputField name="ПроксиПорт" id="15">
+							<DataPath>Объект.ПроксиПорт</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Порт</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ПроксиПортКонтекстноеМеню" id="16"/>
+							<ExtendedTooltip name="ПроксиПортРасширеннаяПодсказка" id="17"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа4" id="27">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройки аутентификации на сайтах 1С</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Vertical</Group>
+			<Representation>None</Representation>
+			<ExtendedTooltip name="Группа4РасширеннаяПодсказка" id="28"/>
+			<ChildItems>
+				<CheckBoxField name="ТестироватьПолучениеСпискаРелизовВСайта1С" id="24">
+					<DataPath>Объект.ТестироватьПолучениеСпискаРелизовВСайта1С</DataPath>
+					<TitleLocation>Right</TitleLocation>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="ТестироватьПолучениеСпискаРелизовВСайта1СКонтекстноеМеню" id="25"/>
+					<ExtendedTooltip name="ТестироватьПолучениеСпискаРелизовВСайта1СРасширеннаяПодсказка" id="26"/>
+				</CheckBoxField>
+				<UsualGroup name="ГруппаЛогинПароль" id="20">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Логин и пароль</v8:content>
+						</v8:item>
+					</Title>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаЛогинПарольРасширеннаяПодсказка" id="21"/>
+					<ChildItems>
+						<InputField name="Логин" id="6">
+							<DataPath>Объект.Логин</DataPath>
+							<ContextMenu name="ЛогинКонтекстноеМеню" id="7"/>
+							<ExtendedTooltip name="ЛогинРасширеннаяПодсказка" id="8"/>
+						</InputField>
+						<InputField name="Пароль" id="9">
+							<DataPath>Объект.Пароль</DataPath>
+							<ContextMenu name="ПарольКонтекстноеМеню" id="10"/>
+							<ExtendedTooltip name="ПарольРасширеннаяПодсказка" id="11"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа1" id="29">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройки аутентификации AWS4-HMAC-SHA256</v8:content>
+				</v8:item>
+			</Title>
+			<ExtendedTooltip name="Группа1РасширеннаяПодсказка" id="30"/>
+			<ChildItems>
+				<CheckBoxField name="ТестироватьАутентификациюAWS4_HMAC_SHA256" id="31">
+					<DataPath>Объект.ТестироватьАутентификациюAWS4_HMAC_SHA256</DataPath>
+					<TitleLocation>Right</TitleLocation>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="ТестироватьАутентификациюAWS4_HMAC_SHA256КонтекстноеМеню" id="32"/>
+					<ExtendedTooltip name="ТестироватьАутентификациюAWS4_HMAC_SHA256РасширеннаяПодсказка" id="33"/>
+				</CheckBoxField>
+				<InputField name="ИдентификаторКлючаДоступа" id="34">
+					<DataPath>Объект.ИдентификаторКлючаДоступа</DataPath>
+					<ContextMenu name="ИдентификаторКлючаДоступаКонтекстноеМеню" id="35"/>
+					<ExtendedTooltip name="ИдентификаторКлючаДоступаРасширеннаяПодсказка" id="36"/>
+				</InputField>
+				<InputField name="СекретныйКлюч" id="43">
+					<DataPath>Объект.СекретныйКлюч</DataPath>
+					<ContextMenu name="СекретныйКлючКонтекстноеМеню" id="44"/>
+					<ExtendedTooltip name="СекретныйКлючРасширеннаяПодсказка" id="45"/>
+				</InputField>
+				<InputField name="Регион" id="40">
+					<DataPath>Объект.Регион</DataPath>
+					<ContextMenu name="РегионКонтекстноеМеню" id="41"/>
+					<ExtendedTooltip name="РегионРасширеннаяПодсказка" id="42"/>
+				</InputField>
+				<InputField name="Очередь" id="46">
+					<DataPath>Объект.Очередь</DataPath>
+					<ContextMenu name="ОчередьКонтекстноеМеню" id="47"/>
+					<ExtendedTooltip name="ОчередьРасширеннаяПодсказка" id="48"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DataProcessorObject.Тесты</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<Save>
+				<Field>1/0:5c2ecaf7-5963-404a-9e6e-39ebfb0e0dec</Field>
+				<Field>Объект.ИдентификаторКлючаДоступа</Field>
+				<Field>Объект.Логин</Field>
+				<Field>Объект.Очередь</Field>
+				<Field>Объект.Пароль</Field>
+				<Field>Объект.ПроксиПорт</Field>
+				<Field>Объект.ПроксиСервер</Field>
+				<Field>Объект.Регион</Field>
+				<Field>Объект.СекретныйКлюч</Field>
+				<Field>Объект.ТестироватьАутентификациюAWS4_HMAC_SHA256</Field>
+				<Field>Объект.ТестироватьПолучениеСпискаРелизовВСайта1С</Field>
+				<Field>Объект.ТестироватьСоединениеЧерезПрокси</Field>
+			</Save>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ВыполнитьТесты" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выполнить тесты</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выполнить тесты</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ВыполнитьТесты</Action>
+			<CurrentRowUse>DontUse</CurrentRowUse>
+		</Command>
+	</Commands>
+</Form>
