@@ -546,11 +546,11 @@
 
 Процедура Тест_GetУспешныйРедиректАбсолютныйАдрес()
 	
-	Ответ = КоннекторHTTP.Get("https://httpbin.org/absolute-redirect/6");
+	Ответ = КоннекторHTTP.Get("http://httpbin.org/absolute-redirect/6");
 	Результат = КоннекторHTTP.КакJson(Ответ);
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/get");
+	УтверждениеВерно(Результат["url"], "http://httpbin.org/get");
 	
 КонецПроцедуры
 
