@@ -1,6 +1,6 @@
 ﻿// Коннектор: удобный HTTP-клиент для 1С:Предприятие 8
 //
-// Copyright 2017-2019 Vladimir Bondarevskiy
+// Copyright 2017-2020 Vladimir Bondarevskiy
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
