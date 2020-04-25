@@ -30,6 +30,7 @@
 							<v8:content>Тесты</v8:content>
 						</v8:item>
 					</Title>
+					<TitleDataPath>КоличествоТестов</TitleDataPath>
 					<ExtendedTooltip name="СтраницаТестыРасширеннаяПодсказка" id="52"/>
 					<ChildItems>
 						<Table name="Тесты" id="55">
@@ -374,6 +375,22 @@
 					</Type>
 				</Column>
 			</Columns>
+		</Attribute>
+		<Attribute name="КоличествоТестов" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество тестов</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
 		</Attribute>
 		<ConditionalAppearance>
 			<dcsset:item>
