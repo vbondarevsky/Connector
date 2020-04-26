@@ -5,6 +5,7 @@
 		<Autofill>false</Autofill>
 	</AutoCommandBar>
 	<Events>
+		<Event name="OnLoadDataFromSettingsAtServer">ПриЗагрузкеДанныхИзНастроекНаСервере</Event>
 		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
 	</Events>
 	<ChildItems>
