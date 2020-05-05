@@ -282,6 +282,16 @@
 								</InputField>
 							</ChildItems>
 						</UsualGroup>
+						<CheckBoxField name="ТестироватьПовторы" id="89">
+							<DataPath>Объект.ТестироватьПовторы</DataPath>
+							<TitleLocation>Right</TitleLocation>
+							<CheckBoxType>Auto</CheckBoxType>
+							<ContextMenu name="ТестироватьПовторыКонтекстноеМеню" id="90"/>
+							<ExtendedTooltip name="ТестироватьПовторыРасширеннаяПодсказка" id="91"/>
+							<Events>
+								<Event name="OnChange">ТестироватьПовторыПриИзменении</Event>
+							</Events>
+						</CheckBoxField>
 					</ChildItems>
 				</Page>
 			</ChildItems>
