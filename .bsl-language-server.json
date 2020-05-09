@@ -2,7 +2,7 @@
     "$schema": "https://1c-syntax.github.io/bsl-language-server/configuration/schema.json",
     "diagnostics": {
         "Typo": {
-            "userWordsToIgnore": "Редирект,Распарсить,Сериализации"
+            "userWordsToIgnore": "Редирект,Редиректа,Распарсить,Сериализации"
         }
     }
 }
