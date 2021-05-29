@@ -28,7 +28,7 @@ jobs:
       uses: nixel2007/branch-name@v3
     - name: Extract version
       shell: bash
-      run: echo "##[set-output name=version;]` cat ./Connector/src/CommonModules/КоннекторHTTP/Ext/Module.bsl | grep -oP '(?<=Версия:.)[\d|.]*'`"
+      run: echo "##[set-output name=version;]` cat ./src/CommonModules/КоннекторHTTP/Ext/Module.bsl | grep -oP '(?<=Версия:.)[\d|.]*'`"
       id: extract_version
     
     - name: Run SonarCloud Scan on push
