@@ -43,6 +43,7 @@ jobs:
           -Dsonar.host.url=https://sonar.openbsl.ru
           -Dsonar.branch.name=${{ env.BRANCH_NAME }}
           -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
+          -X
     - name: Run SonarCloud Scan on pull request
       if: github.event_name == 'pull_request'
       uses: nixel2007/sonarcloud-github-action@v1.4
