@@ -1,12 +1,11 @@
 name: sonar-scanner
 
 on:
-  pull_request:
-    branches:
-    - master 
   push: 
     branches: 
     - master
+  pull_request:
+      types: [opened, synchronize, reopened]
 
 jobs:
   SonarScanner:
@@ -43,6 +42,7 @@ jobs:
           -Dsonar.host.url=https://sonar.openbsl.ru
           -Dsonar.branch.name=${{ env.BRANCH_NAME }}
           -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
+          -Dsonar.verbose=true
     - name: Run SonarCloud Scan on pull request
       if: github.event_name == 'pull_request'
       uses: nixel2007/sonarcloud-github-action@v1.4
@@ -60,3 +60,4 @@ jobs:
           -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
           -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
           -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
+          -Dsonar.verbose=true
