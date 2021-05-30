@@ -14,50 +14,32 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-      with:
-        fetch-depth: 0
-    - name: Configure env vars for SonarCloud scan
-      env:  
+    - name: Setup SonarQube scanner
+      uses: warchant/setup-sonar-scanner@v1
+      env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      run: |
-        echo "::set-env name=PATH::/opt/sonar-scanner/bin:$PATH"
-    - name: Compute branch name
-      env:  
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      uses: nixel2007/branch-name@v3
     - name: Extract version
       shell: bash
       run: echo "##[set-output name=version;]` cat ./src/CommonModules/КоннекторHTTP/Ext/Module.bsl | grep -oP '(?<=Версия:.)[\d|.]*'`"
       id: extract_version
-    
-    - name: Run SonarCloud Scan on push
-      if:  github.event_name == 'push'
-      uses: nixel2007/sonarcloud-github-action@v1.4
+    - name: Run SonarQube on push
+      if: github.event_name == 'push'
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      with:
-        args: >
-          -Dsonar.host.url=https://sonar.openbsl.ru
-          -Dsonar.branch.name=${{ env.BRANCH_NAME }}
-          -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
-          -Dsonar.verbose=true
-    - name: Run SonarCloud Scan on pull request
+      run: sonar-scanner
+        -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        -Dsonar.host.url=https://sonar.openbsl.ru
+        -Dsonar.branch.name=${GITHUB_REF#refs/heads/}
+        -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
+    - name: Run SonarQube on pull request
       if: github.event_name == 'pull_request'
-      uses: nixel2007/sonarcloud-github-action@v1.4
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      with:
-        args: >
-          -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
-          -Dsonar.host.url=https://sonar.openbsl.ru
-          -Dsonar.pullrequest.provider=github
-          -Dsonar.pullrequest.github.repository=${{ github.repository }}
-          -Dsonar.pullrequest.github.token.secured=${{ secrets.GITHUB_TOKEN }}
-          -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
-          -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
-          -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
-          -Dsonar.verbose=true
+      run: sonar-scanner
+        -X
+        -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        -Dsonar.host.url=https://sonar.openbsl.ru
+        -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
+        -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
+        -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
+        -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
