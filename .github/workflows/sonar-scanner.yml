@@ -17,6 +17,8 @@ jobs:
       uses: actions/checkout@v1
     - name: Setup SonarQube scanner
       uses: warchant/setup-sonar-scanner@v1
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     - name: Run SonarQube on push
       if: github.event_name == 'push'
       env:
