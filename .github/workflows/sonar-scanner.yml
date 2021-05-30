@@ -1,12 +1,11 @@
 name: sonar-scanner
 
 on:
-  pull_request:
-    branches:
-    - master 
   push: 
     branches: 
     - master
+  pull_request:
+      types: [opened, synchronize, reopened]
 
 jobs:
   SonarScanner:
@@ -15,22 +14,27 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
+      with:
+        fetch-depth: 0
     - name: Setup SonarQube scanner
-      uses: warchant/setup-sonar-scanner@v1
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      uses: warchant/setup-sonar-scanner@v3
+    - name: Extract version
+      shell: bash
+      run: echo "##[set-output name=version;]` cat ./src/CommonModules/КоннекторHTTP/Ext/Module.bsl | grep -oP '(?<=Версия:.)[\d|.]*'`"
+      id: extract_version
     - name: Run SonarQube on push
       if: github.event_name == 'push'
       env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: sonar-scanner
         -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         -Dsonar.host.url=https://sonar.openbsl.ru
         -Dsonar.branch.name=${GITHUB_REF#refs/heads/}
+        -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
     - name: Run SonarQube on pull request
       if: github.event_name == 'pull_request'
       env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: sonar-scanner
         -X
         -Dsonar.login=${{ secrets.SONAR_TOKEN }}
@@ -38,3 +42,4 @@ jobs:
         -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
         -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
         -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
+        -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
