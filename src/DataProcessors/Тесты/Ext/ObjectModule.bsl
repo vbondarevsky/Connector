@@ -69,6 +69,7 @@
 	Тесты.Добавить("Тест_POST_MultipartFormData_ФайлыИПоляФормы");
 	Тесты.Добавить("Тест_ПараметрыЗапросаТолькоКлюч");
 	Тесты.Добавить("Тест_ОтправкаXml");
+	Тесты.Добавить("Тест_ПрочитатьОтветКакXDTO");
 	Тесты.Добавить("Тест_СложныеПараметрыЗапроса");
 	Тесты.Добавить("Тест_PostПустойJson");
 	Если ТестироватьАутентификациюAWS4_HMAC_SHA256 Тогда
@@ -786,6 +787,103 @@
 	УтверждениеВерно(Ответ.Заголовки.Получить("Content-Type"), "text/xml; charset=utf-8");
 	
 КонецПроцедуры
+
+Процедура Тест_ПрочитатьОтветКакXDTO() Экспорт
+	
+	ТекстОтветXML = Тест_ПрочитатьОтветКакXDTO_ТекстОтветаXML();
+	
+	ПолноеИмяФайла = ПолучитьИмяВременногоФайла("xml");
+	
+	ФайлТекст = Новый ЗаписьТекста(ПолноеИмяФайла, КодировкаТекста.UTF8); 
+	ФайлТекст.ЗаписатьСтроку(ТекстОтветXML); 	
+	ФайлТекст.Закрыть(); 
+	
+	ДвоичныеДанныеОтвет = Новый ДвоичныеДанные(ПолноеИмяФайла);
+	УдалитьФайлы(ПолноеИмяФайла);
+	
+	Заголовки = Новый Соответствие;
+	Заголовки.Вставить("Content-Type", "text/xml; charset=utf-8");
+	
+	ПодготовленныйОтвет = Новый Структура;
+	ПодготовленныйОтвет.Вставить("Тело", ДвоичныеДанныеОтвет);
+	ПодготовленныйОтвет.Вставить("Заголовки", Заголовки);
+	
+	ОтветXDTO = КоннекторHTTP.КакXDTO(ПодготовленныйОтвет);
+	
+	ОтветXDTO_Attachment = ОтветXDTO.Attachments.Attachment;
+	
+	УтверждениеВерно(ТипЗнч(ОтветXDTO), Тип("ОбъектXDTO"));	
+	УтверждениеВерно(ОтветXDTO.Id, "1642606");
+	УтверждениеВерно(ТипЗнч(ОтветXDTO_Attachment), Тип("СписокXDTO"));
+	УтверждениеВерно(ОтветXDTO_Attachment.Количество(), 2);		
+	
+КонецПроцедуры 
+
+Функция Тест_ПрочитатьОтветКакXDTO_ТекстОтветаXML() 
+	
+	ТекстОтветXML = "
+	|<Document>
+	|<Id>1642606</Id>
+	|<TypeId>65</TypeId>
+	|<TypeName>Документ</TypeName>
+	|<DocumentTypeCode>DOCUMENT</DocumentTypeCode>
+	|<Description>Документ тест 00001 от 21.05.2021</Description>
+	|<BarcodeType>None</BarcodeType>
+	|<SenderId>12776</SenderId>
+	|<ReceiverId>48519</ReceiverId>
+	|<ParticipantId>12776</ParticipantId>
+	|<Status>Received</Status>
+	|<Date>2021-05-21T00:00:00</Date>
+	|<RequestSign>true</RequestSign>
+	|<Number>ТЕСТ 00001</Number>
+	|<IsMarked>false</IsMarked>
+	|<Created>2021-05-21T10:32:02</Created>
+	|<SendDate>2021-05-21T10:32:43</SendDate>
+	|<ReceiveDate>2021-05-21T10:32:43</ReceiveDate>
+	|<IsDocflowCompleted>false</IsDocflowCompleted>
+	|<Comment>ТЕСТ Документ </Comment>
+	|<Type>Document</Type>
+	|<FormType>Document</FormType>
+	|<SellerCode>ИдентификаторЭДООтправитель</SellerCode>
+	|<BuyerCode>ИдентификаторЭДОПолучатель</BuyerCode>
+	|<Filename>ФайлОсновной.xlsx</Filename>
+	|<ContractDescription />
+	|<IsRoaming>false</IsRoaming>
+	|<IsPrintable>false</IsPrintable>
+	|<Relations>
+	|    <DocumentRelation>
+	|        <Id>1642606</Id>
+	|        <Description>Документ №ТЕСТ 00002 от 21.05.2021</Description>
+	|    </DocumentRelation>
+	|</Relations>
+	|<StatusName>Получен</StatusName>
+	|<SenderName>ООО Отправитель</SenderName>
+	|<ReceiverName>ООО Получатель</ReceiverName>
+	|<ExistRouteSigner>false</ExistRouteSigner>
+	|<DocumentRelationType>Productive</DocumentRelationType>
+	|<Attachments>
+	|    <Attachment>
+	|        <Id>44624</Id>
+	|        <Uuid>8711ca1b76794467ba74529d2bb01e3e</Uuid>
+	|        <DocumentId>0</DocumentId>
+	|        <Filename>ТестФайл.xlsx</Filename>
+	|        <Content />
+	|    </Attachment>
+	|    <Attachment>
+	|        <Id>44625</Id>
+	|        <Uuid>f6d8e6cdcbf846f4b97d5ab8e18d1b79</Uuid>
+	|        <DocumentId>0</DocumentId>
+	|        <Filename>ТестФайл2.pdf</Filename>
+	|        <Content />
+	|    </Attachment>
+	|</Attachments>
+	|<StatusChanged>2021-05-21T10:32:44</StatusChanged>
+	|</Document>	
+	|";
+	
+	Возврат ТекстОтветXML;
+	
+КонецФункции 
 
 Процедура Тест_СложныеПараметрыЗапроса() Экспорт
 
