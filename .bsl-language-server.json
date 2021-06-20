@@ -4,7 +4,8 @@
         "parameters": {
             "Typo": {
                 "userWordsToIgnore": "Редирект,Редиректа,Распарсить,Сериализации"
-            }
+            },
+            "LatinAndCyrillicSymbolInWord": false
         }
     }
 }
