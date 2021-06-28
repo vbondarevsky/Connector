@@ -190,6 +190,10 @@
 					<app:functionality>BackgroundAudioRecording</app:functionality>
 					<app:use>false</app:use>
 				</app:functionality>
+				<app:functionality>
+					<app:functionality>AllFilesAccess</app:functionality>
+					<app:use>false</app:use>
+				</app:functionality>
 			</UsedMobileApplicationFunctionalities>
 			<StandaloneConfigurationRestrictionRoles/>
 			<MobileApplicationURLs/>
