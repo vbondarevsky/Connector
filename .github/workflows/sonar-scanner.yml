@@ -36,10 +36,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: sonar-scanner
-        -X
         -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         -Dsonar.host.url=https://sonar.openbsl.ru
         -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
         -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
         -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
-        -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
+        -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
