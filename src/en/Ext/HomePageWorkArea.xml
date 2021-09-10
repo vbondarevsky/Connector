@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<HomePageWorkArea xmlns="http://v8.1c.ru/8.3/xcf/extrnprops" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.12">
+	<WorkingAreaTemplate>OneColumn</WorkingAreaTemplate>
+	<Column>
+		<Item>
+			<Form>DataProcessor.Tests.Form.Form</Form>
+			<Height>10</Height>
+			<Visibility>
+				<xr:Common>true</xr:Common>
+			</Visibility>
+		</Item>
+	</Column>
+</HomePageWorkArea>
