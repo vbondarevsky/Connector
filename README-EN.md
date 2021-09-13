@@ -5,7 +5,7 @@ Publication on [Infostart](https://infostart.ru/public/709325/)
 [![Stars](https://img.shields.io/github/stars/vbondarevsky/Connector.svg?label=Github%20%E2%98%85&a)](https://github.com/vbondarevsky/Connector/stargazers)
 [![Release](https://img.shields.io/github/tag/vbondarevsky/Connector.svg?label=Last%20release&a)](https://github.com/vbondarevsky/Connector/releases)
 
-# Connector: handy HTTP-client for 1C Enterprise 8 platform
+# Connector: handy HTTP-client for 1C:Enterprise 8 platform
 Python world has a very popular library working with HTTP requests - [Requests](http://docs.python-requests.org/en/master) (author: Kenneth Reitz).
 The library allows you to send HTTP requests extremely easily. 
 Literally a single line of your code can receive or send data, not caring about making URL, encoding data etc. 
@@ -32,7 +32,7 @@ Main library features:
 - And much more
 
 ## Requirements
-- 1C Enterprise platform version **8.3.10** and higher.
+- 1C:Enterprise platform version **8.3.10** and higher.
 - Mobile platform (tested version **8.3.15** only)
 
 ## How to use

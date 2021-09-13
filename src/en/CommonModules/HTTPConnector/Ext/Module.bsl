@@ -1,4 +1,4 @@
-﻿// Коннектор: удобный HTTP-клиент для 1С:Предприятие 8
+﻿// Connector: handy HTTP-client for 1C:Enterprise 8 platform
 //
 // Copyright 2017-2021 Vladimir Bondarevskiy
 //
@@ -17,9 +17,9 @@
 //
 // URL:    https://github.com/vbondarevsky/Connector
 // e-mail: vbondarevsky@gmail.com
-// Версия: 2.3.1
+// Version: 2.3.1
 //
-// Требования: платформа 1С версии 8.3.10 и выше
+// Requirements: 1C:Enterprise platform version **8.3.10** and higher.
 
 #Region Public
 
@@ -27,19 +27,19 @@
 
 #Region CommonUseMethods
 
-// Отправляет GET запрос
+// Sends a GET request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   ПараметрыЗапроса - Структура, Соответствие - параметры, которые будут отправлены в URL (часть после ?):
-//     * Ключ - Строка - ключ параметра в URL.
-//     * Значение - Строка - значение параметра URL
-//                  - Массив - сформирует строку из нескольких параметров: key=value1&key=value2 и т.д.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   RequestParameters - Structure, Map - URL parameters to append to the URL (a part after ?):
+//     * Key - String - URL parameter key.
+//     * Value - String - URL parameter value
+//                  - Array - makes a string from several parameters: key=value1&key=value2 и т.д.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   См. ВызватьМетод
+// Returns:
+//   see CallMethod
 //
 Function Get(URL, RequestParameters = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -49,15 +49,15 @@ Function Get(URL, RequestParameters = Undefined, AdditionalParameters = Undefine
 
 EndFunction
 
-// Отправляет OPTIONS запрос
+// Sends an OPTION request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   См. ВызватьМетод
+// Returns:
+//   see CallMethod
 //
 Function Options(URL, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -67,15 +67,15 @@ Function Options(URL, AdditionalParameters = Undefined, Session = Undefined) Exp
 
 EndFunction
 
-// Отправляет HEAD запрос
+// Sends a HEAD request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   См. ВызватьМетод
+// Returns:
+//   see CallMethod
 //
 Function Head(URL, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -85,16 +85,16 @@ Function Head(URL, AdditionalParameters = Undefined, Session = Undefined) Export
 
 EndFunction
 
-// Отправляет POST запрос
+// Sends a POST request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Данные - Структура, Соответствие, Строка, ДвоичныеДанные - см. описание ДополнительныеПараметры.Данные.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   См. ВызватьМетод
+// Returns:
+//   see CallMethod
 //
 Function Post(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -104,16 +104,16 @@ Function Post(URL, Data = Undefined, AdditionalParameters = Undefined, Session =
 
 EndFunction
 
-// Отправляет PUT запрос
+// Sends a PUT request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Данные - Структура, Соответствие, Строка, ДвоичныеДанные - см. описание ДополнительныеПараметры.Данные.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   См. ВызватьМетод
+// Returns:
+//   see CallMethod
 //
 Function Put(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -123,16 +123,16 @@ Function Put(URL, Data = Undefined, AdditionalParameters = Undefined, Session = 
 
 EndFunction
 
-// Отправляет PATCH запрос
+// Sends a PATCH request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Данные - Структура, Соответствие, Строка, ДвоичныеДанные - см. описание ДополнительныеПараметры.Данные.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   См. ВызватьМетод
+// Returns:
+//   see CallMethod
 //
 Function Patch(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -142,16 +142,16 @@ Function Patch(URL, Data = Undefined, AdditionalParameters = Undefined, Session 
 
 EndFunction
 
-// Отправляет DELETE запрос
+// Sends a DELETE request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Данные - Структура, Соответствие, Строка, ДвоичныеДанные - см. описание ДополнительныеПараметры.Данные.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   См. ВызватьМетод
+// Returns:
+//   see CallMethod
 //
 Function Delete(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -165,18 +165,18 @@ EndFunction
 
 #Region SimplifiedMethodsForJSONRequests
 
-// Отправляет GET запрос
+// Sends a GET request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   ПараметрыЗапроса - Структура, Соответствие - параметры, которые будут отправлены в URL (часть после ?).
-//     См. описание Сессия.ПараметрыЗапроса.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   RequestParameters - Structure, Map - URL parameters to append to the URL (a part after ?).
+//     see details in Session.RequestParameters.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   Соответствие, Структура - ответ, десериализованный из JSON.
-//     Параметры преобразования см. ДополнительныеПараметры.ПараметрыПреобразованияJSON.
+// Returns:
+//   Map, Structure - deserialized response from JSON.
+//     Conversion parameters see in AdditionalParameters.JSONConversionParameters.
 //
 Function GetJson(URL,
 				RequestParameters = Undefined,
@@ -191,17 +191,17 @@ Function GetJson(URL,
 
 EndFunction
 
-// Отправляет POST запрос
+// Sends a POST request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Json - Структура, Соответствие - данные, которые необходимо сериализовать в JSON.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Json - Structure, Map - data to serialize into JSON.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   Соответствие, Структура - ответ, десериализованный из JSON.
-//     Параметры преобразования см. ДополнительныеПараметры.ПараметрыПреобразованияJSON
+// Returns:
+//   Map, Structure - deserialized response from JSON.
+//     Conversion parameters see in AdditionalParameters.JSONConversionParameters
 //
 Function PostJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -213,17 +213,17 @@ Function PostJson(URL, Json, AdditionalParameters = Undefined, Session = Undefin
 
 EndFunction
 
-// Отправляет PUT запрос
+// Sends a PUT request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Json - Структура, Соответствие - данные, которые необходимо сериализовать в JSON.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Json - Structure, Map - data to serialize into JSON.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   Соответствие, Структура - ответ, десериализованный из JSON.
-//     Параметры преобразования см. ДополнительныеПараметры.ПараметрыПреобразованияJSON
+// Returns:
+//   Map, Structure - deserialized response from JSON.
+//     Conversion parameters see in AdditionalParameters.JSONConversionParameters
 //
 Function PutJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -235,17 +235,17 @@ Function PutJson(URL, Json, AdditionalParameters = Undefined, Session = Undefine
 
 EndFunction
 
-// Отправляет DELETE запрос
+// Sends a DELETE request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Json - Структура, Соответствие - данные, которые необходимо сериализовать в JSON.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Json - Structure, Map - data to serialize into JSON.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   Соответствие, Структура - ответ, десериализованный из JSON.
-//     Параметры преобразования см. ДополнительныеПараметры.ПараметрыПреобразованияJSON
+// Returns:
+//   Map, Structure - deserialized response from JSON.
+//     Conversion parameters see in AdditionalParameters.JSONConversionParameters
 //
 Function DeleteJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -259,51 +259,49 @@ EndFunction
 
 #EndRegion
 
-// Конструктор дополнительных параметров
+// Additional parameters constructor
 //
-// Возвращаемое значение:
-//  Structure - позволяет задать дополнительные параметры:
-//    * Headers - Map - см. описание Session.Headers.
-//    * Authentication - Structure - см. описание Session.Authentication
-//    * Proxy - InternetProxy - см. описание Session.Proxy.
-//    * RequestParameters - Structure, Map - см. описание Session.RequestParameters.
-//    * VerifySSL - Булево - см. описание Session.VerifySSL.
-//    * ClientSSLCertificate - FileClientCertificate, WindowsClientCertificate - Value по умолчанию: Undefined.
-//    * Cookies - Array - см. описание Session.Cookies.
-//    * Timeout - Number - время ожидания осуществляемого соединения и операций, в секундах.
-//        Value по умолчанию - 30 сек.
-//    * AllowRedirect - Булево - True - редиректы будут автоматически разрешены.
-//                                          False - будет выполнен только один запрос к серверу.
-//    * Json - Structure, Map - данные, которые необходимо сериализовать в JSON.
-//    * JSONConversionParameters - Structure - задает параметры преобразования JSON:
-//        ** ReadToMap - Булево - If True, чтение объекта JSON будет выполнено в Map.
-//             If False, объекты будут считываться в объект типа Structure.
-//        ** JSONDateFormat - JSONDateFormat - формат, в котором представлена дата в строке,
-//             подлежащей преобразованию.
-//        ** PropertiesNamesWithDateValues -  String, Array In String - имена свойств JSON,
-//             для которых нужно вызывать восстановление даты из строки.
-//    * JSONWriterSettings - JSONWriterSettings - используемые при записи объекта JSON.
-//    * Data - String, BinaryData - произвольные данные, которые необходимо отправить в запросе. 
-//             - Structure, Map - поля формы, которые необходимо отправить в запрос:
-//                 ** Key - String - имя поля.
-//                 ** Value - String - значение поля.
-//    * Files - См. NewFileToSend, Array In См. NewFileToSend - файлы, к отправке
-//    * MaximumNumberOfRetries - Number - количество повторных попыток соединения/отправки запроса.
-//        Между попытками выполняется задержка, растущая по экспоненте.
-//        Но если код состояния один из 413, 429, 503
-//        и в ответе есть заголовок Retry-After,
-//        то время задержки формируется из значения этого заголовка
-//        Value по умолчанию: 0 - повторы не выполняются.
-//    * MaximumTimeOfRetries - Number - максимальное общее время (в секундах) отправки запроса с учетом повторов.
-//        Value по умолчанию: 600.
-//    * ExponentialDelayRatio - Number - коэффициент изменения экспоненциальной задержки.
-//        1 формирует последовательность задержек: 1, 2, 4, 8 и т.д.
-//        2 формируется последовательность задержек: 2, 4, 8, 16 и т.д.
+// Returns:
+//  Structure - Allows you to set additional parameters.:
+//    * Headers - Map - see details in Session.Headers.
+//    * Authentication - Structure - see details in Session.Authentication
+//    * Proxy - InternetProxy - see details in Session.Proxy.
+//    * RequestParameters - Structure, Map - see details in Session.RequestParameters.
+//    * VerifySSL - Boolean - see details in Session.VerifySSL.
+//    * ClientSSLCertificate - FileClientCertificate, WindowsClientCertificate - Default value: Undefined.
+//    * Cookies - Array - see details in Session.Cookies.
+//    * Timeout - Number - connections and operations timeout, in seconds.
+//        Default value - 30 sec.
+//    * AllowRedirect - Boolean - True - redirects are allowed automatically.
+//                                          False - a single request will be sent to the host.
+//    * Json - Structure, Map - data to serialize into JSON.
+//    * JSONConversionParameters - Structure - sets JSON conversion parameters:
+//        ** ReadToMap - Boolean - If True, JSON object will be read in Map, otherwise in Structure.
+//        ** JSONDateFormat - JSONDateFormat - Sets the date serialization format.
+//        ** PropertiesNamesWithDateValues -  String, Array of Strings - JSON properties names,
+//             For the specified properties date restoration from string will be called.
+//    * JSONWriterSettings - JSONWriterSettings - Defines a set of parameters used for JSON writing..
+//    * Data - String, BinaryData - arnitrary data to send in a request. 
+//             - Structure, Map - form fields to send in a request:
+//                 ** Key - String - field name.
+//                 ** Value - String - field value.
+//    * Files - see NewFileToSend, Array from NewFileToSend - files to send
+//    * MaximumNumberOfRetries - Number - Number of connection/request sending retries.
+//        Delay duration between attempts grows exponentially.
+//        But, if the status code is one of 413, 429, 503
+//        and response has the Retry-After header,
+//        delay duration value is taken from this header value
+//        Default value: 0 - no retries.
+//    * MaximumTimeOfRetries - Number - max. total time (in seconds) of sending request and retries.
+//        Default value: 600.
+//    * ExponentialDelayRatio - Number - exponential delay factor.
+//        1 forms the delays sequence: 1, 2, 4, 8 и т.д.
+//        2 forms the delays sequence: 2, 4, 8, 16 и т.д.
 //        ...
-//        Value по умолчанию: 1.
-//    * ToRetryForStatusesCodes - Undefined - повторы будут выполняться для кодов состояний >= 500.
-//                                 - Array - повторы будут выполняться для конкретных кодов состояний.
-//        Value по умолчанию: Undefined.
+//        Default value: 1.
+//    * ToRetryForStatusesCodes - Undefined - retries will run for status codes >= 500.
+//                                 - Array - retries will run for specific status codes.
+//        Default value: Undefined.
 //
 Function NewParameters() Export
 
@@ -330,21 +328,21 @@ Function NewParameters() Export
 
 EndFunction
 
-// Конструктор описания отправляемого файла.
+// A constructor of a submitting file description
 //
-// Параметры:
-//   Name - String - имя поля формы.
-//   FileName - String - имя файла.
-//   Data - BinaryData - двоичные данные файла.
-//   Type - String - MIME-тип файла
+// Parameters:
+//   Name - String - form field name.
+//   FileName - String - file name.
+//   Data - BinaryData - file binary data.
+//   Type - String - file MIME-type
 //
-// Возвращаемое значение:
-//  Структура:
-//    * Name - String - имя поля формы.
-//    * FileName - String - имя файла.
-//    * Data - BinaryData - двоичные данные файла.
-//    * Type - String - MIME-тип файла.
-//    * Headers - Map - HTTP заголовки запроса.
+// Returns:
+//  Structure:
+//    * Name - String - form field name.
+//    * FileName - String - file name.
+//    * Data - BinaryData - file binary data.
+//    * Type - String - file MIME-type.
+//    * Headers - Map - HTTP request headers.
 //
 Function NewFileToSend(Name, FileName, Data = Undefined, Type = Undefined) Export
 	
@@ -359,25 +357,25 @@ Function NewFileToSend(Name, FileName, Data = Undefined, Type = Undefined) Expor
 	
 EndFunction
 
-// Отправляет данные на указанный адрес для обработки с использованием указанного HTTP-метода.
+// Sends data to a specific URL with a specific HTTP verb.
 //
-// Параметры:
-//   Метод - Строка - имя HTTP-метода для запроса.
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   ДополнительныеПараметры - См. НовыеПараметры
-//   Сессия - См. СоздатьСессию
+// Parameters:
+//   Method - String - HTTP request verb name.
+//   URL - String - HTTP URL to send the request to.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   Структура - ответ на выполненный запрос:
-//     * ВремяВыполнения - Число - время выполнения запроса в миллисекундах.
-//     * Cookies - Соответствие - cookies полученные с сервера.
-//     * Заголовки - Соответствие - HTTP заголовки ответа.
-//     * ЭтоПостоянныйРедирект - Булево - признак постоянного редиректа.
-//     * ЭтоРедирект - Булево - признак редиректа.
-//     * Кодировка - Строка - кодировка текста ответа.
-//     * Тело - ДвоичныеДанные - тело ответа.
-//     * КодСостояния - Число - код состояния ответа.
-//     * URL - Строка - итоговый URL, по которому был выполнен запрос.
+// Returns:
+//   Structure - a response for the executed request:
+//     * ExecutionTime - Number - execution response duration in milliseconds.
+//     * Cookies - Map - cookies received from host.
+//     * Headers - Map - HTTP response headers.
+//     * IsPermanentRedirect - Boolean - permanent redirect flag.
+//     * IsRedirect - Boolean - redirect flag.
+//     * Encoding - String - response text encoding.
+//     * Body - BinaryData - response body.
+//     * StatusCode - Number - response status code.
+//     * URL - String - final request URL.
 //
 Function CallMethod(Method, URL, AdditionalParameters = Undefined, Session = Undefined) Export
 
@@ -387,38 +385,38 @@ Function CallMethod(Method, URL, AdditionalParameters = Undefined, Session = Und
 
 EndFunction
 
-// Создает объект для хранения параметров сессии.
+// Session constructor.
 //
-// Возвращаемое значение:
-//  Структура - параметры сессии:
-//    * Заголовки - Соответствие - HTTP заголовки запроса.
-//    * Аутентификация - Структура - параметры аутентификации запроса.
-//          ** ИспользоватьАутентификациюОС - Булево - включает использование аутентификации NTLM или Negotiate.
-//                                                   Значение по умолчанию: Ложь.
-//          ** Тип - Строка - тип аутентификации. Для Basic Тип можно не указывать.
-//       Если Тип = Digest или Basic:
-//          ** Пользователь - Строка - имя пользователя.
-//          ** Пароль - Строка - пароль пользователя.
-//       Если Тип = AWS4-HMAC-SHA256:
-//          ** ИдентификаторКлючаДоступа - Строка - идентификатор ключа доступа.
-//          ** СекретныйКлюч - Строка - секретный ключ.
-//          ** Сервис - Строка - сервис, к которому выполняется подключение.
-//          ** Регион - Строка - регион, к которому выполняется подключение.
-//    * Прокси - ИнтернетПрокси - параметры прокси, которые будут использованы при отправке запроса.
-//        Значение по умолчанию: Неопределено. При этом если в конфигурации используется БСП,
-//        то значения прокси будет взято из БСП.
-//    * ПараметрыЗапроса - Структура, Соответствие - параметры, которые будут отправлены в URL (часть после ?):
-//        * Ключ - Строка - ключ параметра в URL.
-//        * Значение - Строка - значение параметра URL
-//                     - Массив - сформирует строку из нескольких параметров: key=value1&key=value2 и т.д.
-//    * ПроверятьSSL - Булево - Ложь - проверка сертификата сервера не выполняется.
-//                            - Истина - используется значение СертификатыУдостоверяющихЦентровОС.
-//                   - СертификатыУдостоверяющихЦентровФайл - См. СертификатыУдостоверяющихЦентровФайл.
-//        Значение по умолчанию: Истина.
-//    * КлиентскийСертификатSSL - СертификатКлиентаФайл, СертификатКлиентаWindows - Значение по умолчанию: Неопределено.
-//    * МаксимальноеКоличествоПеренаправлений - Число - максимальное количество редиректов. Защита от зацикливания.
-//        Значение по умолчанию: 30
-//    * Cookies - Соответствие - хранилище cookies.
+// Returns:
+//  Structure - session parameters:
+//    * Headers - Map - HTTP request headers.
+//    * Authentication - Structure - request authentication parameters.
+//          ** UseOSAuthentication - Boolean - Contains the current value of NTLM or Negotiate authentication use.
+//                                                   Default value: False.
+//          ** Type - String - authentication type. The Basic type can be omitted.
+//       If Type = Digest or Basic:
+//          ** User - String - user name.
+//          ** Password - String - user password.
+//       If Type = AWS4-HMAC-SHA256:
+//          ** AccessKeyID - String - Access key ID.
+//          ** SecretKey - String - secret key.
+//          ** Service - String - service to be connected.
+//          ** Region - String - region to be connected.
+//    * Proxy - InternetProxy - proxy parameters to send request.
+//        Default value: Undefined. If your configuration based on `SSL`,
+//        proxy settings will be taken from `SSL` by default.
+//    * RequestParameters - Structure, Map - URL parameters to append to the URL (a part after ?):
+//        * Key - String - URL parameter key.
+//        * Value - String - URL parameter value
+//                     - Array - makes a string from several parameters: key=value1&key=value2 etc.
+//    * VerifySSL - Boolean - False - If it is not specified, the server certificate is not verified.
+//                            - True - the value OSCertificationAuthorityCertificates is used.
+//                   - FileCertificationAuthorityCertificates - see FileCertificationAuthorityCertificates.
+//        Default value: True.
+//    * ClientSSLCertificate - FileClientCertificate, WindowsClientCertificate - Default value: Undefined.
+//    * MaximumNumberOfRedirects - Number - max. number of redirections. Looping protection.
+//        Default value: 30
+//    * Cookies - Map - cookies set.
 //
 Function NewSession() Export
 
@@ -441,21 +439,20 @@ EndFunction
 
 #Region ResponsesFormats
 
-// Возвращает ответ сервера в виде десериализованного значения JSON.
+// Returns host response as deserialized JSON value.
 //
-// Параметры:
-//   Ответ - См. ВызватьМетод
-//   ПараметрыПреобразованияJSON - Структура - задает параметры преобразования JSON.
-//     * ПрочитатьВСоответствие - Булево - Если Истина, чтение объекта JSON будет выполнено в Соответствие.
-//                                         Если Ложь, объекты будут считываться в объект типа Структура.
-//     * ФорматДатыJSON - ФорматДатыJSON - формат, в котором представлена дата в строке, подлежащей преобразованию.
-//     * ИменаСвойствСоЗначениямиДата -  Массив, Строка - имена свойств JSON,
-//         для которых нужно вызывать восстановление даты из строки.
+// Parameters:
+//   Response - see CallMethod
+//   JSONConversionParameters - Structure - sets JSON conversion parameters.
+//     * ReadToMap - Boolean - If True, JSON object will be read in Map, otherwise in Structure.
+//     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
+//     * PropertiesNamesWithDateValues -  Array, String - JSON properties names,
+//          For the specified properties date restoration from string will be called.
 //
-// Возвращаемое значение:
-//   Соответствие - ответ сервера в виде десериализованного значения JSON.
-//     Если ПараметрыПреобразования.ПрочитатьВСоответствие = Истина (по умолчанию).
-//   Структура - если ПараметрыПреобразования.ПрочитатьВСоответствие = Ложь.
+// Returns:
+//   Map - host response as JSON deserialized value.
+//     If ConversionParameters.ReadToMap = True (by default).
+//   Structure - If ConversionParameters.ReadToMap = False.
 //
 Function AsJson(Response, JSONConversionParameters = Undefined) Export
 
@@ -477,15 +474,15 @@ Function AsJson(Response, JSONConversionParameters = Undefined) Export
 
 EndFunction
 
-// Возвращает ответ сервера в виде текста.
+// Returns host response as text.
 //
-// Параметры:
-//   Ответ - См. ВызватьМетод
-//   Кодировка - Строка, КодировкаТекста - определяет кодировку текста.
-//     Если значение не задано, то кодировка извлекается из Ответ.Кодировка.
+// Parameters:
+//   Response - see CallMethod
+//   Encoding - String, TextEncoding - contains text encoding.
+//     If value is empty, the encoding is taken from Response.Encoding.
 //
-// Возвращаемое значение:
-//   Строка - ответ сервера в виде текста.
+// Returns:
+//   String - host response as text.
 //
 Function AsText(Response, Encoding = Undefined) Export
 
@@ -505,13 +502,13 @@ Function AsText(Response, Encoding = Undefined) Export
 
 EndFunction
 
-// Возвращает ответ сервера в двоичных данных.
+// Returns host response as binary data.
 //
-// Параметры:
-//   Ответ - См. ВызватьМетод
+// Parameters:
+//   Response - see CallMethod
 //
-// Возвращаемое значение:
-//   Строка - ответ сервера в виде двоичных данных.
+// Returns:
+//   String - host response as binary data.
 //
 Function AsBinaryData(Response) Export
 
@@ -519,23 +516,22 @@ Function AsBinaryData(Response) Export
 
 EndFunction
 
-// Возвращает ответ сервера в XDTO.
+// Returns host response as XDTO.
 //
-// Параметры:
-//   Ответ - См. ВызватьМетод
-//   ПараметрыЧтенияXML - ПараметрыЧтенияXML - Параметры чтения, которые будут использованы при чтении данных XML
-//     Подробнее см. в синтакс помощнике метод ЧтениеXML.ОткрытьПоток
-//   НаборСхемXML - НаборСхемXML - Набор схем XML, используемых при проверке читаемого документа XML.
-//     Если набор схем указан, но не проверен и включена проверка документа XML,
-//     то будет выполнена проверка набора схем
-//     Подробнее см. в синтакс помощнике метод ЧтениеXML.ОткрытьПоток
-//   Кодировка - Строка, КодировкаТекста - Позволяет задать кодировку.
-//     Подробнее см. в синтакс помощнике метод ЧтениеXML.ОткрытьПоток
+// Parameters:
+//   Response - see CallMethod
+//   XMLReaderSettings - XMLReaderSettings - Parameters for reading XML data
+//     See details of the method XMLReader.OpenStream in the Syntax Assistant
+//   XMLSchemaSet - XMLSchemaSet - An XML schema set used for validation of the document being read.
+//     If a schema set is speficied but not validated and XML document validation is enabled, the schema set is validated.
+//     See details of the method XMLReader.OpenStream in the Syntax Assistant
+//   Encoding - String, TextEncoding - Contains the input stream encoding.
+//     See details of the method XMLReader.OpenStream in the Syntax Assistant
 //
-// Возвращаемое значение:
-//   ОбъектXDTO, СписокXDTO - тип возвращаемого значения может быть любым из поддерживаемых сериализацию в XDTO.
+// Returns:
+//   XDTOObject, XDTOList - Return value can have any type that supports serialization to XDTO.
 //
-Function КакXDTO(Response,
+Function AsXDTO(Response,
 				XMLReaderSettings = Undefined,
 				XMLSchemaSet = Undefined,
 				Encoding = Undefined) Export
@@ -560,25 +556,25 @@ EndFunction
 
 #Region SupportingMethods
 
-// Возвращает структурированное представление URL.
+// Returns a structured URL presentation.
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
 //
-// Возвращаемое значение:
-//   Структура - структура URL:
-//     * Схема - Строка - схема обращения к серверу (http, https).
-//     * Аутентификация - Структура - параметры аутентификации:
-//         ** Пользователь - Строка - имя пользователя.
-//         ** Пароль - Строка - пароль пользователя.
-//     * Сервер - Строка - адрес сервера.
-//     * Порт - Число - порт сервера.
-//     * Путь - Строка - адрес ресурса на сервере.
-//     * ПараметрыЗапроса - Соответствие - параметры запроса передаваемые на сервер в URL (часть после ?):
-//         ** Ключ - Строка - ключ параметра в URL.
-//         ** Значение - Строка - значение параметра URL;
-//                       - Массив - значения параметра (key=value1&key=value2).
-//     * Фрагмент - Строка - часть URL после #.
+// Returns:
+//   Structure - Structure URL:
+//     * Scheme - String - access server scheme (http, https).
+//     * Authentification - Structure - authentification parameters:
+//         ** User - String - user name.
+//         ** Password - String - user password.
+//     * Host - String - host address.
+//     * Port - Number - host port.
+//     * Path - String - адрес ресурса на сервере.
+//     * RequestParameters - Map - URL parameters to append to the URL (a part after ?):
+//         ** Key - String - URL parameter key.
+//         ** Value - String - URL parameter value;
+//                       - Array - parameter's values (key=value1&key=value2).
+//     * Fragment - String - a part of URL after #.
 //
 Function ParseURL(Val URL) Export
 
@@ -660,45 +656,43 @@ Function ParseURL(Val URL) Export
 
 EndFunction
 
-// Преобразование Объекта в JSON.
+// Converts Object into JSON.
 //
-// Параметры:
-//   Объект - Произвольный - данные, которые необходимо преобразовать в JSON.
-//   ПараметрыПреобразования - Структура - кодировка текста JSON. Значение по умолчанию - utf-8.
-//     * ФорматДатыJSON - ФорматДатыJSON - определяет формат сериализации дат JSON-объектов.
-//     * ВариантЗаписиДатыJSON - ВариантЗаписиДатыJSON - определяет вариант записи даты в формате JSON.
-//     * ИмяФункцииПреобразования - Строка - функция, которая вызывается для всех свойств,
-//         тип которых не поддерживает автоматическую сериализацию в JSON.
-//         Функция должна быть экспортируемая и иметь следующие параметры:
-//           ** Свойство - Строка - свойство структуры данных, которое не может быть
-//                автоматически сериализовано в JSON.
-//           ** Значение - Строка - значение свойства структуры данных, которое
-//                не может быть автоматически сериализовано в JSON.
-//           ** ДополнительныеПараметры - Произвольный - в этом параметре будет передан
-//                ДополнительныеПараметрыФункцииПреобразования.
-//           ** Отказ - Булево - отменяет операцию записи свойства.
-//         Возвращаемое значение функции:
-//           Произвольный - результат преобразования.
-//     * МодульФункцииПреобразования - Произвольный - модуль, в котором определена функция ИмяФункцииПреобразования.
-//     * ДополнительныеПараметрыФункцииПреобразования - Произвольный - параметры, которые будут переданы
-//                                                                     в функцию ИмяФункцииПреобразования.
-//   ПараметрыЗаписи - Структура - параметры преобразования JSON:
-//     * ПереносСтрок - ПереносСтрокJSON - определяет способ переноса строк,
-//         который будет использован при записи данных JSON.
-//     * СимволыОтступа - Строка - определяет символы отступа, используемые при записи данных JSON.
-//     * ИспользоватьДвойныеКавычки - Булево - определяет, будут ли при записи имена свойств JSON
-//         записываться в двойных кавычках.
-//     * ЭкранированиеСимволов - ЭкранированиеСимволовJSON - определяет используемый способ экранирования (замены)
-//         символов при записи данных JSON.
-//     * ЭкранироватьУгловыеСкобки - Булево - определяет, будут ли при записи экранироваться символы "<" и ">".
-//     * ЭкранироватьРазделителиСтрок - Булево - определяет, будут ли экранироваться разделители строк
-//         U+2028 (line-separator) и U+2029 (page-separator).
-//     * ЭкранироватьАмперсанд - Булево - определяет, будет ли при записи экранироваться символ амперсанда "&".
-//     * ЭкранироватьОдинарныеКавычки - Булево - определяет, будут ли экранироваться одинарные кавычки.
-//     * ЭкранироватьСлеш - Булево - определяет, будет ли экранироваться слеш (косая черта) при записи значения.
+// Parameters:
+//   Object - Arbitrary - data to convert into JSON.
+//   ConversionParameters - Structure.
+//     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
+//     * JSONDateWritingVariant - JSONDateWritingVariant - Specifies JSON date writing options.
+//     * ConvertionFunctionName - String - This function is called for all properties if their types
+//         do not support direct conversion to JSON format.
+//         Function should be exported and must have the following parameters:
+//           ** Property - String - Name of property is transferred into the parameter if the structure
+//                or mapping is written.
+//           ** Value - String - The source value is transferred into the parameter.
+//           ** AdditionalParameters - Arbitrary - Additional parameters specified in the call to the
+//                WriteJSON method.
+//           ** Cancel - Boolean - Cancels the property write operation.
+//         Function return value:
+//           Arbitrary - conversion result.
+//     * ConvertionFunctionModule - Arbitrary - Specifies the module, in which the JSON conversion function is implemented.
+//     * ConvertionFunctionAdditionalParameters - Arbitrary - Additional parameters to be transferred to the conversion function.
+//   WriterSettings - Structure - JSON conversion parameters:
+//     * NewLines - JSONLineBreak - Manages the setting of the start and the end of the objects and arrays,
+//         keys and values in a new string.
+//     * PaddingSymbols - String - Specifies the indent characters used when writing a JSON document.
+//     * UseDoubleQuotes - Boolean - Specifies to use double quotes when writing the JSON properties and values.
+//     * EscapeCharacters - JSONCharactersEscapeMode - Specifies the character screening method when writing
+//         a JSON document.
+//     * EscapeAngleBrackets - Boolean - Specifies if the angle brackets characters will be screened when
+//         writing a JSON document.
+//     * EscapeLineTerminators - Boolean - Specifies screening of the characters "U+2028" (string separator)
+//         and "U+2029" (paragraph separator) for JavaScript compatibility.
+//     * EscapeAmpersand - Boolean - Specifies if the ampersand character will be screened when writing a JSON document.
+//     * EscapeSingleQuotes - Boolean - Specifies if the single quotes character will be screened when writing a JSON document.
+//     * EscapeSlash - Boolean - Defines whether slash is screened while writing a value.
 //
-// Возвращаемое значение:
-//   Строка - объект в формате JSON.
+// Returns:
+//   String - object in JSON format.
 //
 Function ObjectToJson(Object, Val ConversionParameters = Undefined, Val WriterSettings = Undefined) Export
 
@@ -738,20 +732,20 @@ Function ObjectToJson(Object, Val ConversionParameters = Undefined, Val WriterSe
 
 EndFunction
 
-// Преобразование JSON в Объект.
+// Converts JSON into Object.
 //
-// Параметры:
-//   Json - Поток, ДвоичныеДанные, Строка - данные в формате JSON.
-//   Кодировка - Строка - кодировка текста JSON. Значение по умолчанию - utf-8.
-//   ПараметрыПреобразования - Структура - параметры преобразования JSON:
-//     * ПрочитатьВСоответствие - Булево - если Истина, чтение объекта JSON будет выполнено в Соответствие,
-//                                         иначе в Структура.
-//     * ИменаСвойствСоЗначениямиДата - Массив, Строка, ФиксированныйМассив - имена свойств JSON,
-//         для которых нужно вызывать восстановление даты из строки.
-//     * ФорматДатыJSON - ФорматДатыJSON - определяет формат десериализации дат JSON-объектов.
+// Parameters:
+//   Json - Stream, BinaryData, String - JSON data.
+//   Encoding - String - JSON text encoding. Default value - utf-8.
+//   ConversionParameters - Structure - JSON conversion parameters:
+//     * ReadToMap - Boolean - If True, JSON object will be read in Map,
+//                                         otherwise in Structure.
+//     * PropertiesNamesWithDateValues - Array, String, FixedArray - JSON properties names,
+//             For the specified properties date restoration from string will be called.
+//     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
 //
-// Возвращаемое значение:
-//   Произвольный - значение, десериализованное из JSON.
+// Returns:
+//   Arbitrary - deserialized value from JSON.
 //
 Function JsonToObject(Json, Encoding = "utf-8", ConversionParameters = Undefined) Export
 
@@ -776,15 +770,15 @@ Function JsonToObject(Json, Encoding = "utf-8", ConversionParameters = Undefined
 
 EndFunction
 
-// Вычисляет HMAC (hash-based message authentication code).
+// Calculates HMAC (hash-based message authentication code).
 //
-// Параметры:
-//   Key - BinaryData - секретный ключ.
-//   Data - BinaryData - данные, для которых нужно посчитать HMAC.
-//   Algorithm - HashFunction - алгоритм, используемый для вычисления хеша.
+// Parameters:
+//   Key - BinaryData - secret key.
+//   Data - BinaryData - data to calculate HMAC.
+//   Algorithm - HashFunction - Defines method for calculating the hash-sum.
 //
-// Возвращаемое значение:
-//   BinaryData - вычисленное значение HMAC.
+// Returns:
+//   BinaryData - calculated HMAC value.
 //
 Function HMAC(Key_, Data, Algorithm) Export
 
@@ -831,10 +825,10 @@ Function HMAC(Key_, Data, Algorithm) Export
 
 EndFunction
 
-// Возвращает структуру именованных кодов состояний HTTP.
+// Returns the structure of the named HTTP status codes.
 //
-// Возвращаемое значение:
-//   Structure - именованные коды состояний HTTP.
+// Returns:
+//   Structure - named HTTP status codes.
 //
 Function HTTPStatusCodes() Export
 
@@ -847,13 +841,13 @@ Function HTTPStatusCodes() Export
 
 EndFunction
 
-// Возвращает текстовое представление переданного кода состояния HTTP.
+// Returns a text presentation of HTTP status code.
 //
-// Параметры:
-//   StatusCode - Number - код состояния HTTP, для которого нужно получить текстовое представление.
+// Parameters:
+//   StatusCode - Number - HTTP status code to get a text presentation.
 //
-// Возвращаемое значение:
-//   String - текстовое представление кода состояния HTTP.
+// Returns:
+//   String - HTTP status code as text presentation.
 //
 Function HTTPStatusCodePresentation(StatusCode) Export
 
@@ -873,13 +867,13 @@ Function HTTPStatusCodePresentation(StatusCode) Export
 
 EndFunction
 
-// Выполняет чтение данных из архива GZip.
+// Reads data from a GZip archive.
 //
-// Параметры:
-//   CompressedData - BinaryData - данные упакованные GZip.
+// Parameters:
+//   CompressedData - BinaryData - data packed into GZip.
 //
-// Возвращаемое значение:
-//   BinaryData - распакованные данные.
+// Returns:
+//   BinaryData - unpacked data.
 //
 Function ReadGZip(CompressedData) Export
 
@@ -911,13 +905,13 @@ Function ReadGZip(CompressedData) Export
 
 EndFunction
 
-// Выполняет запись данных в архив GZip.
+// Writes data to GZip archive.
 //
-// Параметры:
-//   Data - BinaryData - исходные данные.
+// Parameters:
+//   Data - BinaryData - initial data.
 //
-// Возвращаемое значение:
-//   BinaryData - данные упакованные GZip.
+// Returns:
+//   BinaryData - data packed into GZip.
 //
 Function WriteGZip(Data) Export
 
@@ -2256,16 +2250,16 @@ Function SupplementJSONWriterSettings(WriterSettings)
 
 EndFunction
 
-// Преобразует значение типа к типу, сериализация которого поддерживается.
+// Converts a type value into a type, that can be serialized.
 //
-// Параметры:
-//   Property - String - имя свойства, если выполняется запись структуры или соответствия.
-//   Value - Произвольный - исходное значение.
-//   AdditionalParameters - Произвольный - дополнительные параметры, которые указаны в вызове метода WriteJSON.
-//   Cancel - Булево - отказ от записи свойства.
+// Parameters:
+//   Property - String - property name, if the structure or map is writing.
+//   Value - Arbitrary - initial value.
+//   AdditionalParameters - Arbitrary - additional parameters of the WriteJSON method.
+//   Cancel - Boolean - cancel to write a property.
 //
-// Возвращаемое значение:
-//   Произвольный - см. типы WriteJSON.
+// Returns:
+//   Arbitrary - see WriteJSON types.
 //
 Function JsonConversion(Property, Value, AdditionalParameters, Cancel) Export
 
@@ -2274,7 +2268,7 @@ Function JsonConversion(Property, Value, AdditionalParameters, Cancel) Export
 	ElsIf TypeOf(Value) = Type("BinaryData") Then
 		Return GetBase64StringFromBinaryData(Value);
 	Else
-		// If значение не поддерживает сериализацию в JSON, то будет выброшено исключение
+		// If the value doesn't support JSON serialization, an exception will be thrown
 		Return Value;
 	EndIf;
 
@@ -2473,9 +2467,9 @@ EndFunction
 
 #Region EncodingDecodingData
 
-#Region СлужебныеСтруктурыZip
+#Region ServiceStructuresZip
 
-// Description структур см. здесь https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT
+// Structures description see here https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT
 
 Function ZipLFHSize()
 
@@ -2585,7 +2579,7 @@ EndFunction
 
 #Region ServiceStructuresGZip
 
-// Description структур см. здесь https://www.ietf.org/rfc/rfc1952.txt
+// Structures description see here https://www.ietf.org/rfc/rfc1952.txt
 
 Function GZipHeaderSize()
 
@@ -2895,7 +2889,7 @@ Function JSONConversionParametersByDefault()
 	ConversionParametersByDefault.Insert("ReadToMap", True);
 	ConversionParametersByDefault.Insert("JSONDateFormat", JSONDateFormat.ISO);
 	ConversionParametersByDefault.Insert("PropertiesNamesWithDateValues", Undefined);
-	ConversionParametersByDefault.Insert("JSONDateWritingVariant", JSONDateWritingVariant.ЛокальнаяДата);
+	ConversionParametersByDefault.Insert("JSONDateWritingVariant", JSONDateWritingVariant.LocalDate);
 	ConversionParametersByDefault.Insert("ConvertionFunctionName", Undefined);
 	ConversionParametersByDefault.Insert("ConvertionFunctionModule", Undefined);
 	ConversionParametersByDefault.Insert("ConvertionFunctionAdditionalParameters", Undefined);

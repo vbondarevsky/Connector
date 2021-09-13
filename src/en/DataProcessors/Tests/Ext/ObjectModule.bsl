@@ -923,7 +923,7 @@ Procedure Test_ReadResponseAsXDTO() Export
 	PreparedResponse.Insert("Headers", Headers);
 	PreparedResponse.Insert("Encoding", "UTF-8");
 	
-	XDTOResponse = HTTPConnector.КакXDTO(PreparedResponse);
+	XDTOResponse = HTTPConnector.AsXDTO(PreparedResponse);
 	
 	XDTOResponse_Attachment = XDTOResponse.Attachments.Attachment;
 	
