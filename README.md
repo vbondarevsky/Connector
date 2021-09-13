@@ -1,5 +1,6 @@
 Публикация на [Инфостарт](https://infostart.ru/public/709325/)
 
+The library is translated into English ([README](./README-EN.md))
 
 [![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=connector&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=connector)
 [![Stars](https://img.shields.io/github/stars/vbondarevsky/Connector.svg?label=Github%20%E2%98%85&a)](https://github.com/vbondarevsky/Connector/stargazers)
@@ -14,7 +15,6 @@
 **Коннектор** - это "Requests" для мира 1С.
 
 Бибилиотека полностью переведена на английский язык ([см. здесь](./README-EN.md)).
-The library is translated into English ([README](./README-EN.md))
 
 ## Возможности
 Основные возможности библиотеки:
