@@ -15,7 +15,6 @@ The library is translated into English ([README](./README-EN.md))
 **Коннектор** - это "Requests" для мира 1С.
 
 Бибилиотека полностью переведена на английский язык ([см. здесь](./README-EN.md)).
-The library is translated into English ([README](./README-EN.md))
 
 ## Возможности
 Основные возможности библиотеки:
