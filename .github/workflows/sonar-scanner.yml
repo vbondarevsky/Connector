@@ -57,7 +57,7 @@ jobs:
       uses: warchant/setup-sonar-scanner@v3
     - name: Extract version
       shell: bash
-      run: echo "##[set-output name=version;]` cat ./src/ru/CommonModules/HTTPConnector/Ext/Module.bsl | grep -oP '(?<=Version:.)[\d|.]*'`"
+      run: echo "##[set-output name=version;]` cat ./src/en/CommonModules/HTTPConnector/Ext/Module.bsl | grep -oP '(?<=Version:.)[\d|.]*'`"
       id: extract_version
     - name: Run SonarQube on push
       if: github.event_name == 'push'
