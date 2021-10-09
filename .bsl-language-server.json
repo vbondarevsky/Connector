@@ -5,7 +5,10 @@
             "Typo": {
                 "userWordsToIgnore": "Редирект,Редиректа,Распарсить,Сериализации,Многостатусный"
             },
-            "LatinAndCyrillicSymbolInWord": false
+            "LatinAndCyrillicSymbolInWord": false,
+            "MagicNumber": {
+                "authorizedNumbers": "-1,0,1,2"
+            }
         }
     }
 }

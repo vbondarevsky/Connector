@@ -20,7 +20,7 @@ jobs:
       uses: warchant/setup-sonar-scanner@v3
     - name: Extract version
       shell: bash
-      run: echo "##[set-output name=version;]` cat ./src/ru/CommonModules/КоннекторHTTP/Ext/Module.bsl | grep -oP '(?<=Версия:.)[\d|.]*'`"
+      run: echo "##[set-output name=version;]` cat ./src/ru/CommonModules/HTTPConnector/Ext/Module.bsl | grep -oP '(?<=Version:.)[\d|.]*'`"
       id: extract_version
     - name: Run SonarQube on push
       if: github.event_name == 'push'
@@ -31,6 +31,8 @@ jobs:
         -Dsonar.host.url=https://sonar.openbsl.ru
         -Dsonar.branch.name=${GITHUB_REF#refs/heads/}
         -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
+        -Dproject.settings=../myproject.properties
+        -Dproject.settings=sonar-project.properties_en
     - name: Run SonarQube on pull request
       if: github.event_name == 'pull_request'
       env:
@@ -42,3 +44,4 @@ jobs:
         -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
         -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
         -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
+        -Dproject.settings=sonar-project.properties_en
