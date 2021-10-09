@@ -1,7 +1,7 @@
 Publication on [Infostart](https://infostart.ru/public/709325/)
 
 
-[![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=connector&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=connector)
+[![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=connector_en&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=connector_en)
 [![Stars](https://img.shields.io/github/stars/vbondarevsky/Connector.svg?label=Github%20%E2%98%85&a)](https://github.com/vbondarevsky/Connector/stargazers)
 [![Release](https://img.shields.io/github/tag/vbondarevsky/Connector.svg?label=Last%20release&a)](https://github.com/vbondarevsky/Connector/releases)
 
