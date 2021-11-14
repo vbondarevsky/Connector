@@ -18,12 +18,15 @@ jobs:
         fetch-depth: 0
     - name: Setup SonarQube scanner
       uses: nixel2007/sonarcloud-github-action@v1.4
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Extract version
       shell: bash
       run: echo "##[set-output name=version;]` cat ./src/ru/CommonModules/КоннекторHTTP/Ext/Module.bsl | grep -oP '(?<=Версия:.)[\d|.]*'`"
       id: extract_version
     - name: Run SonarQube on push
-      if: github.repository == 'vbondarevsky/Connector' && github.event_name == 'push'
+      if: github.event_name == 'push'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -33,7 +36,7 @@ jobs:
         -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
         -Dproject.settings=sonar-project.properties_ru
     - name: Run SonarQube on pull request
-      if: github.repository == 'vbondarevsky/Connector' && github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -55,12 +58,15 @@ jobs:
         fetch-depth: 0
     - name: Setup SonarQube scanner
       uses: nixel2007/sonarcloud-github-action@v1.4
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Extract version
       shell: bash
       run: echo "##[set-output name=version;]` cat ./src/en/CommonModules/HTTPConnector/Ext/Module.bsl | grep -oP '(?<=Version:.)[\d|.]*'`"
       id: extract_version
     - name: Run SonarQube on push
-      if: github.repository == 'vbondarevsky/Connector' && github.event_name == 'push'
+      if: github.event_name == 'push'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -71,7 +77,7 @@ jobs:
         -Dproject.settings=../myproject.properties
         -Dproject.settings=sonar-project.properties_en
     - name: Run SonarQube on pull request
-      if: github.repository == 'vbondarevsky/Connector' && github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
