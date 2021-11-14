@@ -9,8 +9,7 @@ sonar.projectName=connector
 # If not set, SonarQube starts looking for source code from the directory containing
 # the sonar-project.properties file.
 
-sonar.sources=./src
-# sonar.tests=./tests
+sonar.sources=./src/ru
 
 # Encoding of the source code. Default is default system encoding
 sonar.sourceEncoding=UTF-8

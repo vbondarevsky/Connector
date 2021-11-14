@@ -3,7 +3,11 @@
     "diagnostics": {
         "parameters": {
             "Typo": {
-                "userWordsToIgnore": "Редирект,Редиректа,Распарсить,Сериализации"
+                "userWordsToIgnore": "Редирект,Редиректа,Распарсить,Сериализации,Многостатусный"
+            },
+            "LatinAndCyrillicSymbolInWord": false,
+            "MagicNumber": {
+                "authorizedNumbers": "-1,0,1,2"
             }
         }
     }
