@@ -17,7 +17,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Setup SonarQube scanner
-      uses: nixel2007/sonarcloud-github-action@v1.4
+      uses: sonarsource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -57,7 +57,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Setup SonarQube scanner
-      uses: nixel2007/sonarcloud-github-action@v1.4
+      uses: sonarsource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
