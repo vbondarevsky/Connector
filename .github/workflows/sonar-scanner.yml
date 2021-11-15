@@ -16,11 +16,6 @@ jobs:
       uses: actions/checkout@v1
       with:
         fetch-depth: 0
-    - name: Setup SonarQube scanner
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Extract version
       shell: bash
       run: echo "##[set-output name=version;]` cat ./src/ru/CommonModules/КоннекторHTTP/Ext/Module.bsl | grep -oP '(?<=Версия:.)[\d|.]*'`"
@@ -56,11 +51,6 @@ jobs:
       uses: actions/checkout@v1
       with:
         fetch-depth: 0
-    - name: Setup SonarQube scanner
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Extract version
       shell: bash
       run: echo "##[set-output name=version;]` cat ./src/en/CommonModules/HTTPConnector/Ext/Module.bsl | grep -oP '(?<=Version:.)[\d|.]*'`"
