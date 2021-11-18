@@ -949,10 +949,9 @@ Procedure Test_ReadResponseAsXDTO() Export
 	Headers = New Map;
 	Headers.Insert("Content-Type", "text/xml; charset=utf-8");
 	
-	PreparedResponse = New Structure;
-	PreparedResponse.Insert("Body", BinaryDataResponse);
-	PreparedResponse.Insert("Headers", Headers);
-	PreparedResponse.Insert("Encoding", "UTF-8");
+	PreparedResponse = HTTPConnector.NewResponse();
+	PreparedResponse.Body = BinaryDataResponse;
+	PreparedResponse.Headers = Headers;
 	
 	XDTOResponse = HTTPConnector.AsXDTO(PreparedResponse);
 	

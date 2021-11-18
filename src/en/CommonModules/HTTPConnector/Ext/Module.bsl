@@ -17,7 +17,7 @@
 //
 // URL:    https://github.com/vbondarevsky/Connector
 // e-mail: vbondarevsky@gmail.com
-// Version: 2.3.2
+// Version: 2.4.2
 //
 // Requirements: 1C:Enterprise platform version **8.3.10** and higher.
 
@@ -450,6 +450,40 @@ Function NewSession() Export
 
 EndFunction
 
+// Пакет ответа результата вызова метода HTTP.
+//
+// Returns:
+//   * Method - String - request's HTTP-method name
+//   * URL - String - final request URL.
+//   * StatusCode - Number - the status code of the response.
+//   * Headers - Map - response headers.
+//   * Body - BinaryData - response body.
+//   * Encoding - String - response encoding code.
+//   * ExecutionTime - Number - request execution time in millisecondes.
+//   * IsPermanentRedirect - Boolean - is permanent redirect.
+//   * IsRedirect - Boolean - is redirect.
+//   * Cookies - Map - cookies repository.
+//   * Errors - Array In String - errors list during request execution.
+//
+Function NewResponse() Export
+	
+	Result = New Structure;
+	Result.Insert("Method", "GET");
+	Result.Insert("URL", "");
+	Result.Insert("StatusCode", 600); // Network error (>500)
+	Result.Insert("Headers", New Map);
+	Result.Insert("Body", Base64Value(""));
+	Result.Insert("Encoding", "utf-8");
+	Result.Insert("ExecutionTime", Undefined);
+	Result.Insert("IsPermanentRedirect", False);
+	Result.Insert("IsRedirect", False);
+	Result.Insert("Cookies", New Map);
+	Result.Insert("Errors", New Array);
+	
+	Return Result;
+	
+EndFunction
+
 #EndRegion
 
 #EndRegion
@@ -459,7 +493,7 @@ EndFunction
 // Returns host response as deserialized JSON value.
 //
 // Parameters:
-//   Response - see CallMethod
+//   Response - see NewResponse
 //   JSONConversionParameters - Structure - sets JSON conversion parameters.
 //     * ReadToMap - Boolean - If True, JSON object will be read in Map, otherwise in Structure.
 //     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
@@ -489,17 +523,7 @@ Function AsJson(Response, JSONConversionParameters = Undefined) Export
 	Try
 		Return JsonToObject(UnpackResponse(Response), Response.Encoding, JSONConversionParameters);
 	Except
-		ResponseAsText = AsText(Response);
-		ExceptionTextMaxLength = 1000;
-		If StrLen(ResponseAsText) <= ExceptionTextMaxLength Then
-			ExceptionText = ResponseAsText;
-		Else
-			HalfOfExceptionTextMaxLength = ExceptionTextMaxLength / 2;
-			ExceptionText = Left(ResponseAsText, HalfOfExceptionTextMaxLength);
-			ExceptionText = ExceptionText + Chars.LF + "..." + Chars.LF;
-			ExceptionText = ExceptionText + Прав(ResponseAsText, HalfOfExceptionTextMaxLength);
-		EndIf;
-		Raise ExceptionText;
+		Raise AsException(Response, NStr("ru = 'Ошибка при десериализации JSON.'"));
 	EndTry;
 
 EndFunction
@@ -507,7 +531,7 @@ EndFunction
 // Returns host response as text.
 //
 // Parameters:
-//   Response - see CallMethod
+//   Response - see NewResponse
 //   Encoding - String, TextEncoding - contains text encoding.
 //     If value is empty, the encoding is taken from Response.Encoding.
 //
@@ -535,7 +559,7 @@ EndFunction
 // Returns host response as binary data.
 //
 // Parameters:
-//   Response - see CallMethod
+//   Response - see NewResponse
 //
 // Returns:
 //   String - host response as binary data.
@@ -549,7 +573,7 @@ EndFunction
 // Returns host response as XDTO.
 //
 // Parameters:
-//   Response - see CallMethod
+//   Response - see NewResponse
 //   XMLReaderSettings - XMLReaderSettings - Parameters for reading XML data
 //     See details of the method XMLReader.OpenStream in the Syntax Assistant
 //   XMLSchemaSet - XMLSchemaSet - An XML schema set used for validation of the document being read.
@@ -566,20 +590,67 @@ Function AsXDTO(Response,
 				XMLSchemaSet = Undefined,
 				Encoding = Undefined) Export
 
-	BinaryData = UnpackResponse(Response);
-	StreamForRead = BinaryData.OpenStreamForRead();
+	Try			
+		BinaryData = UnpackResponse(Response);
+		
+		StreamForRead = BinaryData.OpenStreamForRead();
 
-	If Not ValueIsFilled(Encoding) Then
-		Encoding = Response.Encoding;
-	EndIf;
+		If Not ValueIsFilled(Encoding) Then
+			Encoding = Response.Encoding;
+		EndIf;
 
-	XMLReader = New XMLReader;
-	XMLReader.OpenStream(StreamForRead, XMLReaderSettings, XMLSchemaSet, Encoding);
+		XMLReader = New XMLReader;
+		XMLReader.OpenStream(StreamForRead, XMLReaderSettings, XMLSchemaSet, Encoding);
 
-	XDTOObject = XDTOFactory.ReadXML(XMLReader);
+		XDTOObject = XDTOFactory.ReadXML(XMLReader);
+	Except
+		Raise AsException(Response, NStr("ru = 'Ошибка при десериализации XDTO.'"));
+	EndTry;
 
 	Return XDTOObject;
 
+EndFunction
+
+// Returns server response as a text for using in Raise.
+//
+// Parameters:
+//   Response - See NewResponse.
+//   TextForUser - String - Text of explanation for the user.
+//
+// Returns:
+//   String - server response as exception text.
+//
+Function AsException(Response, Val TextForUser = Undefined) Export
+	
+	ExceptionText = StrTemplate(
+		NStr("ru = 'HTTP %1 %2
+		           |%3'"),
+		Response.Method,
+		Response.URL,
+		HTTPStatusCodePresentation(Response.StatusCode)
+	);
+	
+	ResponseBody = CutText(AsText(Response));
+	
+	If Not IsBlankString(ResponseBody) Then
+		ExceptionText = ExceptionText + Chars.LF + StrTemplate(
+			NStr("en = 'Response body:
+                  |%1'; ru = 'Тело ответа:
+                  |%1'"),
+			ResponseBody);
+	EndIf;
+	
+	If Response.Errors.Count() Then
+		ExceptionText = ExceptionText + Chars.LF + Chars.LF
+			+ StrConcat(Response.Errors, Chars.LF + Chars.LF);
+	EndIf;
+	
+	If Not IsBlankString(TextForUser) Then
+		ExceptionText = TextForUser + Chars.LF + Chars.LF + ExceptionText;
+	EndIf;
+	
+	Return ExceptionText;
+	
 EndFunction
 
 #EndRegion
@@ -908,7 +979,7 @@ Function HTTPStatusCodePresentation(StatusCode) Export
 	EndDo;
 
 	If StatusCodeDescription = Undefined Then
-		Raise(StrTemplate(НСтр("ru = 'Неизвестный код состояния HTTP: %1'; en = 'Неизвестный код состояния HTTP: %1'"), StatusCode));
+		Return StrTemplate(NStr("ru = '%1: Неизвестный код состояния HTTP'; en = '%1: Неизвестный код состояния HTTP'"), StatusCode);
 	Else
 		Return StrTemplate("%1: %2", StatusCodeDescription.Code, StatusCodeDescription.Description);
 	EndIf;
@@ -1327,11 +1398,25 @@ Function SendRequest(Session, PreparedRequest, Settings)
 
 	RetriesNumber = 0;
 	Duration = 0;
+	Errors = New Array;
+	
 	While True Do
 		Try
 			Response = SendHTTPRequest(Session, PreparedRequest, Settings);
 		Except
 			RequestExecutionError = ErrorInfo();
+			
+			ErrorText = StrTemplate(
+				NStr("en = 'HTTP %1 %2
+                      |Network error:
+                      |%3'; ru = 'HTTP %1 %2
+                      |Network error:
+                      |%3'"),
+				PreparedRequest.Method,
+				PreparedRequest.URL,
+				DetailErrorDescription(ErrorInfo())
+			);
+			Errors.Add(ErrorText);
 		EndTry;
 
 		RetriesNumber = RetriesNumber + 1;
@@ -1347,11 +1432,16 @@ Function SendRequest(Session, PreparedRequest, Settings)
 		EndIf;
 
 		If RequestExecutionError <> Undefined
-			Or НЕ IsStatusCodeForWhichRetryAfterHeaderMustBeConsidered(Response.StatusCode) Then
+			Or Not IsStatusCodeForWhichRetryAfterHeaderMustBeConsidered(Response.StatusCode) Then
 			RetryAfterHeader = False;
 		Else
 			RetryAfterHeader = HeaderValue("retry-after", Response.Headers);
 		EndIf;
+		
+		If RequestExecutionError <> Undefined Then
+			Errors.Add(AsException(Response));
+		EndIf;
+		
 		PauseDuration = CalculatePauseDuration(
 			RetriesNumber,
 			Settings.ExponentialDelayRatio,
@@ -1369,16 +1459,17 @@ Function SendRequest(Session, PreparedRequest, Settings)
 		ContentTypeHeader = "";
 	EndIf;
 
-	PreparedResponse = New Structure;
-	PreparedResponse.Insert("ExecutionTime", CurrentUniversalDateInMilliseconds() - Start);
-	PreparedResponse.Insert("Cookies", ExtractCookies(Response.Headers, PreparedRequest.URL));
-	PreparedResponse.Insert("Headers", Response.Headers);
-	PreparedResponse.Insert("IsPermanentRedirect", IsPermanentRedirect(Response.StatusCode, Response.Headers));
-	PreparedResponse.Insert("IsRedirect", IsRedirect(Response.StatusCode, Response.Headers));
-	PreparedResponse.Insert("Encoding", EncodingFromHeader(ContentTypeHeader));
-	PreparedResponse.Insert("Body", Response.GetBodyAsBinaryData());
-	PreparedResponse.Insert("StatusCode", Response.StatusCode);
-	PreparedResponse.Insert("URL", PreparedRequest.URL);
+	PreparedResponse = NewResponse();
+	PreparedResponse.Method = PreparedRequest.Method;
+	PreparedResponse.URL = PreparedRequest.URL;
+	PreparedResponse.StatusCode = Response.StatusCode;
+	PreparedResponse.Headers = Response.Headers;
+	PreparedResponse.Body = Response.GetBodyAsBinaryData();
+	PreparedResponse.Encoding = EncodingFromHeader(ContentTypeHeader);
+	PreparedResponse.ExecutionTime = CurrentUniversalDateInMilliseconds() - Start;
+	PreparedResponse.IsPermanentRedirect = IsPermanentRedirect(Response.StatusCode, Response.Headers);
+	PreparedResponse.IsRedirect = IsRedirect(Response.StatusCode, Response.Headers);
+	PreparedResponse.Cookies = ExtractCookies(Response.Headers, PreparedRequest.URL);
 
 	Session.Cookies = MergeCookies(Session.Cookies, PreparedResponse.Cookies);
 
@@ -3187,6 +3278,25 @@ EndFunction
 Function StrStartsWith( String, SearchString ) Export
 	
 	Return( Left( String, StrLen( SearchString ) ) = SearchString );
+	
+EndFunction
+
+Function CutText(Text, MaxTextLength = 1000)
+	
+	If FindDisallowedXMLCharacters(Text) Then
+		Return NStr("ru ='<Data>'");
+	EndIf;
+	
+	If StrLen(Text) <= MaxTextLength Then
+		Result = Text;
+	Else
+		HalfOfMaxTextLength = MaxTextLength / 2;
+		Result = Left(Text, HalfOfMaxTextLength);
+		Result = Result + Chars.LF + "..." + Chars.LF;
+		Result = Result + Right(Text, HalfOfMaxTextLength);
+	EndIf;
+	
+	Return Result;
 	
 EndFunction
 
