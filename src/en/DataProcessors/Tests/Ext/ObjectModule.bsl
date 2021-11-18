@@ -96,6 +96,7 @@ Function TestsList() Export
 	Tests.Add("Test_CorrectExceptionInMethodAsJson");
 	Tests.Add("Test_VerifyConversionToJsonNotSerializedValues");
 	Tests.Add("Test_VerifyConversionJSONDateWritingVariant");
+	Tests.Add("Test_VerifyOfRestoringUnsupportedValuesTypes");
 
 	Return Tests;
 	
@@ -613,6 +614,36 @@ Procedure Test_VerifyConversionToJsonNotSerializedValues() Export
 
 	AssertEquals(Result["json"]["UUID"], "be4ee795-7f5e-4d1a-be43-a6d6902f5cfd");
 	AssertEquals(Result["json"]["BinaryData"], "dGVzdA==");
+
+EndProcedure
+
+Procedure Test_VerifyOfRestoringUnsupportedValuesTypes() Export
+
+	UUID = New UUID("be4ee795-7f5e-4d1a-be43-a6d6902f5cfd");
+	BinaryData = GetBinaryDataFromString("test", "utf-8", False);
+
+	Json = New Structure;
+	Json.Insert("UUID", String(UUID));
+	Json.Insert("BinaryData", GetBase64StringFromBinaryData(BinaryData));
+	Json.Insert("OtherData", 1);
+
+	JSONParameters = New Structure;
+	JSONParameters.Insert("ReviverFunctionModule", HTTPConnector);
+	JSONParameters.Insert("ReviverFunctionName", "RestoreJson");
+	PropertiesTypes = New Map;
+	PropertiesTypes.Insert("UUID", Type("UUID"));
+	PropertiesTypes.Insert("BinaryData", Type("BinaryData"));
+	JSONParameters.Insert("ReviverFunctionAdditionalParameters", PropertiesTypes);
+	JSONParameters.Insert("RetriverPropertiesNames", StrSplit("UUID,BinaryData", ","));
+
+	Result = HTTPConnector.PostJson(
+		"https://httpbin.org/post",
+		Json,
+		New Structure("JSONConversionParameters", JSONParameters));
+
+	AssertEquals(Result["json"]["UUID"], UUID);
+	AssertEquals(Result["json"]["BinaryData"], BinaryData);
+	AssertEquals(Result["json"]["OtherData"], 1);
 
 EndProcedure
 

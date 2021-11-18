@@ -17,7 +17,7 @@
 //
 // URL:    https://github.com/vbondarevsky/Connector
 // e-mail: vbondarevsky@gmail.com
-// Version: 2.3.1
+// Version: 2.3.2
 //
 // Requirements: 1C:Enterprise platform version **8.3.10** and higher.
 
@@ -310,6 +310,19 @@ EndFunction
 //        ** JSONDateFormat - JSONDateFormat - Sets the date serialization format.
 //        ** PropertiesNamesWithDateValues -  String, Array of Strings - JSON properties names,
 //             For the specified properties date restoration from string will be called.
+//        ** ReviverFunctionName - String - This function is called every time a property is read.
+//            It must have the following parameters:
+//               ** Property - String - Specify it only for reading JSON objects.
+//               ** Value - Arbitrary - A value of a serializable type.
+//               ** AdditionalParameters - Arbitrary
+//            The return value has arbitrary type, deserialized from JSON.
+//        ** ReviverFunctionModule - Arbitrary - Specifies the module, the procedure of which will be used
+//            for value restoration..
+//        ** ReviverFunctionAdditionalParameters - Arbitrary - Additional parameters which will be
+//            transferred to the value recovery function.
+//        ** RetriverPropertiesNames - Array - Array of JSON property names which recovery function
+//            will be called for.
+//        ** MaximumNesting - Number - The maximum nested level of a JSON object.
 //    * JSONWriterSettings - JSONWriterSettings - Defines a set of parameters used for JSON writing..
 //    * Data - String, BinaryData - arnitrary data to send in a request. 
 //             - Structure, Map - form fields to send in a request:
@@ -452,6 +465,19 @@ EndFunction
 //     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
 //     * PropertiesNamesWithDateValues -  Array, String - JSON properties names,
 //          For the specified properties date restoration from string will be called.
+//        ** ReviverFunctionName - String - This function is called every time a property is read.
+//            It must have the following parameters:
+//               ** Property - String - Specify it only for reading JSON objects.
+//               ** Value - Arbitrary - A value of a serializable type.
+//               ** AdditionalParameters - Arbitrary
+//            The return value has arbitrary type, deserialized from JSON.
+//        ** ReviverFunctionModule - Arbitrary - Specifies the module, the procedure of which will be used
+//            for value restoration..
+//        ** ReviverFunctionAdditionalParameters - Arbitrary - Additional parameters which will be
+//            transferred to the value recovery function.
+//        ** RetriverPropertiesNames - Array - Array of JSON property names which recovery function
+//            will be called for.
+//        ** MaximumNesting - Number - The maximum nested level of a JSON object.
 //
 // Returns:
 //   Map - host response as JSON deserialized value.
@@ -747,6 +773,19 @@ EndFunction
 //     * PropertiesNamesWithDateValues - Array, String, FixedArray - JSON properties names,
 //             For the specified properties date restoration from string will be called.
 //     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
+//        ** ReviverFunctionName - String - This function is called every time a property is read.
+//            It must have the following parameters:
+//               ** Property - String - Specify it only for reading JSON objects.
+//               ** Value - Arbitrary - A value of a serializable type.
+//               ** AdditionalParameters - Arbitrary
+//            The return value has arbitrary type, deserialized from JSON.
+//        ** ReviverFunctionModule - Arbitrary - Specifies the module, the procedure of which will be used
+//            for value restoration..
+//        ** ReviverFunctionAdditionalParameters - Arbitrary - Additional parameters which will be
+//            transferred to the value recovery function.
+//        ** RetriverPropertiesNames - Array - Array of JSON property names which recovery function
+//            will be called for.
+//        ** MaximumNesting - Number - The maximum nested level of a JSON object.
 //
 // Returns:
 //   Arbitrary - deserialized value from JSON.
@@ -767,7 +806,12 @@ Function JsonToObject(Json, Encoding = "utf-8", ConversionParameters = Undefined
 		JSONReader,
 		JSONConversionParameters.ReadToMap,
 		JSONConversionParameters.PropertiesNamesWithDateValues,
-		JSONConversionParameters.JSONDateFormat);
+		JSONConversionParameters.JSONDateFormat,
+		JSONConversionParameters.ReviverFunctionName,
+		JSONConversionParameters.ReviverFunctionModule,
+		JSONConversionParameters.ReviverFunctionAdditionalParameters,
+		JSONConversionParameters.RetriverPropertiesNames,
+		JSONConversionParameters.MaximumNesting);
 	JSONReader.Close();
 
 	Return Object;
@@ -2275,6 +2319,31 @@ Function JsonConversion(Property, Value, AdditionalParameters, Cancel) Export
 
 EndFunction
 
+// Restores a value of the type, which doesn't support deserialization
+//
+// Parameters:
+//   Property - String - property name, which value has to be restored.
+//   Value - String - value which has to be restored.
+//   PropertiesTypes - Map - types of properties to be restored.
+//     * Key - String - property name. Equals to a parameter Property value.
+//     * Value - Type - source value type.
+//
+// Returns:
+//   Arbitrary - restored value.
+//
+Function RestoreJson(Property, Value, PropertiesTypes) Export
+
+	PropertyType = PropertiesTypes.Get(Property);
+	If PropertyType = Type("UUID") Then
+		Return New UUID(Value);
+	ElsIf PropertyType = Type("BinaryData") Then
+		Return GetBinaryDataFromBase64String(Value);
+	Else
+		Return Value;
+	EndIf;
+
+EndFunction
+
 #EndRegion
 
 #Region AWS4Authentication
@@ -2685,6 +2754,11 @@ Function JSONConversionParametersByDefault()
 	ConversionParametersByDefault.Insert("ConvertionFunctionName", Undefined);
 	ConversionParametersByDefault.Insert("ConvertionFunctionModule", Undefined);
 	ConversionParametersByDefault.Insert("ConvertionFunctionAdditionalParameters", Undefined);
+	ConversionParametersByDefault.Insert("ReviverFunctionName", Undefined);
+	ConversionParametersByDefault.Insert("ReviverFunctionModule", Undefined);
+	ConversionParametersByDefault.Insert("ReviverFunctionAdditionalParameters", Undefined);
+	ConversionParametersByDefault.Insert("RetriverPropertiesNames", Undefined);
+	ConversionParametersByDefault.Insert("MaximumNesting", 500);
 
 	Return ConversionParametersByDefault;
 
