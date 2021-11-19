@@ -17,7 +17,7 @@
 //
 // URL:    https://github.com/vbondarevsky/Connector
 // e-mail: vbondarevsky@gmail.com
-// Version: 2.4.2
+// Version: 2.4.4
 //
 // Requirements: 1C:Enterprise platform version **8.3.10** and higher.
 
@@ -44,8 +44,12 @@
 Function Get(URL, RequestParameters = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, RequestParameters, Undefined, Undefined);
-	Return CallHTTPMethod(CurrentSession, "GET", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(RequestParameters, Undefined, Undefined));
+	Supplement(Parameters, AdditionalParameters);
+	
+	Return CallHTTPMethod(CurrentSession, "GET", URL, Parameters);
 
 EndFunction
 
@@ -62,8 +66,12 @@ EndFunction
 Function Options(URL, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Undefined);
-	Return CallHTTPMethod(CurrentSession, "OPTIONS", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Undefined));
+	Supplement(Parameters, AdditionalParameters);
+	
+	Return CallHTTPMethod(CurrentSession, "OPTIONS", URL, Parameters);
 
 EndFunction
 
@@ -80,8 +88,12 @@ EndFunction
 Function Head(URL, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Undefined);
-	Return CallHTTPMethod(CurrentSession, "HEAD", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Undefined));
+	Supplement(Parameters, AdditionalParameters);
+	
+	Return CallHTTPMethod(CurrentSession, "HEAD", URL, Parameters);
 
 EndFunction
 
@@ -99,8 +111,12 @@ EndFunction
 Function Post(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
-	Return CallHTTPMethod(CurrentSession, "POST", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Data, Undefined));
+	Supplement(Parameters, AdditionalParameters);
+	
+	Return CallHTTPMethod(CurrentSession, "POST", URL, Parameters);
 
 EndFunction
 
@@ -118,8 +134,12 @@ EndFunction
 Function Put(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
-	Return CallHTTPMethod(CurrentSession, "PUT", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Data, Undefined));
+	Supplement(Parameters, AdditionalParameters);
+	
+	Return CallHTTPMethod(CurrentSession, "PUT", URL, Parameters);
 
 EndFunction
 
@@ -137,8 +157,12 @@ EndFunction
 Function Patch(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
-	Return CallHTTPMethod(CurrentSession, "PATCH", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Data, Undefined));
+	Supplement(Parameters, AdditionalParameters);
+	
+	Return CallHTTPMethod(CurrentSession, "PATCH", URL, Parameters);
 
 EndFunction
 
@@ -156,8 +180,12 @@ EndFunction
 Function Delete(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
-	Return CallHTTPMethod(CurrentSession, "DELETE", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Data, Undefined));
+	Supplement(Parameters, AdditionalParameters);
+	
+	Return CallHTTPMethod(CurrentSession, "DELETE", URL, Parameters);
 
 EndFunction
 
@@ -184,8 +212,12 @@ EndFunction
 Function CallMethod(Method, URL, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Undefined);
-	Return CallHTTPMethod(CurrentSession, Method, URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Undefined));
+	Supplement(Parameters, AdditionalParameters);
+	
+	Return CallHTTPMethod(CurrentSession, Method, URL, Parameters);
 
 EndFunction
 
@@ -212,10 +244,14 @@ Function GetJson(URL,
 				Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, RequestParameters, Undefined, Undefined);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(RequestParameters, Undefined, Undefined));
+	Supplement(Parameters, AdditionalParameters);
+	
 	JSONConversionParameters =
-		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
-	Return AsJson(CallHTTPMethod(CurrentSession, "GET", URL, AdditionalParameters), JSONConversionParameters);
+		SelectValue(Undefined, Parameters, "JSONConversionParameters", Undefined);
+	Return AsJson(CallHTTPMethod(CurrentSession, "GET", URL, Parameters), JSONConversionParameters);
 
 EndFunction
 
@@ -234,10 +270,14 @@ EndFunction
 Function PostJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Json);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Json));
+	Supplement(Parameters, AdditionalParameters);
+	
 	JSONConversionParameters =
-		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
-	Return AsJson(CallHTTPMethod(CurrentSession, "POST", URL, AdditionalParameters), JSONConversionParameters);
+		SelectValue(Undefined, Parameters, "JSONConversionParameters", Undefined);
+	Return AsJson(CallHTTPMethod(CurrentSession, "POST", URL, Parameters), JSONConversionParameters);
 
 EndFunction
 
@@ -256,10 +296,14 @@ EndFunction
 Function PutJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Json);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Json));
+	Supplement(Parameters, AdditionalParameters);
+	
 	JSONConversionParameters =
-		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
-	Return AsJson(CallHTTPMethod(CurrentSession, "PUT", URL, AdditionalParameters), JSONConversionParameters);
+		SelectValue(Undefined, Parameters, "JSONConversionParameters", Undefined);
+	Return AsJson(CallHTTPMethod(CurrentSession, "PUT", URL, Parameters), JSONConversionParameters);
 
 EndFunction
 
@@ -278,10 +322,14 @@ EndFunction
 Function DeleteJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Json);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Json));
+	Supplement(Parameters, AdditionalParameters);
+	
 	JSONConversionParameters =
-		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
-	Return AsJson(CallHTTPMethod(CurrentSession, "DELETE", URL, AdditionalParameters), JSONConversionParameters);
+		SelectValue(Undefined, Parameters, "JSONConversionParameters", Undefined);
+	Return AsJson(CallHTTPMethod(CurrentSession, "DELETE", URL, Parameters), JSONConversionParameters);
 
 EndFunction
 
@@ -359,7 +407,7 @@ Function NewParameters() Export
 	Parameters.Insert("Timeout", TimeoutByDefault());
 	Parameters.Insert("AllowRedirect", True);
 	Parameters.Insert("Json", Undefined);
-	Parameters.Insert("JSONConversionParameters", New Structure);
+	Parameters.Insert("JSONConversionParameters", JSONConversionParametersByDefault());
 	Parameters.Insert("Data", Undefined);
 	Parameters.Insert("Files", New Array);
 	Parameters.Insert("MaximumNumberOfRetries", 0);
@@ -623,8 +671,9 @@ EndFunction
 Function AsException(Response, Val TextForUser = Undefined) Export
 	
 	ExceptionText = StrTemplate(
-		NStr("ru = 'HTTP %1 %2
-		           |%3'"),
+		NStr("en = 'HTTP %1 %2
+              |%3'; ru = 'HTTP %1 %2
+              |%3'"),
 		Response.Method,
 		Response.URL,
 		HTTPStatusCodePresentation(Response.StatusCode)
@@ -797,13 +846,13 @@ EndFunction
 //
 Function ObjectToJson(Object, Val ConversionParameters = Undefined, Val WriterSettings = Undefined) Export
 
-	JSONConversionParameters = SupplementJSONConversionParameters(ConversionParameters);
+	JSONConversionParameters = Join(JSONConversionParametersByDefault(), ConversionParameters);
 
 	SerializerSettings = New JSONSerializerSettings;
 	SerializerSettings.DateSerializationFormat = JSONConversionParameters.JSONDateFormat;
 	SerializerSettings.DateWritingVariant = JSONConversionParameters.JSONDateWritingVariant;
 
-	WriterSettings = SupplementJSONWriterSettings(WriterSettings);
+	WriterSettings = Join(JSONWriterSettingsByDeafult(), WriterSettings);
 
 	JSONWriterSettings = New JSONWriterSettings(
 		WriterSettings.NewLines,
@@ -863,7 +912,7 @@ EndFunction
 //
 Function JsonToObject(Json, Encoding = "utf-8", ConversionParameters = Undefined) Export
 
-	JSONConversionParameters = SupplementJSONConversionParameters(ConversionParameters);
+	JSONConversionParameters = Join(JSONConversionParametersByDefault(), ConversionParameters);
 
 	JSONReader = New JSONReader;
 	If TypeOf(Json) = Type("BinaryData") Then
@@ -1078,9 +1127,9 @@ Function PrepareRequest(Session, Method, URL, AdditionalParameters) Export
 	HeadersFromAdditionalParameters =
 		SelectValue(Undefined, AdditionalParameters, "Headers", New Map);
 
-	Authentication = MergeAuthenticationParameters(AuthenticationFromAdditionalParameters, Session.Authentication);
-	RequestParameters = MergeRequestParameters(RequestParametersFromAdditionalParameters, Session.RequestParameters);
-	Headers = MergeHeaders(HeadersFromAdditionalParameters, Session.Headers);
+	Authentication = Join(Copy(AuthenticationFromAdditionalParameters), Session.Authentication);
+	RequestParameters = Join(Copy(RequestParametersFromAdditionalParameters), Session.RequestParameters);
+	Headers = Join(Copy(HeadersFromAdditionalParameters), Session.Headers);
 	JSONConversionParameters =
 		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
 
@@ -1113,22 +1162,16 @@ EndFunction
 
 #Region HTTPRequestMethods
 
-Procedure FillAdditionalData(AdditionalParameters, RequestParameters, Data, Json)
+Function ParametersFromArguments(RequestParameters, Data, Json)
 
-	If AdditionalParameters = Undefined Then
-		AdditionalParameters = New Structure();
-	EndIf;
-	If Not AdditionalParameters.Property("RequestParameters") Then
-		AdditionalParameters.Insert("RequestParameters", RequestParameters);
-	EndIf;
-	If Not AdditionalParameters.Property("Data") Then
-		AdditionalParameters.Insert("Data", Data);
-	EndIf;
-	If Not AdditionalParameters.Property("Json") Then
-		AdditionalParameters.Insert("Json", Json);
-	EndIf;
+	Result = New Structure;
+	Result.Insert("RequestParameters", RequestParameters);
+	Result.Insert("Data", Data);
+	Result.Insert("Json", Json);
+	
+	Return Result;
 
-EndProcedure
+EndFunction
 
 Function CallHTTPMethod(Session, Method, URL, AdditionalParameters)
 
@@ -1638,7 +1681,7 @@ Function AssembleResourceAddress(URLComposition, RequestParameters)
 
 	ResourceAddress = URLComposition.Path;
 
-	MergedRequestParameters = MergeRequestParameters(RequestParameters, URLComposition.RequestParameters);
+	MergedRequestParameters = Join(Copy(RequestParameters), URLComposition.RequestParameters);
 	If ValueIsFilled(MergedRequestParameters) Then
 		ResourceAddress = ResourceAddress + "?" + EncodeRequestParameters(MergedRequestParameters);
 	EndIf;
@@ -2356,36 +2399,6 @@ EndFunction
 
 #Region JSONConversionParameters
 
-Function SupplementJSONConversionParameters(ConversionParameters)
-
-	JSONConversionParameters = JSONConversionParametersByDefault();
-	If ValueIsFilled(ConversionParameters) Then
-		For Each Parameter In ConversionParameters Do
-			If JSONConversionParameters.Property(Parameter.Key) Then
-				JSONConversionParameters.Insert(Parameter.Key, Parameter.Value);
-			EndIf;
-		EndDo;
-	EndIf;
-
-	Return JSONConversionParameters;
-
-EndFunction
-
-Function SupplementJSONWriterSettings(WriterSettings)
-
-	JSONWriterSettings = JSONWriterSettingsByDeafult();
-	If ValueIsFilled(WriterSettings) Then
-		For Each Parameter In WriterSettings Do
-			If JSONWriterSettings.Property(Parameter.Key) Then
-				JSONWriterSettings.Insert(Parameter.Key, Parameter.Value);
-			EndIf;
-		EndDo;
-	EndIf;
-
-	Return JSONWriterSettings;
-
-EndFunction
-
 // Converts a type value into a type, that can be serialized.
 //
 // Parameters:
@@ -3101,62 +3114,6 @@ Function ValueByKey(Structure, Key_, ValueByDefault = Undefined)
 
 EndFunction
 
-Function MergeAuthenticationParameters(MainSource, AdditionalSource)
-
-	AuthenticationParameters = New Structure;
-	If TypeOf(MainSource) = Type("Structure") Then
-		For Each Parameter In MainSource Do
-			AuthenticationParameters.Insert(Parameter.Key, Parameter.Value);
-		EndDo;
-	EndIf;
-	If TypeOf(AdditionalSource) = Type("Structure") Then
-		For Each Parameter In AdditionalSource Do
-			If Not AuthenticationParameters.Property(Parameter) Then
-				AuthenticationParameters.Insert(Parameter.Key, Parameter.Value);
-			EndIf;
-		EndDo;
-	EndIf;
-
-	Return AuthenticationParameters;
-
-EndFunction
-
-Function MergeHeaders(MainSource, AdditionalSource)
-
-	Headers = New Map;
-	For Each Header In MainSource Do
-		Headers.Insert(Header.Key, Header.Value);
-	EndDo;
-	For Each Header In AdditionalSource Do
-		If Headers.Get(Header.Key) = Undefined Then
-			Headers.Insert(Header.Key, Header.Value);
-		EndIf;
-	EndDo;
-
-	Return Headers;
-
-EndFunction
-
-Function MergeRequestParameters(MainSource, AdditionalSource)
-
-	RequestParameters = New Map;
-	If TypeOf(MainSource) = Type("Structure") Or TypeOf(MainSource) = Type("Map") Then
-		For Each Parameter In MainSource Do
-			RequestParameters.Insert(Parameter.Key, Parameter.Value);
-		EndDo;
-	EndIf;
-	If TypeOf(AdditionalSource) = Type("Structure") Or TypeOf(AdditionalSource) = Type("Map") Then
-		For Each Parameter In AdditionalSource Do
-			If RequestParameters.Get(Parameter) = Undefined Then
-				RequestParameters.Insert(Parameter.Key, Parameter.Value);
-			EndIf;
-		EndDo;
-	EndIf;
-
-	Return RequestParameters;
-
-EndFunction
-
 #EndRegion
 
 #Region StringMethods
@@ -3299,6 +3256,44 @@ Function CutText(Text, MaxTextLength = 1000)
 	Return Result;
 	
 EndFunction
+
+Function Join(MainSource, AdditionalSource)
+
+	Result = MainSource;
+	Supplement(MainSource, AdditionalSource);
+	Return Result;
+
+EndFunction
+
+Function Copy(Source)
+	
+	Return ValueFromStringInternal(ValueToStringInternal(Source));
+
+EndFunction
+
+Procedure Supplement(Destination, Source)
+	
+	If Source = Undefined Then
+		Return;
+	EndIf;
+	
+	For Each SourceItem In Source Do
+		ParameterIsFound = False;
+		
+		If TypeOf(Destination) = Type("Map") Then
+			ParameterIsFound = Destination.Get(SourceItem) <> Undefined;
+		EndIf;
+		
+		If TypeOf(Destination) = Type("Structure") Then
+			ParameterIsFound = Destination.Property(SourceItem);
+		EndIf;
+		
+		If Not ParameterIsFound Then
+			Destination.Insert(SourceItem.Key, SourceItem.Value);
+		EndIf;
+	EndDo;
+		
+EndProcedure
 
 #EndRegion
 

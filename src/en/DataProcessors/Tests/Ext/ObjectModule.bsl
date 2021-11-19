@@ -97,6 +97,8 @@ Function TestsList() Export
 	Tests.Add("Test_VerifyConversionToJsonNotSerializedValues");
 	Tests.Add("Test_VerifyConversionJSONDateWritingVariant");
 	Tests.Add("Test_VerifyOfRestoringUnsupportedValuesTypes");
+	
+	Tests.Add("Test_RequestSendingCorruptsPassedSettings_GitHub_Issue_33");
 
 	Return Tests;
 	
@@ -1287,6 +1289,23 @@ Procedure Test_CorrectExceptionInMethodAsJson() Export
 	Except
 		ExceptionIsCorrect(ErrorInfo(), "1C Company");
 	EndTry;
+	
+EndProcedure
+
+Procedure Test_RequestSendingCorruptsPassedSettings_GitHub_Issue_33() Export
+	
+	Settings = New Structure; 
+	Headers = New Map;
+	Headers.Insert("Content-Type","application/json");
+	Settings.Insert("Headers", Headers);
+	
+	RequestParameters = New Structure("username, password", "anonymous", "hrgesf7HDR67Bd");
+	
+	CopyOfSettingsBeforeSending = ValueFromStringInternal(ValueToStringInternal(Settings));
+	
+	HTTPConnector.Post("https://jsonplaceholder.typicode.com/posts", RequestParameters, Settings);
+	
+	AssertEquals(HTTPConnector.ObjectToJson(Settings), HTTPConnector.ObjectToJson(CopyOfSettingsBeforeSending));
 	
 EndProcedure
 
