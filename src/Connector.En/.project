@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Connector</name>
+	<name>Connector.En</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -10,20 +10,9 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-		<buildCommand>
-			<name>com.e1c.langtool.builder.translationBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>com.e1c.langtool.sync.SynchronizationBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>com._1c.g5.v8.dt.core.V8ConfigurationNature</nature>
-		<nature>com.e1c.langtool.TranslatingNature</nature>
 	</natures>
 </projectDescription>
