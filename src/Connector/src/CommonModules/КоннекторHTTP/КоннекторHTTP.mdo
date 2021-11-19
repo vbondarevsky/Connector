@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="b410e6fc-2af6-4b78-8dde-12f5e259926c">
+  <name>КоннекторHTTP</name>
+  <synonym>
+    <key>ru</key>
+    <value>Коннектор: удобный HTTP-клиент для 1С:Предприятие 8</value>
+  </synonym>
+  <server>true</server>
+  <externalConnection>true</externalConnection>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>
