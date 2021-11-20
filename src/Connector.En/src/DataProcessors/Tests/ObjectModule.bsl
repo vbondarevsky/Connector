@@ -259,7 +259,7 @@ Procedure Test_ParseURLWithEncodedURLInParameter() Export
 	AssertEquals(URLComposition.Authentication.User, "");
 	AssertEquals(URLComposition.Authentication.Password, "");
 	AssertEquals(URLComposition.RequestParameters.Count(), 2);
-	AssertEquals(URLComposition.RequestParameters["url"], "http://www.kuku.ru/?s=1&b=2"); //@non-nls-1
+	AssertEquals(URLComposition.RequestParameters["url"], "http://www.kuku.ru/?s=1&b=2"); //@non-nls-1 //@non-nls-2
 	AssertEquals(URLComposition.RequestParameters["OTHER"], "1"); //@non-nls-1
 	
 EndProcedure
@@ -372,9 +372,9 @@ Procedure Test_TransferParametersToRequestString() Export
 	Result = HTTPConnector.AsJson(Response);
 	
 	AssertEquals(Response.URL, "https://httpbin.org/anything/params?name=%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2&name=%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%B2&salary=100000&time=01%3A47"); //@non-nls-1
-	AssertEquals(Result["url"], "https://httpbin.org/anything/params?name=Иванов&name=Петров&salary=100000&time=01%3A47"); //@non-nls-1
+	AssertEquals(Result["url"], "https://httpbin.org/anything/params?name=Иванов&name=Петров&salary=100000&time=01%3A47"); //@non-nls-1 //@non-nls-2
 	AssertEquals(Result["args"]["salary"], "100000"); //@non-nls-1 //@non-nls-2
-	AssertEquals(StrConcat(Result["args"]["name"], ","), "Иванов,Петров"); //@non-nls-1 //@non-nls-2 //@non-nls-3
+	AssertEquals(StrConcat(Result["args"]["name"], ","), "Иванов,Петров"); //@non-nls-1 //@non-nls-2 //@non-nls-4
 	AssertEquals(Result["args"]["time"], "01:47"); //@non-nls-1 //@non-nls-2
 	
 EndProcedure
@@ -426,7 +426,7 @@ EndProcedure
 Procedure Test_TransferArbitraryHeaders() Export
 	
 	Headers = New Map;
-	Headers.Insert("X-My-Header", "Hello"); //@non-nls-1
+	Headers.Insert("X-My-Header", "Hello"); //@non-nls-1 //@non-nls-2
 	Result = HTTPConnector.GetJson(
 		"http://httpbin.org/headers", //@non-nls-1
 		Undefined,
@@ -516,11 +516,11 @@ Procedure Test_SendGZip() Export
 	DataWriter = GetBinaryDataFromBase64String(
 		StrSplit(Result["data"], ",")[1] //@non-nls-1
 	);
-	ИсходноеЗначение = HTTPConnector.JsonToObject(HTTPConnector.ReadGZip(DataWriter));
+	InitialValue = HTTPConnector.JsonToObject(HTTPConnector.ReadGZip(DataWriter));
 	
-	AssertEquals(Result["headers"]["Content-Encoding"], "gzip"); //@non-nls-1 //@non-nls-2 //@non-nls-31
-	AssertEquals(ИсходноеЗначение["field"], Json["field"]); //@non-nls-1 //@non-nls-2
-	AssertEquals(ИсходноеЗначение["field2"], Json["field2"]); //@non-nls-1 //@non-nls-2
+	AssertEquals(Result["headers"]["Content-Encoding"], "gzip"); //@non-nls-1 //@non-nls-2 //@non-nls-3
+	AssertEquals(InitialValue["field"], Json["field"]); //@non-nls-1 //@non-nls-2
+	AssertEquals(InitialValue["field2"], Json["field2"]); //@non-nls-1 //@non-nls-2
 	
 EndProcedure
 
@@ -539,7 +539,7 @@ Procedure Test_BasicAuth() Export
 		Undefined,
 		New Structure("Authentication", Authentication));
 	AssertEquals(Result["authenticated"], True); //@non-nls-1
-	AssertEquals(Result["user"], "user"); //@non-nls-1
+	AssertEquals(Result["user"], "user"); //@non-nls-1 //@non-nls-2
 
 	Authentication = New Structure("User, Password, Type");
 	Authentication.Type = "Basic"; //@non-nls-1
@@ -550,7 +550,7 @@ Procedure Test_BasicAuth() Export
 		"https://httpbin.org/basic-auth/user/pass", //@non-nls-1
 		Undefined,
 		New Structure("Authentication", Authentication));
-	AssertEquals(Result["authenticated"], True); //@non-nls-2
+	AssertEquals(Result["authenticated"], True); //@non-nls-1
 	AssertEquals(Result["user"], "user"); //@non-nls-1 //@non-nls-2
 	
 EndProcedure
@@ -629,23 +629,23 @@ EndProcedure
 
 Procedure Test_VerifyConversionJSONDateWritingVariant() Export
 
-	УниверсальнаяКонтрольнаяДата = CurrentUniversalDate();
-	ЛокальнаяКонтрольнаяДата = ToLocalTime(УниверсальнаяКонтрольнаяДата, TimeZone());
+	UniversalCheckDate = CurrentUniversalDate();
+	LocalCheckDate = ToLocalTime(UniversalCheckDate, TimeZone());
 	Json = New Structure;
-	Json.Insert("Дата", ЛокальнаяКонтрольнаяДата); //@non-nls-1
+	Json.Insert("Дата", LocalCheckDate); //@non-nls-1
 
-	ПараметрыJSON = New Structure;
-	ПараметрыJSON.Insert("JSONDateWritingVariant", PredefinedValue("JSONDateWritingVariant.UniversalDate"));
+	JSONParameters = New Structure;
+	JSONParameters.Insert("JSONDateWritingVariant", PredefinedValue("JSONDateWritingVariant.UniversalDate"));
 
 	Result = HTTPConnector.PostJson(
 		"https://httpbin.org/post", //@non-nls-1
 		Json,
-		New Structure("JSONConversionParameters", ПараметрыJSON)
+		New Structure("JSONConversionParameters", JSONParameters)
 	);
 
 	AssertEquals(
 		Result["json"]["Дата"], //@non-nls-1 //@non-nls-2
-		Format(УниверсальнаяКонтрольнаяДата, "ДФ=yyyy-MM-ddTHH:mm:ssZ")
+		Format(UniversalCheckDate, "ДФ=yyyy-MM-ddTHH:mm:ssZ")
 	);
 
 EndProcedure
@@ -656,14 +656,14 @@ Procedure Test_VerifyConversionToJsonNotSerializedValues() Export
 	Json.Insert("УникальныйИдентификатор", New UUID("be4ee795-7f5e-4d1a-be43-a6d6902f5cfd")); //@non-nls-1
 	Json.Insert("ДвоичныеДанные", GetBinaryDataFromString("test", "utf-8", False)); //@non-nls-1 //@non-nls-2
 
-	ПараметрыJSON = New Structure;
-	ПараметрыJSON.Insert("ConvertionFunctionName", "JsonConversion");
-	ПараметрыJSON.Insert("ConvertionFunctionModule", HTTPConnector);
+	JSONParameters = New Structure;
+	JSONParameters.Insert("ConvertionFunctionName", "JsonConversion");
+	JSONParameters.Insert("ConvertionFunctionModule", HTTPConnector);
 
 	Result = HTTPConnector.PostJson(
 		"https://httpbin.org/post", //@non-nls-1
 		Json,
-		New Structure("JSONConversionParameters", ПараметрыJSON));
+		New Structure("JSONConversionParameters", JSONParameters));
 
 	AssertEquals(Result["json"]["УникальныйИдентификатор"], "be4ee795-7f5e-4d1a-be43-a6d6902f5cfd"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	AssertEquals(Result["json"]["ДвоичныеДанные"], "dGVzdA=="); //@non-nls-1 //@non-nls-2 //@non-nls-3
@@ -673,26 +673,26 @@ EndProcedure
 Procedure Test_VerifyOfRestoringUnsupportedValuesTypes() Export
 
 	UUID = New UUID("be4ee795-7f5e-4d1a-be43-a6d6902f5cfd"); //@non-nls-1
-	BinaryData = GetBinaryDataFromString("test", "utf-8", False); //@non-nls-1
+	BinaryData = GetBinaryDataFromString("test", "utf-8", False); //@non-nls-1 //@non-nls-2
 
 	Json = New Structure;
 	Json.Insert("УникальныйИдентификатор", String(UUID)); //@non-nls-1
 	Json.Insert("ДвоичныеДанные", GetBase64StringFromBinaryData(BinaryData)); //@non-nls-1
 	Json.Insert("ДругиеДанные", 1); //@non-nls-1
 
-	ПараметрыJSON = New Structure;
-	ПараметрыJSON.Insert("ReviverFunctionModule", HTTPConnector);
-	ПараметрыJSON.Insert("ReviverFunctionName", "RestoreJson");
+	JSONParameters = New Structure;
+	JSONParameters.Insert("ReviverFunctionModule", HTTPConnector);
+	JSONParameters.Insert("ReviverFunctionName", "RestoreJson");
 	PropertiesTypes = New Map;
 	PropertiesTypes.Insert("UUID", Type("UUID"));
 	PropertiesTypes.Insert("BinaryData", Type("BinaryData"));
-	ПараметрыJSON.Insert("ReviverFunctionAdditionalParameters", PropertiesTypes);
-	ПараметрыJSON.Insert("RetriverPropertiesNames", StrSplit("UUID,BinaryData", ","));
+	JSONParameters.Insert("ReviverFunctionAdditionalParameters", PropertiesTypes);
+	JSONParameters.Insert("RetriverPropertiesNames", StrSplit("UUID,BinaryData", ","));
 
 	Result = HTTPConnector.PostJson(
 		"https://httpbin.org/post", //@non-nls-1
 		Json,
-		New Structure("JSONConversionParameters", ПараметрыJSON));
+		New Structure("JSONConversionParameters", JSONParameters));
 
 	AssertEquals(Result["json"]["УникальныйИдентификатор"], UUID); //@non-nls-1 //@non-nls-2
 	AssertEquals(Result["json"]["ДвоичныеДанные"], BinaryData); //@non-nls-1 //@non-nls-2
@@ -716,7 +716,7 @@ Procedure Test_PutJson() Export
 		"https://httpbin.org/put", //@non-nls-1
 		New Structure("Название", "КоннекторHTTP") //@non-nls-1 //@non-nls-2
 	);
-	AssertEquals(Result["url"], "https://httpbin.org/put"); //@non-nls-1
+	AssertEquals(Result["url"], "https://httpbin.org/put"); //@non-nls-1 //@non-nls-2
 	AssertEquals(Result["json"]["Название"], "КоннекторHTTP"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
 EndProcedure
@@ -1426,11 +1426,11 @@ Function CalculateMD5(Data)
 	
 EndFunction
 
-Procedure AssertEquals(ЛевоеЗначение, RightValue, Explanation = "")
+Procedure AssertEquals(LeftValue, RightValue, Explanation = "")
 	
-	If ЛевоеЗначение <> RightValue Then
+	If LeftValue <> RightValue Then
 		Raise(StrTemplate(NStr("ru = '<%1> не равно <%2>: %3';
-										|en = '<%1> не равно <%2>: %3';"), ЛевоеЗначение, RightValue, Explanation));
+										|en = '<%1> not equal<%2>: %3';"), LeftValue, RightValue, Explanation));
 	EndIf;
 	
 EndProcedure

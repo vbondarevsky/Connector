@@ -1,6 +1,12 @@
 #Translations for: interface
 
 Method.ВырезатьТекст.NStr.<Данные>.Lines=<Data>
+Method.ЗаписатьZip.NStr.Работа\ с\ Zip-файлами\ в\ мобильной\ платформе\ не\ поддерживается.Lines=zip-files are not suppported at mobile applixation
 Method.КакJson.NStr.Ошибка\ при\ десериализации\ JSON\..Lines=Error. Deserialize JSON
-Method.ОтправитьЗапрос.Var.ТекстОшибки.NStr.HTTP\ %1\ %2\nNetwork\ error\:\n%3.Lines=
+Method.КакXDTO.NStr.Ошибка\ при\ десериализации\ XDTO\..Lines=Error. Deserialize XDTO.\n
+Method.КакИсключение.Var.ТекстИсключения.NStr.HTTP\ %1\ %2\n%3.Lines=HTTP %1 %2\n\n%3
+Method.КакИсключение.Var.ТекстИсключения.NStr.Тело\ ответа\:\n%1.Lines=Body response\:\n%1
+Method.ОтправитьЗапрос.Var.ТекстОшибки.NStr.HTTP\ %1\ %2\nNetwork\ error\:\n%3.Lines=HTTP %1 %2\n\nNetwork error\:\n\n%3
 Method.ПредставлениеКодаСостоянияHTTP.NStr.%1\:\ Неизвестный\ код\ состояния\ HTTP.Lines=%1\: Unknowk HTTP status code
+Method.Приостановить.NStr.Процедура\ Приостановить\ не\ работает\ должным\ образом.Lines=Pause wrong.
+Method.ПрочитатьZip.NStr.Работа\ с\ Zip-файлами\ в\ мобильной\ платформе\ не\ поддерживается.Lines=zip-files are not sup[ported at mobile application

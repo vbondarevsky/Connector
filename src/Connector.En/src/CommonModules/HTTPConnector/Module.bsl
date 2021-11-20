@@ -727,7 +727,8 @@ Function AsXDTO(Response,
 		XDTOObject = XDTOFactory.ReadXML(XMLReader);
 	Except
 		Raise AsException(Response, NStr("ru = 'Ошибка при десериализации XDTO.';
-													|en = 'Ошибка при десериализации XDTO.';"));
+													|en = 'Error. Deserialize XDTO.
+													|';"));
 	EndTry;
 
 	Return XDTOObject;
@@ -749,6 +750,7 @@ Function AsException(Response, Val TextForUser = Undefined) Export
 		NStr("ru = 'HTTP %1 %2
 		           |%3';
 					|en = 'HTTP %1 %2
+					|
 					|%3';"),
 		Response.Method,
 		Response.URL,
@@ -761,7 +763,7 @@ Function AsException(Response, Val TextForUser = Undefined) Export
 		ExceptionText = ExceptionText + Chars.LF + StrTemplate(
 			NStr("ru = 'Тело ответа:
 			           |%1';
-						|en = 'Тело ответа:
+						|en = 'Body response:
 						|%1';"),
 			ResponseBody);
 	EndIf;
@@ -796,7 +798,7 @@ EndFunction
 //         ** Password - String - user password.
 //     * Host - String - host address.
 //     * Port - Number - host port.
-//     * Path - String - адрес ресурса на сервере.
+//     * Path - String - resourse adress at host.
 //     * RequestParameters - Map - URL parameters to append to the URL (a part after ?):
 //         ** Key - String - URL parameter key.
 //         ** Value - String - URL parameter value;
@@ -1126,11 +1128,11 @@ EndFunction
 Function ReadGZip(CompressedData) Export
 
 	GZipPrefixSize = 10;
-	РазмерПостфиксаGZip = 8;
+	GZipPostfixSize = 8;
 
 	DataReader = New DataReader(CompressedData);
 	DataReader.Skip(GZipPrefixSize);
-	CompressedDataSize = DataReader.SourceStream().Size() - GZipPrefixSize - РазмерПостфиксаGZip;
+	CompressedDataSize = DataReader.SourceStream().Size() - GZipPrefixSize - GZipPostfixSize;
 
 	ZipStream = New MemoryStream(ZipLFHSize() + CompressedDataSize + ZipDDSize() + ZipCDHSize() + ZipEOCDSize());
 	DataWriter = New DataWriter(ZipStream);
@@ -1553,7 +1555,9 @@ Function SendRequest(Session, PreparedRequest, Settings)
 				           |Network error:
 				           |%3';
 							|en = 'HTTP %1 %2
+							|
 							|Network error:
+							|
 							|%3';"),
 				PreparedRequest.Method,
 				PreparedRequest.URL,
@@ -2881,7 +2885,7 @@ Function ReadZip(CompressedData, ErrorText = Undefined)
 
 #If MobileAppServer Then
 	Raise(NStr("ru = 'Работа с Zip-файлами в мобильной платформе не поддерживается';
-							|en = 'Работа с Zip-файлами в мобильной платформе не поддерживается';"));
+							|en = 'zip-files are not sup[ported at mobile application';"));
 #Else
 	FolderName = GetTempFileName();
 	ZipReader = New ZipFileReader(CompressedData);
@@ -2906,7 +2910,7 @@ Function WriteZip(Data)
 
 #If MobileAppServer Then
 	Raise(NStr("ru = 'Работа с Zip-файлами в мобильной платформе не поддерживается';
-							|en = 'Работа с Zip-файлами в мобильной платформе не поддерживается';"));
+							|en = 'zip-files are not suppported at mobile applixation';"));
 #Else
 	TemporaryFile = GetTempFileName(".bin"); //@non-nls-1
 	Data.Write(TemporaryFile);
@@ -3154,7 +3158,7 @@ Procedure Pause(StopDurationInSeconds)
 		MinimalTimeoutInMilliseconds = 1000;
 		If RealTimeout < MinimalTimeoutInMilliseconds Then
 			Raise(NStr("ru = 'Процедура Приостановить не работает должным образом';
-									|en = 'Процедура Приостановить не работает должным образом';"));
+									|en = 'Pause wrong.';"));
 		EndIf;
 		CurrentDate = CurrentUniversalDate();
 	EndDo;

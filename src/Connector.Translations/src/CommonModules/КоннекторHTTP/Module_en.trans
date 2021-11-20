@@ -236,6 +236,7 @@ Method.РазобратьURL.Return.ПараметрыЗапроса.Значе�
 Method.РазобратьURL.Return.ПараметрыЗапроса.Значение.Type.1.Description=- parameter's values (key\=value1&key\=value2).
 Method.РазобратьURL.Return.ПараметрыЗапроса.Ключ.Description=URL parameter key.
 Method.РазобратьURL.Return.Порт.Description=host port.
+Method.РазобратьURL.Return.Путь.Description=resourse adress at host.
 Method.РазобратьURL.Return.Сервер.Description=host address.
 Method.РазобратьURL.Return.Схема.Description=\ a part of URL after \#.
 Method.РазобратьURL.Return.Фрагмент.Description=a part of URL after \#.
