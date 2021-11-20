@@ -684,10 +684,11 @@ Procedure Test_VerifyOfRestoringUnsupportedValuesTypes() Export
 	JSONParameters.Insert("ReviverFunctionModule", HTTPConnector);
 	JSONParameters.Insert("ReviverFunctionName", "RestoreJson");
 	PropertiesTypes = New Map;
-	PropertiesTypes.Insert("UUID", Type("UUID"));
-	PropertiesTypes.Insert("BinaryData", Type("BinaryData"));
+	PropertiesTypes.Insert("УникальныйИдентификатор", Type("UUID")); //@non-nls-1
+	PropertiesTypes.Insert("ДвоичныеДанные", Type("BinaryData")); //@non-nls-1
+	
 	JSONParameters.Insert("ReviverFunctionAdditionalParameters", PropertiesTypes);
-	JSONParameters.Insert("RetriverPropertiesNames", StrSplit("UUID,BinaryData", ","));
+	JSONParameters.Insert("RetriverPropertiesNames", StrSplit("УникальныйИдентификатор,ДвоичныеДанные", ",")); //@non-nls-2
 
 	Result = HTTPConnector.PostJson(
 		"https://httpbin.org/post", //@non-nls-1
@@ -883,8 +884,8 @@ EndProcedure
 Procedure Test_SendCookies() Export
 	
 	Cookies = New Array;
-	Cookies.Add(New Structure("Наименование,Значение", "k1", String(New UUID))); //@non-nls-1 //@non-nls-2
-	Cookies.Add(New Structure("Наименование,Значение", "k2", String(New UUID))); //@non-nls-1 //@non-nls-2
+	Cookies.Add(New Structure("Description,Value", "k1", String(New UUID))); //@non-nls-2
+	Cookies.Add(New Structure("Description,Value", "k2", String(New UUID))); //@non-nls-2
 	
 	Response = HTTPConnector.Get(
 		"http://httpbin.org/cookies", //@non-nls-1
@@ -901,10 +902,10 @@ EndProcedure
 Procedure Тест_POST_MultipartFormData_FileOnly() Export
 	
 	Files = New Structure;
-	Files.Insert("Имя", "f1"); //@non-nls-1 //@non-nls-2
-	Files.Insert("ИмяФайла", "file1.txt"); //@non-nls-1 //@non-nls-2
-	Files.Insert("Данные", Base64Value("0J/RgNC40LLQtdGCLCDQnNC40YA=")); //@non-nls-1 //@non-nls-2
-	Files.Insert("Тип", "text/plain"); //@non-nls-1 //@non-nls-2
+	Files.Insert("Name", "f1"); //@non-nls-2
+	Files.Insert("FileName", "file1.txt"); //@non-nls-2
+	Files.Insert("Data", Base64Value("0J/RgNC40LLQtdGCLCDQnNC40YA=")); //@non-nls-2
+	Files.Insert("Type", "text/plain"); //@non-nls-2
 	
 	Result = HTTPConnector.PostJson(
 		"https://httpbin.org/post", //@non-nls-1
@@ -919,8 +920,8 @@ EndProcedure
 Procedure Тест_POST_MultipartFormData_FilesAndFormFields() Export
 	
 	Files = New Array;
-	Files.Add(New Structure("Имя,Данные,ИмяФайла", "f1", Base64Value("ZmlsZTE="), "file1.txt")); //@non-nls-1 //@non-nls-2 //@non-nls-3 //@non-nls-4
-	Files.Add(New Structure("Имя,Данные,ИмяФайла", "f2", Base64Value("ZmlsZTI="), "file2.txt")); //@non-nls-1 //@non-nls-2 //@non-nls-3 //@non-nls-4
+	Files.Add(New Structure("Name,Data,FileName", "f1", Base64Value("ZmlsZTE="), "file1.txt")); //@non-nls-2 //@non-nls-3 //@non-nls-4
+	Files.Add(New Structure("Name,Data,FileName", "f2", Base64Value("ZmlsZTI="), "file2.txt")); //@non-nls-2 //@non-nls-3 //@non-nls-4
 	
 	Data = New Structure("field1,field2", "value1", "Значение2"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
@@ -1016,7 +1017,7 @@ Procedure Test_ReadResponseAsXDTO() Export
 	FullFileName = GetTempFileName("xml"); //@non-nls-1
 	
 	FileText = New TextWriter(FullFileName, TextEncoding.UTF8); 
-	FileText.WriteLine(TextResponseXML); 	
+	FileText.WriteLine(TextResponseXML);
 	FileText.Close(); 
 	
 	BinaryDataResponse = New BinaryData(FullFileName);
@@ -1036,7 +1037,7 @@ Procedure Test_ReadResponseAsXDTO() Export
 	AssertEquals(TypeOf(XDTOResponse), Type("XDTODataObject"));
 	AssertEquals(XDTOResponse.Id, "1642606"); //@non-nls-1
 	AssertEquals(TypeOf(XDTOResponse_Attachment), Type("СписокXDTO"));
-	AssertEquals(XDTOResponse_Attachment.Count(), 2);		
+	AssertEquals(XDTOResponse_Attachment.Count(), 2);
 	
 EndProcedure 
 
@@ -1430,7 +1431,7 @@ Procedure AssertEquals(LeftValue, RightValue, Explanation = "")
 	
 	If LeftValue <> RightValue Then
 		Raise(StrTemplate(NStr("ru = '<%1> не равно <%2>: %3';
-										|en = '<%1> not equal<%2>: %3';"), LeftValue, RightValue, Explanation));
+										|en = '<%1> not equal <%2>: %3';"), LeftValue, RightValue, Explanation));
 	EndIf;
 	
 EndProcedure

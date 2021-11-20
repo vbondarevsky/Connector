@@ -48,19 +48,7 @@
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
   <modalityUseMode>DontUse</modalityUseMode>
-  <compatibilityMode>8.3.20</compatibilityMode>
-  <languages uuid="1fe335ee-0a9c-4933-92fc-98e549c9e2c6">
-    <name>English</name>
-    <synonym>
-      <key>ru</key>
-      <value>Английский</value>
-    </synonym>
-    <synonym>
-      <key>en</key>
-      <value>English</value>
-    </synonym>
-    <languageCode>en</languageCode>
-  </languages>
+  <compatibilityMode>8.3.14</compatibilityMode>
   <languages uuid="f58d5f4e-e29f-439e-ae9f-58b2015e0061">
     <name>Russian</name>
     <synonym>
@@ -72,6 +60,18 @@
       <value>Russian</value>
     </synonym>
     <languageCode>ru</languageCode>
+  </languages>
+  <languages uuid="1fe335ee-0a9c-4933-92fc-98e549c9e2c6">
+    <name>English</name>
+    <synonym>
+      <key>en</key>
+      <value>English</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Английский</value>
+    </synonym>
+    <languageCode>en</languageCode>
   </languages>
   <commonModules>CommonModule.HTTPConnector</commonModules>
   <dataProcessors>DataProcessor.Tests</dataProcessors>

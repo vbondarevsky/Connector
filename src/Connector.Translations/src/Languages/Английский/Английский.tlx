@@ -9,10 +9,6 @@
     <key>ru</key>
     <value>Английский</value>
   </synonym>
-  <synonym>
-    <key>en</key>
-    <value>English</value>
-  </synonym>
   <languageCode>en</languageCode>
   <option>MODEL_AND_INTERFACE</option>
 </v8lang:V8TranslateLanguage>

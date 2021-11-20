@@ -2,4 +2,4 @@
 
 Method.ВыполнитьТестыНаСервере.Var.СтрокаТаблицы.NStr.FAIL.Lines=FAIL
 Method.ВыполнитьТестыНаСервере.Var.СтрокаТаблицы.NStr.OK.Lines=OK
-Method.УтверждениеВерно.NStr.<%1>\ не\ равно\ <%2>\:\ %3.Lines=<%1> not equal<%2>\: %3
+Method.УтверждениеВерно.NStr.<%1>\ не\ равно\ <%2>\:\ %3.Lines=<%1> not equal <%2>\: %3
