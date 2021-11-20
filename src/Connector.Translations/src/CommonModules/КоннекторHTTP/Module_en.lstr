@@ -1,0 +1,6 @@
+#Translations for: interface
+
+Method.ВырезатьТекст.NStr.<Данные>.Lines=<Data>
+Method.КакJson.NStr.Ошибка\ при\ десериализации\ JSON\..Lines=Error. Deserialize JSON
+Method.ОтправитьЗапрос.Var.ТекстОшибки.NStr.HTTP\ %1\ %2\nNetwork\ error\:\n%3.Lines=
+Method.ПредставлениеКодаСостоянияHTTP.NStr.%1\:\ Неизвестный\ код\ состояния\ HTTP.Lines=%1\: Unknowk HTTP status code

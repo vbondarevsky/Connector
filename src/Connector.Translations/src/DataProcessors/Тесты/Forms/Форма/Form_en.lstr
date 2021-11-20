@@ -1,0 +1,20 @@
+#Translations for: interface
+
+Attribute.КоличествоТестов.Title=Tests number
+Attribute.Тесты.Title=Tests
+Attribute.Тесты.Использование.Title=Use
+Attribute.Тесты.Ошибка.Title=Error
+Attribute.Тесты.Результат.Title=Result
+Attribute.Тесты.Тест.Title=Test
+Command.ВыполнитьТесты.Title=Run tests
+Command.ВыполнитьТесты.ToolTip=Run tests
+Command.СнятьФлажки.Title=Uncheck all
+Command.УстановитьФлажки.Title=Check all
+Item.Группа1.Title=
+Item.ГруппаЛогинПароль.Title=
+Item.ПроксиПорт.Title=Port
+Item.ПроксиСервер.Title=Host
+Item.СтраницаНастройки.Title=Settings
+Item.СтраницаТесты.Title=Tests
+Item.Страницы.Title=Pages
+Item.Страницы.ToolTip=Pages

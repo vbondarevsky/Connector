@@ -1,0 +1,4 @@
+#Translations for: interface
+
+Method.ВыполнитьТестыНаСервере.Var.СтрокаТаблицы.NStr.FAIL.Lines=FAIL
+Method.ВыполнитьТестыНаСервере.Var.СтрокаТаблицы.NStr.OK.Lines=OK

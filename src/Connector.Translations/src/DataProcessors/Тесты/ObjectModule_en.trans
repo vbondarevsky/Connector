@@ -1,0 +1,4 @@
+#Translations for: model
+
+Method.ВыполнитьТестыНаСервере.Description=Run test cases
+Method.ПолучитьСписокТестов.Description=Return tests list

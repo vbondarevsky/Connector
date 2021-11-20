@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Connector.Translations</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.e1c.langtool.v8.dt.resourcestorage.dependentTranslationBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.e1c.langtool.v8.dt.resourcestorage.dependentSynchronizationBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.e1c.langtool.v8.dt.resourcestorage.dependentProjectNature</nature>
+	</natures>
+</projectDescription>

@@ -1,0 +1,13 @@
+#Translations for: interface
+
+Attribute.ИдентификаторКлючаДоступа.Synonym=Access key ID
+Attribute.Логин.Synonym=Login
+Attribute.Очередь.Synonym=Queue
+Attribute.Пароль.Synonym=Password
+Attribute.ПроксиПорт.Synonym=Proxy port
+Attribute.ПроксиСервер.Synonym=Proxy host
+Attribute.Регион.Synonym=Region
+Attribute.СекретныйКлюч.Synonym=Secret key
+Attribute.ТестироватьСоединениеЧерезПрокси.Synonym=
+Form.Форма.Synonym=Form
+Synonym=Tests
