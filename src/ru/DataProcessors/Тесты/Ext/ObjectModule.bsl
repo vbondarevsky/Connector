@@ -136,10 +136,10 @@
 Процедура Тест_РазобратьURLСоЗнакомРавноВЗначенииПараметраЗапроса() Экспорт
 	
 	СтруктураURL = КоннекторHTTP.РазобратьURL(
-		"https://httpbin.org/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2");
+		"https://connectorhttp.ru/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2");
 	
 	УтверждениеВерно(СтруктураURL.Схема, "https");
-	УтверждениеВерно(СтруктураURL.Сервер, "httpbin.org");
+	УтверждениеВерно(СтруктураURL.Сервер, "connectorhttp.ru");
 	УтверждениеВерно(СтруктураURL.Путь, "/anything");
 	УтверждениеВерно(СтруктураURL.Порт, 0);
 	УтверждениеВерно(СтруктураURL.Фрагмент, "");
@@ -153,10 +153,10 @@
 
 Процедура Тест_РазобратьURLСПараметромЗапросаБезЗначения() Экспорт
 	
-	СтруктураURL = КоннекторHTTP.РазобратьURL("https://httpbin.org/get?key");
+	СтруктураURL = КоннекторHTTP.РазобратьURL("https://connectorhttp.ru/get?key");
 	
 	УтверждениеВерно(СтруктураURL.Схема, "https");
-	УтверждениеВерно(СтруктураURL.Сервер, "httpbin.org");
+	УтверждениеВерно(СтруктураURL.Сервер, "connectorhttp.ru");
 	УтверждениеВерно(СтруктураURL.Путь, "/get");
 	УтверждениеВерно(СтруктураURL.Порт, 0);
 	УтверждениеВерно(СтруктураURL.Фрагмент, "");
@@ -168,10 +168,10 @@
 
 Процедура Тест_РазобратьURLСЯвноЗаданнымПортом() Экспорт
 	
-	СтруктураURL = КоннекторHTTP.РазобратьURL("https://httpbin.org:443/get?key");
+	СтруктураURL = КоннекторHTTP.РазобратьURL("https://connectorhttp.ru:443/get?key");
 	
 	УтверждениеВерно(СтруктураURL.Схема, "https");
-	УтверждениеВерно(СтруктураURL.Сервер, "httpbin.org");
+	УтверждениеВерно(СтруктураURL.Сервер, "connectorhttp.ru");
 	УтверждениеВерно(СтруктураURL.Путь, "/get");
 	УтверждениеВерно(СтруктураURL.Порт, 443);
 	УтверждениеВерно(СтруктураURL.Фрагмент, "");
@@ -183,10 +183,10 @@
 
 Процедура Тест_РазобратьURLСПараметрамиЗапросаСНесколькимиЗначениями() Экспорт
 	
-	СтруктураURL = КоннекторHTTP.РазобратьURL("http://httpbin.org/anything?i=v1&j=w1&j=w2&i=v2&i=v3");
+	СтруктураURL = КоннекторHTTP.РазобратьURL("http://connectorhttp.ru/anything?i=v1&j=w1&j=w2&i=v2&i=v3");
 	
 	УтверждениеВерно(СтруктураURL.Схема, "http");
-	УтверждениеВерно(СтруктураURL.Сервер, "httpbin.org");
+	УтверждениеВерно(СтруктураURL.Сервер, "connectorhttp.ru");
 	УтверждениеВерно(СтруктураURL.Путь, "/anything");
 	УтверждениеВерно(СтруктураURL.Порт, 0);
 	УтверждениеВерно(СтруктураURL.Фрагмент, "");
@@ -326,7 +326,7 @@
 	
 	Прокси = Новый ИнтернетПрокси;
 	Прокси.Установить("http", ПроксиСервер, ПроксиПорт);
-	КоннекторHTTP.GetJson("http://httpbin.org/headers", Неопределено, Новый Структура("Прокси", Прокси));
+	КоннекторHTTP.GetJson("http://connectorhttp.ru/headers", Неопределено, Новый Структура("Прокси", Прокси));
 
 КонецПроцедуры
 
@@ -336,16 +336,16 @@
 	Json = Новый Структура;
 	Json.Вставить("field", "value");
 	Json.Вставить("field2", "value2");
-	Результат = КоннекторHTTP.PostJson("http://httpbin.org/anything", Json, Новый Структура("ПараметрыЗаписиJSON", ПараметрыЗаписиJSON));
+	Результат = КоннекторHTTP.PostJson("http://connectorhttp.ru/anything", Json, Новый Структура("ПараметрыЗаписиJSON", ПараметрыЗаписиJSON));
 	УтверждениеВерно(Результат["data"], "{""field"":""value"",""field2"":""value2""}");
 	
 КонецПроцедуры
 
 Процедура Тест_URLБезСхемы() Экспорт
 	
-	Ответ = КоннекторHTTP.Get("httpbin.org/get");
+	Ответ = КоннекторHTTP.Get("connectorhttp.ru/get");
 	КоннекторHTTP.КакJson(Ответ);
- 	УтверждениеВерно(Ответ.URL, "http://httpbin.org/get");
+ 	УтверждениеВерно(Ответ.URL, "http://connectorhttp.ru/get");
 	
 КонецПроцедуры
 
@@ -356,11 +356,11 @@
 	ПараметрыЗапроса.Вставить("salary", Формат(100000, "ЧГ="));
 	ПараметрыЗапроса.Вставить("time", "01:47");
 	
-	Ответ = КоннекторHTTP.Get("https://httpbin.org/anything/params", ПараметрыЗапроса);	
+	Ответ = КоннекторHTTP.Get("https://connectorhttp.ru/anything/params", ПараметрыЗапроса);	
 	Результат = КоннекторHTTP.КакJson(Ответ);
 	
-	УтверждениеВерно(Ответ.URL, "https://httpbin.org/anything/params?name=%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2&name=%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%B2&salary=100000&time=01%3A47");
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/anything/params?name=Иванов&name=Петров&salary=100000&time=01%3A47");
+	УтверждениеВерно(Ответ.URL, "https://connectorhttp.ru/anything/params?name=%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2&name=%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%B2&salary=100000&time=01%3A47");
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/anything/params?name=Иванов&name=Петров&salary=100000&time=01%3A47");
 	УтверждениеВерно(Результат["args"]["salary"], "100000");
 	УтверждениеВерно(СтрСоединить(Результат["args"]["name"], ","), "Иванов,Петров");
 	УтверждениеВерно(Результат["args"]["time"], "01:47");
@@ -373,7 +373,7 @@
 	ПараметрыЗапроса.Вставить("name", СтрРазделить("Иванов,Петров", ","));
 	ПараметрыЗапроса.Вставить("salary", Формат(100000, "ЧГ="));
 	
-	Результат = КоннекторHTTP.GetJson("https://httpbin.org/anything/params?post=Программист", ПараметрыЗапроса);	
+	Результат = КоннекторHTTP.GetJson("https://connectorhttp.ru/anything/params?post=Программист", ПараметрыЗапроса);	
 	
 	УтверждениеВерно(Результат["args"]["salary"], "100000");
 	УтверждениеВерно(Результат["args"]["post"], "Программист");
@@ -383,21 +383,21 @@
 
 Процедура Тест_РезультатКакJsonGet() Экспорт
 	
-	Результат = КоннекторHTTP.GetJson("https://httpbin.org/get");
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/get");
+	Результат = КоннекторHTTP.GetJson("https://connectorhttp.ru/get");
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/get");
 	
 КонецПроцедуры
 
 Процедура Тест_РезультатКакJsonPost() Экспорт
 	
-	Результат = КоннекторHTTP.КакJson(КоннекторHTTP.Post("https://httpbin.org/post"));
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/post");
+	Результат = КоннекторHTTP.КакJson(КоннекторHTTP.Post("https://connectorhttp.ru/post"));
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/post");
 	
 КонецПроцедуры
 
 Процедура Тест_РезультатКакДвоичныеДанные() Экспорт
 	
-	Результат = КоннекторHTTP.КакДвоичныеДанные(КоннекторHTTP.Get("http://httpbin.org/image/png"));
+	Результат = КоннекторHTTP.КакДвоичныеДанные(КоннекторHTTP.Get("http://connectorhttp.ru/image/png"));
 	
 	УтверждениеВерно(ТипЗнч(Результат), Тип("ДвоичныеДанные"));
 	УтверждениеВерно(ПосчитатьMD5(Результат), "5cca6069f68fbf739fce37e0963f21e7");
@@ -406,7 +406,7 @@
 
 Процедура Тест_РезультатКакТекст() Экспорт
 	
-	Результат = КоннекторHTTP.КакТекст(КоннекторHTTP.Get("http://httpbin.org/encoding/utf8"));
+	Результат = КоннекторHTTP.КакТекст(КоннекторHTTP.Get("http://connectorhttp.ru/encoding/utf8"));
 	УтверждениеВерно(СтрНайти(Результат, "Зарегистрируйтесь сейчас на Десятую Международную"), 3931);
 	
 КонецПроцедуры
@@ -415,7 +415,7 @@
 	
 	Заголовки = Новый Соответствие;
 	Заголовки.Вставить("X-My-Header", "Hello");
-	Результат = КоннекторHTTP.GetJson("http://httpbin.org/headers", Неопределено, Новый Структура("Заголовки", Заголовки));
+	Результат = КоннекторHTTP.GetJson("http://connectorhttp.ru/headers", Неопределено, Новый Структура("Заголовки", Заголовки));
 	
 	УтверждениеВерно(Результат["headers"]["X-My-Header"], "Hello");
 	
@@ -432,8 +432,8 @@
 	Данные.Вставить("size", "medium");
 	Данные.Вставить("topping", СтрРазделить("bacon,mushroom", ","));
 	
-	Ответ = КоннекторHTTP.Post("http://httpbin.org/post", Данные);
-	УтверждениеВерно(Ответ.URL, "http://httpbin.org/post");
+	Ответ = КоннекторHTTP.Post("http://connectorhttp.ru/post", Данные);
+	УтверждениеВерно(Ответ.URL, "http://connectorhttp.ru/post");
 	Результат = КоннекторHTTP.КакJson(Ответ);
 	УтверждениеВерно(Результат["form"]["size"], "medium");
 	УтверждениеВерно(Результат["form"]["comments"], "Постучать в дверь");
@@ -449,12 +449,12 @@
 	Json.Вставить("Сотрудник", "Иванов Иван Петрович");
 	Json.Вставить("Должность", "Разнорабочий");
 	
-	Результат = КоннекторHTTP.PostJson("http://httpbin.org/post", Json);
+	Результат = КоннекторHTTP.PostJson("http://connectorhttp.ru/post", Json);
 	
 	УтверждениеВерно(Результат["json"]["Сотрудник"], "Иванов Иван Петрович");
 	УтверждениеВерно(Результат["json"]["Должность"], "Разнорабочий");
 	
-	Результат = КоннекторHTTP.PutJson("http://httpbin.org/put", Json);
+	Результат = КоннекторHTTP.PutJson("http://connectorhttp.ru/put", Json);
 	УтверждениеВерно(Результат["json"]["Сотрудник"], "Иванов Иван Петрович");
 	УтверждениеВерно(Результат["json"]["Должность"], "Разнорабочий");
 	
@@ -463,7 +463,7 @@
 Процедура Тест_Таймаут() Экспорт
 	
 	Попытка
-		КоннекторHTTP.Get("https://httpbin.org/delay/10", Неопределено, Новый Структура("Таймаут", 1));
+		КоннекторHTTP.Get("https://connectorhttp.ru/delay/10", Неопределено, Новый Структура("Таймаут", 1));
 	Исключение
 		ВерноеИсключение(ИнформацияОбОшибке(), СтрРазделить("Превышено время ожидания|Timeout exceeded", "|"));
 	КонецПопытки;
@@ -472,7 +472,7 @@
 
 Процедура Тест_ПолучитьGZip() Экспорт
 	
-	Результат = КоннекторHTTP.GetJson("http://httpbin.org/gzip");
+	Результат = КоннекторHTTP.GetJson("http://connectorhttp.ru/gzip");
 	УтверждениеВерно(Результат["gzipped"], Истина);
 	
 КонецПроцедуры
@@ -484,7 +484,7 @@
 	Json.Вставить("field2", "value2");
 	Заголовки = Новый Соответствие;
 	Заголовки.Вставить("Content-Encoding", "gzip");
-	Результат = КоннекторHTTP.PostJson("http://httpbin.org/anything", Json, Новый Структура("Заголовки", Заголовки));
+	Результат = КоннекторHTTP.PostJson("http://connectorhttp.ru/anything", Json, Новый Структура("Заголовки", Заголовки));
 	
 	ТелоЗапроса = ПолучитьДвоичныеДанныеИзBase64Строки(СтрРазделить(Результат["data"], ",")[1]);
 	ИсходноеЗначение = КоннекторHTTP.JsonВОбъект(КоннекторHTTP.ПрочитатьGZip(ТелоЗапроса));
@@ -497,13 +497,13 @@
 
 Процедура Тест_BasicAuth() Экспорт
 	
-	Результат = КоннекторHTTP.GetJson("https://user:pass@httpbin.org/basic-auth/user/pass");
+	Результат = КоннекторHTTP.GetJson("https://user:pass@connectorhttp.ru/basic-auth/user/pass");
 	УтверждениеВерно(Результат["authenticated"], Истина);
 	УтверждениеВерно(Результат["user"], "user");
 
 	Аутентификация = Новый Структура("Пользователь, Пароль", "user", "pass");
 	Результат = КоннекторHTTP.GetJson(
-		"https://httpbin.org/basic-auth/user/pass",
+		"https://connectorhttp.ru/basic-auth/user/pass",
 		Неопределено,
 		Новый Структура("Аутентификация", Аутентификация));
 	УтверждениеВерно(Результат["authenticated"], Истина);
@@ -511,7 +511,7 @@
 
 	Аутентификация = Новый Структура("Пользователь, Пароль, Тип", "user", "pass", "Basic");
 	Результат = КоннекторHTTP.GetJson(
-		"https://httpbin.org/basic-auth/user/pass",
+		"https://connectorhttp.ru/basic-auth/user/pass",
 		Неопределено,
 		Новый Структура("Аутентификация", Аутентификация));
 	УтверждениеВерно(Результат["authenticated"], Истина);
@@ -523,7 +523,7 @@
 	
 	Аутентификация = Новый Структура("Пользователь, Пароль, Тип", "user", "pass", "Digest");
 	Результат = КоннекторHTTP.GetJson(
-		"https://httpbin.org/digest-auth/auth/user/pass",
+		"https://connectorhttp.ru/digest-auth/auth/user/pass",
 		Неопределено,
 		Новый Структура("Аутентификация", Аутентификация));
 	УтверждениеВерно(Результат["authenticated"], Истина);
@@ -540,8 +540,8 @@
 
 Процедура Тест_GetJson() Экспорт
 	
-	Результат = КоннекторHTTP.GetJson("https://httpbin.org/get");
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/get");
+	Результат = КоннекторHTTP.GetJson("https://connectorhttp.ru/get");
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/get");
 	
 КонецПроцедуры
 
@@ -549,7 +549,7 @@
 	
 	ПараметрыПреобразованияJSON = Новый Структура("ПрочитатьВСоответствие", Ложь);
 	Результат = КоннекторHTTP.GetJson(
-		"http://httpbin.org/json", Неопределено, Новый Структура("ПараметрыПреобразованияJSON", ПараметрыПреобразованияJSON));
+		"http://connectorhttp.ru/json", Неопределено, Новый Структура("ПараметрыПреобразованияJSON", ПараметрыПреобразованияJSON));
 	УтверждениеВерно(Результат.slideshow.author, "Yours Truly");
 	УтверждениеВерно(Результат.slideshow.date, "date of publication");
 	УтверждениеВерно(Результат.slideshow.slides.Количество(), 2);
@@ -569,10 +569,10 @@
 	Json.Вставить("Строка", "Привет");
 		
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post", 
+		"https://connectorhttp.ru/post", 
 		Json, 
 		Новый Структура("ПараметрыПреобразованияJSON", ПараметрыПреобразованияJSON));
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/post");
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/post");
 	УтверждениеВерно(Результат["json"]["Дата"], '20190121002400');
 	УтверждениеВерно(Результат["json"]["Число"], 5);
 	УтверждениеВерно(Результат["json"]["Булево"], True);
@@ -591,7 +591,7 @@
 	ПараметрыJSON.Вставить("ВариантЗаписиДатыJSON", ПредопределенноеЗначение("ВариантЗаписиДатыJSON.УниверсальнаяДата"));
 
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post",
+		"https://connectorhttp.ru/post",
 		Json,
 		Новый Структура("ПараметрыПреобразованияJSON", ПараметрыJSON));
 
@@ -610,7 +610,7 @@
 	ПараметрыJSON.Вставить("МодульФункцииПреобразования", КоннекторHTTP);
 
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post",
+		"https://connectorhttp.ru/post",
 		Json,
 		Новый Структура("ПараметрыПреобразованияJSON", ПараметрыJSON));
 
@@ -639,7 +639,7 @@
 	ПараметрыJSON.Вставить("ИменаСвойствДляОбработкиВосстановления", СтрРазделить("УникальныйИдентификатор,ДвоичныеДанные", ","));
 
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post",
+		"https://connectorhttp.ru/post",
 		Json,
 		Новый Структура("ПараметрыПреобразованияJSON", ПараметрыJSON));
 
@@ -651,54 +651,54 @@
 
 Процедура Тест_PostИРедирект() Экспорт
 	
-	Ответ = КоннекторHTTP.Get("https://httpbin.org/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301");
+	Ответ = КоннекторHTTP.Get("https://connectorhttp.ru/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301");
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
-	Ответ = КоннекторHTTP.Post("https://httpbin.org/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301");
+	Ответ = КоннекторHTTP.Post("https://connectorhttp.ru/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301");
 	УтверждениеВерно(Ответ.КодСостояния, 403);
 	
 КонецПроцедуры
 
 Процедура Тест_PutJson() Экспорт
 	
-	Результат = КоннекторHTTP.PutJson("https://httpbin.org/put", Новый Структура("Название", "КоннекторHTTP"));
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/put");
+	Результат = КоннекторHTTP.PutJson("https://connectorhttp.ru/put", Новый Структура("Название", "КоннекторHTTP"));
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/put");
 	УтверждениеВерно(Результат["json"]["Название"], "КоннекторHTTP");
 	
 КонецПроцедуры
 
 Процедура Тест_DeleteJson() Экспорт
 	
-	Результат = КоннекторHTTP.DeleteJson("https://httpbin.org/delete", Новый Структура("Название", "КоннекторHTTP"));
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/delete");
+	Результат = КоннекторHTTP.DeleteJson("https://connectorhttp.ru/delete", Новый Структура("Название", "КоннекторHTTP"));
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/delete");
 	УтверждениеВерно(Результат["json"]["Название"], "КоннекторHTTP");
 	
 КонецПроцедуры
 
 Процедура Тест_GetУспешныйРедиректОтносительныйАдрес() Экспорт
 	
-	Ответ = КоннекторHTTP.Get("https://httpbin.org/relative-redirect/6");
+	Ответ = КоннекторHTTP.Get("https://connectorhttp.ru/relative-redirect/6");
 	Результат = КоннекторHTTP.КакJson(Ответ);
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/get");
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/get");
 	
 КонецПроцедуры
 
 Процедура Тест_GetУспешныйРедиректАбсолютныйАдрес() Экспорт
 	
-	Ответ = КоннекторHTTP.Get("http://httpbin.org/absolute-redirect/6");
+	Ответ = КоннекторHTTP.Get("http://connectorhttp.ru/absolute-redirect/6");
 	Результат = КоннекторHTTP.КакJson(Ответ);
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
-	УтверждениеВерно(Результат["url"], "http://httpbin.org/get");
+	УтверждениеВерно(Результат["url"], "http://connectorhttp.ru/get");
 	
 КонецПроцедуры
 
 Процедура Тест_GetЗацикленныйРедирект() Экспорт
 	
 	Попытка
-		КоннекторHTTP.КакJson(КоннекторHTTP.Get("http://httpbin.org/redirect/31"));
+		КоннекторHTTP.КакJson(КоннекторHTTP.Get("http://connectorhttp.ru/redirect/31"));
 	Исключение
 		ВерноеИсключение(ИнформацияОбОшибке(), "СлишкомМногоПеренаправлений");
 	КонецПопытки;
@@ -709,7 +709,7 @@
 	
 	Параметры = Новый Структура("РазрешитьПеренаправление", Ложь);
 	Ответ = КоннекторHTTP.Get(
-		"http://httpbin.org/redirect-to?url=http%3A%2F%2Fhttpbin.org%2Fget&status_code=307",
+		"http://connectorhttp.ru/redirect-to?url=http%3A%2F%2Fconnectorhttp.ru%2Fget&status_code=307",
 		Неопределено,
 		Параметры);
 	
@@ -720,20 +720,20 @@
 Процедура Тест_РедиректСУказаниемURL() Экспорт
 	
 	ПараметрыЗапроса = Новый Структура;
-	ПараметрыЗапроса.Вставить("url", "https://httpbin.org:443/anything");
+	ПараметрыЗапроса.Вставить("url", "https://connectorhttp.ru:443/anything");
 	ПараметрыЗапроса.Вставить("status_code", "307");
 
-	Ответ = КоннекторHTTP.Get("http://httpbin.org:80/redirect-to", ПараметрыЗапроса);
+	Ответ = КоннекторHTTP.Get("http://connectorhttp.ru:80/redirect-to", ПараметрыЗапроса);
 	КоннекторHTTP.КакJson(Ответ);
 
 	УтверждениеВерно(Ответ.КодСостояния, 200);
-	УтверждениеВерно(Ответ.URL, "https://httpbin.org:443/anything");
+	УтверждениеВерно(Ответ.URL, "https://connectorhttp.ru:443/anything");
 	
 КонецПроцедуры
 
 Процедура Тест_Ошибка404() Экспорт
 	
-	Ответ = КоннекторHTTP.Get("http://httpbin.org/status/404");
+	Ответ = КоннекторHTTP.Get("http://connectorhttp.ru/status/404");
 	
 	УтверждениеВерно(Ответ.КодСостояния, 404);
 	
@@ -743,8 +743,8 @@
 	
 	Сессия = КоннекторHTTP.СоздатьСессию();
 	
-	КоннекторHTTP.Get("https://httpbin.org/cookies/set/key/value", Неопределено, Неопределено, Сессия);
-	Результат = КоннекторHTTP.GetJson("https://httpbin.org/cookies", Неопределено, Неопределено, Сессия);
+	КоннекторHTTP.Get("https://connectorhttp.ru/cookies/set/key/value", Неопределено, Неопределено, Сессия);
+	Результат = КоннекторHTTP.GetJson("https://connectorhttp.ru/cookies", Неопределено, Неопределено, Сессия);
 	
 	УтверждениеВерно(Результат["cookies"]["key"], "value"); 
 	
@@ -773,7 +773,7 @@
 
 Процедура Тест_Options() Экспорт
 	
-	Ответ = КоннекторHTTP.Options("http://httpbin.org/anything");
+	Ответ = КоннекторHTTP.Options("http://connectorhttp.ru/anything");
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
@@ -781,7 +781,7 @@
 
 Процедура Тест_Head() Экспорт
 	
-	Ответ = КоннекторHTTP.Head("http://httpbin.org/anything");
+	Ответ = КоннекторHTTP.Head("http://connectorhttp.ru/anything");
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
@@ -789,7 +789,7 @@
 
 Процедура Тест_Delete() Экспорт
 	
-	Ответ = КоннекторHTTP.Delete("http://httpbin.org/delete");
+	Ответ = КоннекторHTTP.Delete("http://connectorhttp.ru/delete");
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
@@ -797,7 +797,7 @@
 
 Процедура Тест_Patch() Экспорт
 	
-	Ответ = КоннекторHTTP.Patch("http://httpbin.org/patch");
+	Ответ = КоннекторHTTP.Patch("http://connectorhttp.ru/patch");
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
@@ -805,7 +805,7 @@
 
 Процедура Тест_ПроизвольныйМетод() Экспорт
 	
-	Ответ = КоннекторHTTP.ВызватьМетод("PATCH", "http://httpbin.org/patch");
+	Ответ = КоннекторHTTP.ВызватьМетод("PATCH", "http://connectorhttp.ru/patch");
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
@@ -814,7 +814,7 @@
 Процедура Тест_УстановкаCookies() Экспорт
 	
 	Результат = КоннекторHTTP.GetJson(
-		"http://httpbin.org/cookies/set?PHPSESSID=72a68cc1e55&cookie1=1&cookie2=2&other=test");
+		"http://connectorhttp.ru/cookies/set?PHPSESSID=72a68cc1e55&cookie1=1&cookie2=2&other=test");
 	
 	УтверждениеВерно(Результат["cookies"]["PHPSESSID"], "72a68cc1e55");
 	УтверждениеВерно(Результат["cookies"]["cookie1"], "1");
@@ -828,7 +828,7 @@
 	Cookies = Новый Массив;
 	Cookies.Добавить(Новый Структура("Наименование,Значение", "k1", Строка(Новый УникальныйИдентификатор)));
 	Cookies.Добавить(Новый Структура("Наименование,Значение", "k2", Строка(Новый УникальныйИдентификатор)));
-	Ответ = КоннекторHTTP.Get("http://httpbin.org/cookies",, Новый Структура("Cookies", Cookies));
+	Ответ = КоннекторHTTP.Get("http://connectorhttp.ru/cookies",, Новый Структура("Cookies", Cookies));
 	Результат = КоннекторHTTP.КакJson(Ответ);
 	
 	УтверждениеВерно(Результат["cookies"]["k1"], Cookies[0].Значение);
@@ -844,7 +844,7 @@
 	Файлы.Вставить("Данные", Base64Значение("0J/RgNC40LLQtdGCLCDQnNC40YA="));
 	Файлы.Вставить("Тип", "text/plain");
 	
-	Результат = КоннекторHTTP.PostJson("https://httpbin.org/post", Неопределено, Новый Структура("Файлы", Файлы));
+	Результат = КоннекторHTTP.PostJson("https://connectorhttp.ru/post", Неопределено, Новый Структура("Файлы", Файлы));
 	
 	УтверждениеВерно(Результат["files"]["f1"], "Привет, Мир");
 	
@@ -858,7 +858,7 @@
 	
 	Данные = Новый Структура("field1,field2", "value1", "Значение2");
 	
-	Результат = КоннекторHTTP.PostJson("https://httpbin.org/post", Неопределено, Новый Структура("Файлы,Данные", Файлы, Данные));
+	Результат = КоннекторHTTP.PostJson("https://connectorhttp.ru/post", Неопределено, Новый Структура("Файлы,Данные", Файлы, Данные));
 	
 	УтверждениеВерно(Результат["files"]["f1"], "file1");
 	УтверждениеВерно(Результат["files"]["f2"], "file2");
@@ -892,7 +892,7 @@
 	ДополнительныеПараметры.Данные.Вставить("field1", "value1");
 	ДополнительныеПараметры.Данные.Вставить("field2", "Значение2"); 
 	
-	Результат = КоннекторHTTP.PostJson("https://httpbin.org/post", Неопределено, ДополнительныеПараметры);
+	Результат = КоннекторHTTP.PostJson("https://connectorhttp.ru/post", Неопределено, ДополнительныеПараметры);
 	
 	УтверждениеВерно(Результат["files"]["f1"], "file1");
 	УтверждениеВерно(Результат["files"]["f2"], "file2");
@@ -905,7 +905,7 @@
 
 Процедура Тест_ПараметрыЗапросаТолькоКлюч() Экспорт
 
-	Результат = КоннекторHTTP.GetJson("https://httpbin.org/get?key");
+	Результат = КоннекторHTTP.GetJson("https://connectorhttp.ru/get?key");
 	УтверждениеВерно(Результат["args"]["key"], "");
 	
 КонецПроцедуры
@@ -1035,7 +1035,7 @@
 Процедура Тест_СложныеПараметрыЗапроса() Экспорт
 
 	Результат = КоннекторHTTP.GetJson(
-		"https://httpbin.org/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2");
+		"https://connectorhttp.ru/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2");
 	УтверждениеВерно(Результат["args"]["jql"], "worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01");
 	УтверждениеВерно(Результат["args"]["j"], "");
 	УтверждениеВерно(Результат["args"]["i"], "2");
@@ -1045,8 +1045,8 @@
 Процедура Тест_PostПустойJson() Экспорт
 	
 	Json = Новый Структура;
-	Результат = КоннекторHTTP.PostJson("https://httpbin.org/post", Json);
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/post");
+	Результат = КоннекторHTTP.PostJson("https://connectorhttp.ru/post", Json);
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/post");
 	УтверждениеВерно(ТипЗнч(Результат["json"]), Тип("Соответствие"));
 	
 КонецПроцедуры
