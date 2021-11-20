@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:Configuration xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="5eb9462b-b393-47be-933f-eee461b0776c">
-  <name>Коннектор</name>
+  <name>Connector</name>
   <synonym>
     <key>ru</key>
     <value>Коннектор</value>
+  </synonym>
+  <synonym>
+    <key>en</key>
+    <value>Connector</value>
   </synonym>
   <comment>Коннектор: удобный HTTP-клиент для 1С:Предприятие 8</comment>
   <containedObjects classId="9cd510cd-abfc-11d4-9434-004095e12fc7" objectId="d50a38bd-46a7-49df-b1c1-97a268165f22"/>
@@ -28,7 +32,7 @@
       <use>true</use>
     </functionality>
   </usedMobileApplicationFunctionalities>
-  <defaultLanguage>Language.Английский</defaultLanguage>
+  <defaultLanguage>Language.English</defaultLanguage>
   <copyright>
     <key>ru</key>
     <value>Copyright © Vladimir Bondarevskiy</value>
@@ -44,23 +48,31 @@
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
   <modalityUseMode>DontUse</modalityUseMode>
-  <compatibilityMode>8.3.10</compatibilityMode>
-  <languages uuid="f58d5f4e-e29f-439e-ae9f-58b2015e0061">
-    <name>Русский</name>
-    <synonym>
-      <key>ru</key>
-      <value>Русский</value>
-    </synonym>
-    <languageCode>ru</languageCode>
-  </languages>
+  <compatibilityMode>8.3.20</compatibilityMode>
   <languages uuid="1fe335ee-0a9c-4933-92fc-98e549c9e2c6">
-    <name>Английский</name>
+    <name>English</name>
     <synonym>
       <key>ru</key>
       <value>Английский</value>
     </synonym>
+    <synonym>
+      <key>en</key>
+      <value>English</value>
+    </synonym>
     <languageCode>en</languageCode>
   </languages>
-  <commonModules>CommonModule.КоннекторHTTP</commonModules>
-  <dataProcessors>DataProcessor.Тесты</dataProcessors>
+  <languages uuid="f58d5f4e-e29f-439e-ae9f-58b2015e0061">
+    <name>Russian</name>
+    <synonym>
+      <key>ru</key>
+      <value>Русский</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Russian</value>
+    </synonym>
+    <languageCode>ru</languageCode>
+  </languages>
+  <commonModules>CommonModule.HTTPConnector</commonModules>
+  <dataProcessors>DataProcessor.Tests</dataProcessors>
 </mdclass:Configuration>

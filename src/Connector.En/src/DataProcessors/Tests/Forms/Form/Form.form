@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>Страницы</name>
+    <name>Pages</name>
     <id>49</id>
     <items xsi:type="form:FormGroup">
-      <name>СтраницаТесты</name>
+      <name>PagesTests</name>
       <id>51</id>
       <items xsi:type="form:Table">
-        <name>Тесты</name>
+        <name>Tests</name>
         <id>55</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -15,11 +15,11 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>Тесты</segments>
+          <segments>Tests</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
-          <name>ТестыИспользование</name>
+          <name>TestsUse</name>
           <id>68</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -27,10 +27,10 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Тесты.Использование</segments>
+            <segments>Tests.Use</segments>
           </dataPath>
           <extendedTooltip>
-            <name>ТестыИспользованиеExtendedTooltip</name>
+            <name>TestsUseExtendedTooltip</name>
             <id>70</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -45,7 +45,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТестыИспользованиеContextMenu</name>
+            <name>TestsUseContextMenu</name>
             <id>69</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -61,7 +61,7 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormField">
-          <name>ТестыResult</name>
+          <name>TestsResult</name>
           <id>74</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -69,10 +69,10 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Тесты.Result</segments>
+            <segments>Tests.Result</segments>
           </dataPath>
           <extendedTooltip>
-            <name>ТестыResultExtendedTooltip</name>
+            <name>TestsResultExtendedTooltip</name>
             <id>76</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -87,7 +87,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТестыResultContextMenu</name>
+            <name>TestsResultContextMenu</name>
             <id>75</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -112,7 +112,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ТестыТест</name>
+          <name>TestsTest</name>
           <id>71</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -120,10 +120,10 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Тесты.Тест</segments>
+            <segments>Tests.Test</segments>
           </dataPath>
           <extendedTooltip>
-            <name>ТестыТестExtendedTooltip</name>
+            <name>TestsTestExtendedTooltip</name>
             <id>73</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -138,7 +138,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТестыТестContextMenu</name>
+            <name>TestsTestContextMenu</name>
             <id>72</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -164,7 +164,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ТестыОшибка</name>
+          <name>TestsError</name>
           <id>77</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -172,10 +172,10 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Тесты.Ошибка</segments>
+            <segments>Tests.Error</segments>
           </dataPath>
           <extendedTooltip>
-            <name>ТестыОшибкаExtendedTooltip</name>
+            <name>TestsErrorExtendedTooltip</name>
             <id>79</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -190,7 +190,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТестыОшибкаContextMenu</name>
+            <name>TestsErrorContextMenu</name>
             <id>78</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -216,10 +216,10 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>ТестыCommandBar</name>
+          <name>TestsCommandBar</name>
           <id>57</id>
           <items xsi:type="form:Button">
-            <name>ТестыУстановитьФлажки</name>
+            <name>TestsCheckAll</name>
             <id>80</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -227,7 +227,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ТестыУстановитьФлажкиExtendedTooltip</name>
+              <name>TestsCheckAllExtendedTooltip</name>
               <id>81</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -241,7 +241,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.УстановитьФлажки</commandName>
+            <commandName>Form.Command.CheckAll</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -250,7 +250,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ТестыСнятьФлажки</name>
+            <name>TestsUncheckAll</name>
             <id>82</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -258,7 +258,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ТестыСнятьФлажкиExtendedTooltip</name>
+              <name>TestsUncheckAllExtendedTooltip</name>
               <id>83</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -272,7 +272,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СнятьФлажки</commandName>
+            <commandName>Form.Command.UncheckAll</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -281,7 +281,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>КомандаВыполнитьТесты</name>
+            <name>CommandRunTests</name>
             <id>1</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -289,7 +289,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>КомандаВыполнитьТестыExtendedTooltip</name>
+              <name>CommandRunTestsExtendedTooltip</name>
               <id>2</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -303,7 +303,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ВыполнитьТесты</commandName>
+            <commandName>Form.Command.RunTests</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -324,10 +324,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТестыSearchString</name>
+          <name>TestsSearchString</name>
           <id>59</id>
           <extendedTooltip>
-            <name>ТестыSearchStringExtendedTooltip</name>
+            <name>TestsSearchStringExtendedTooltip</name>
             <id>61</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -342,7 +342,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТестыSearchStringContextMenu</name>
+            <name>TestsSearchStringContextMenu</name>
             <id>60</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -361,10 +361,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТестыViewStatus</name>
+          <name>TestsViewStatus</name>
           <id>62</id>
           <extendedTooltip>
-            <name>ТестыViewStatusExtendedTooltip</name>
+            <name>TestsViewStatusExtendedTooltip</name>
             <id>64</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -379,7 +379,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТестыViewStatusContextMenu</name>
+            <name>TestsViewStatusContextMenu</name>
             <id>63</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -399,10 +399,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТестыSearchControl</name>
+          <name>TestsSearchControl</name>
           <id>65</id>
           <extendedTooltip>
-            <name>ТестыSearchControlExtendedTooltip</name>
+            <name>TestsSearchControlExtendedTooltip</name>
             <id>67</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -417,7 +417,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТестыSearchControlContextMenu</name>
+            <name>TestsSearchControlContextMenu</name>
             <id>66</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -432,7 +432,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ТестыExtendedTooltip</name>
+          <name>TestsExtendedTooltip</name>
           <id>58</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -447,7 +447,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ТестыContextMenu</name>
+          <name>TestsContextMenu</name>
           <id>56</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -485,8 +485,12 @@
         <key>ru</key>
         <value>Тесты</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Tests</value>
+      </title>
       <extendedTooltip>
-        <name>СтраницаТестыExtendedTooltip</name>
+        <name>PagesTestsExtendedTooltip</name>
         <id>52</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -505,18 +509,18 @@
         <group>Vertical</group>
         <showTitle>true</showTitle>
         <titleDataPath xsi:type="form:DataPath">
-          <segments>КоличествоТестов</segments>
+          <segments>TestsNumber</segments>
         </titleDataPath>
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>СтраницаНастройки</name>
+      <name>PageSettings</name>
       <id>53</id>
       <items xsi:type="form:FormGroup">
-        <name>Группа3</name>
+        <name>Group3</name>
         <id>22</id>
         <items xsi:type="form:FormField">
-          <name>ТестироватьСоединениеЧерезПрокси</name>
+          <name>TestConnectionViaProxy</name>
           <id>3</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -524,15 +528,15 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Object.ТестироватьСоединениеЧерезПрокси</segments>
+            <segments>Object.TestConnectionViaProxy</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <handlers>
             <event>OnChange</event>
-            <name>ТестироватьСоединениеЧерезПроксиOnChange</name>
+            <name>TestConnectionViaProxyOnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ТестироватьСоединениеЧерезПроксиExtendedTooltip</name>
+            <name>TestConnectionViaProxyExtendedTooltip</name>
             <id>5</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -547,7 +551,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТестироватьСоединениеЧерезПроксиContextMenu</name>
+            <name>TestConnectionViaProxyContextMenu</name>
             <id>4</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -564,14 +568,18 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаСерверПорт</name>
+          <name>GroupHostPort</name>
           <id>18</id>
           <items xsi:type="form:FormField">
-            <name>ПроксиСервер</name>
+            <name>ProxyHost</name>
             <id>12</id>
             <title>
               <key>ru</key>
               <value>Сервер</value>
+            </title>
+            <title>
+              <key>en</key>
+              <value>Host</value>
             </title>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -579,10 +587,10 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Object.ПроксиСервер</segments>
+              <segments>Object.ProxyHost</segments>
             </dataPath>
             <extendedTooltip>
-              <name>ПроксиСерверExtendedTooltip</name>
+              <name>ProxyHostExtendedTooltip</name>
               <id>14</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -597,7 +605,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПроксиСерверContextMenu</name>
+              <name>ProxyHostContextMenu</name>
               <id>13</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -621,11 +629,15 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ПроксиПорт</name>
+            <name>ProxyPort</name>
             <id>15</id>
             <title>
               <key>ru</key>
               <value>Порт</value>
+            </title>
+            <title>
+              <key>en</key>
+              <value>Port</value>
             </title>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -633,10 +645,10 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Object.ПроксиПорт</segments>
+              <segments>Object.ProxyPort</segments>
             </dataPath>
             <extendedTooltip>
-              <name>ПроксиПортExtendedTooltip</name>
+              <name>ProxyPortExtendedTooltip</name>
               <id>17</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -651,7 +663,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПроксиПортContextMenu</name>
+              <name>ProxyPortContextMenu</name>
               <id>16</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -684,7 +696,7 @@
             <value>Сервер и порт</value>
           </title>
           <extendedTooltip>
-            <name>ГруппаСерверПортExtendedTooltip</name>
+            <name>GroupHostPortExtendedTooltip</name>
             <id>19</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -717,7 +729,7 @@
           <value>Настройки прокси-сервера</value>
         </title>
         <extendedTooltip>
-          <name>Группа3ExtendedTooltip</name>
+          <name>Group3ExtendedTooltip</name>
           <id>23</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -742,10 +754,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>Группа4</name>
+        <name>Group4</name>
         <id>27</id>
         <items xsi:type="form:FormField">
-          <name>ТестироватьПолучениеСпискаРелизовВСайта1С</name>
+          <name>TestReceivingReleasesListFrom1CSite</name>
           <id>24</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -753,15 +765,15 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Object.ТестироватьПолучениеСпискаРелизовВСайта1С</segments>
+            <segments>Object.TestReceivingReleasesListFrom1CSite</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <handlers>
             <event>OnChange</event>
-            <name>ТестироватьПолучениеСпискаРелизовВСайта1СOnChange</name>
+            <name>TestReceivingReleasesListFrom1CSiteOnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ТестироватьПолучениеСпискаРелизовВСайта1СExtendedTooltip</name>
+            <name>TestReceivingReleasesListFrom1CSiteExtendedTooltip</name>
             <id>26</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -776,7 +788,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТестироватьПолучениеСпискаРелизовВСайта1СContextMenu</name>
+            <name>TestReceivingReleasesListFrom1CSiteContextMenu</name>
             <id>25</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -793,10 +805,10 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаЛогинПароль</name>
+          <name>GroupLoginPassword</name>
           <id>20</id>
           <items xsi:type="form:FormField">
-            <name>Логин</name>
+            <name>Login</name>
             <id>6</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -804,10 +816,10 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Object.Логин</segments>
+              <segments>Object.Login</segments>
             </dataPath>
             <extendedTooltip>
-              <name>ЛогинExtendedTooltip</name>
+              <name>LoginExtendedTooltip</name>
               <id>8</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -822,7 +834,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ЛогинContextMenu</name>
+              <name>LoginContextMenu</name>
               <id>7</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -905,7 +917,7 @@
             <value>Логин и пароль</value>
           </title>
           <extendedTooltip>
-            <name>ГруппаЛогинПарольExtendedTooltip</name>
+            <name>GroupLoginPasswordExtendedTooltip</name>
             <id>21</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -938,7 +950,7 @@
           <value>Настройки аутентификации на сайтах 1С</value>
         </title>
         <extendedTooltip>
-          <name>Группа4ExtendedTooltip</name>
+          <name>Group4ExtendedTooltip</name>
           <id>28</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -963,10 +975,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>Группа1</name>
+        <name>Group1</name>
         <id>29</id>
         <items xsi:type="form:FormField">
-          <name>ТестироватьАутентификациюAWS4_HMAC_SHA256</name>
+          <name>TestAuthentificationAWS4_HMAC_SHA256</name>
           <id>31</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -974,15 +986,15 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Object.ТестироватьАутентификациюAWS4_HMAC_SHA256</segments>
+            <segments>Object.TestAuthentificationAWS4_HMAC_SHA256</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <handlers>
             <event>OnChange</event>
-            <name>ТестироватьАутентификациюAWS4_HMAC_SHA256OnChange</name>
+            <name>TestAuthentificationAWS4_HMAC_SHA256OnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ТестироватьАутентификациюAWS4_HMAC_SHA256ExtendedTooltip</name>
+            <name>TestAuthentificationAWS4_HMAC_SHA256ExtendedTooltip</name>
             <id>33</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -997,7 +1009,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТестироватьАутентификациюAWS4_HMAC_SHA256ContextMenu</name>
+            <name>TestAuthentificationAWS4_HMAC_SHA256ContextMenu</name>
             <id>32</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1164,7 +1176,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>Очередь</name>
+          <name>Queue</name>
           <id>46</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1172,10 +1184,10 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Object.Очередь</segments>
+            <segments>Object.Queue</segments>
           </dataPath>
           <extendedTooltip>
-            <name>ОчередьExtendedTooltip</name>
+            <name>QueueExtendedTooltip</name>
             <id>48</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1190,7 +1202,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ОчередьContextMenu</name>
+            <name>QueueContextMenu</name>
             <id>47</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1223,7 +1235,7 @@
           <value>Настройки аутентификации AWS4-HMAC-SHA256</value>
         </title>
         <extendedTooltip>
-          <name>Группа1ExtendedTooltip</name>
+          <name>Group1ExtendedTooltip</name>
           <id>30</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1249,7 +1261,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ТестироватьПовторы</name>
+        <name>TestRetries</name>
         <id>89</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1257,15 +1269,15 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>Object.ТестироватьПовторы</segments>
+          <segments>Object.TestRetries</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <handlers>
           <event>OnChange</event>
-          <name>ТестироватьПовторыOnChange</name>
+          <name>TestRetriesOnChange</name>
         </handlers>
         <extendedTooltip>
-          <name>ТестироватьПовторыExtendedTooltip</name>
+          <name>TestRetriesExtendedTooltip</name>
           <id>91</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1280,7 +1292,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ТестироватьПовторыContextMenu</name>
+          <name>TestRetriesContextMenu</name>
           <id>90</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1305,8 +1317,12 @@
         <key>ru</key>
         <value>Настройки</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Settings</value>
+      </title>
       <extendedTooltip>
-        <name>СтраницаНастройкиExtendedTooltip</name>
+        <name>PageSettingsExtendedTooltip</name>
         <id>54</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1335,12 +1351,20 @@
       <key>ru</key>
       <value>Страницы</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Pages</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Страницы</value>
     </toolTip>
+    <toolTip>
+      <key>en</key>
+      <value>Pages</value>
+    </toolTip>
     <extendedTooltip>
-      <name>СтраницыExtendedTooltip</name>
+      <name>PagesExtendedTooltip</name>
       <id>50</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1391,7 +1415,7 @@
     <name>Object</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.Тесты</types>
+      <types>DataProcessorObject.Tests</types>
     </valueType>
     <view>
       <common>true</common>
@@ -1406,19 +1430,19 @@
       <segments>Object.AccessKeyID</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Object.Логин</segments>
+      <segments>Object.Login</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Object.Очередь</segments>
+      <segments>Object.Queue</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
       <segments>Object.Password</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Object.ПроксиПорт</segments>
+      <segments>Object.ProxyPort</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Object.ПроксиСервер</segments>
+      <segments>Object.ProxyHost</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
       <segments>Object.Region</segments>
@@ -1427,21 +1451,25 @@
       <segments>Object.SecretKey</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Object.ТестироватьАутентификациюAWS4_HMAC_SHA256</segments>
+      <segments>Object.TestAuthentificationAWS4_HMAC_SHA256</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Object.ТестироватьПолучениеСпискаРелизовВСайта1С</segments>
+      <segments>Object.TestReceivingReleasesListFrom1CSite</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Object.ТестироватьСоединениеЧерезПрокси</segments>
+      <segments>Object.TestConnectionViaProxy</segments>
     </settingsSavedData>
     <main>true</main>
   </attributes>
   <attributes>
-    <name>Тесты</name>
+    <name>Tests</name>
     <title>
       <key>ru</key>
       <value>Тесты</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Tests</value>
     </title>
     <id>2</id>
     <valueType>
@@ -1454,10 +1482,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Использование</name>
+      <name>Use</name>
       <title>
         <key>ru</key>
         <value>Использование</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Use</value>
       </title>
       <id>1</id>
       <valueType>
@@ -1471,10 +1503,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Тест</name>
+      <name>Test</name>
       <title>
         <key>ru</key>
         <value>Тест</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Test</value>
       </title>
       <id>2</id>
       <valueType>
@@ -1494,6 +1530,10 @@
         <key>ru</key>
         <value>Результат</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Result</value>
+      </title>
       <id>3</id>
       <valueType>
         <types>String</types>
@@ -1509,10 +1549,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Ошибка</name>
+      <name>Error</name>
       <title>
         <key>ru</key>
         <value>Ошибка</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Error</value>
       </title>
       <id>4</id>
       <valueType>
@@ -1528,10 +1572,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>КоличествоТестов</name>
+    <name>TestsNumber</name>
     <title>
       <key>ru</key>
       <value>Количество тестов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Tests number</value>
     </title>
     <id>3</id>
     <valueType>
@@ -1548,31 +1596,43 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ВыполнитьТесты</name>
+    <name>RunTests</name>
     <title>
       <key>ru</key>
       <value>Выполнить тесты</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Run tests</value>
     </title>
     <id>1</id>
     <toolTip>
       <key>ru</key>
       <value>Выполнить тесты</value>
     </toolTip>
+    <toolTip>
+      <key>en</key>
+      <value>Run tests</value>
+    </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыполнитьТесты</name>
+        <name>RunTests</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УстановитьФлажки</name>
+    <name>CheckAll</name>
     <title>
       <key>ru</key>
       <value>Установить флажки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Check all</value>
     </title>
     <id>2</id>
     <use>
@@ -1583,16 +1643,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УстановитьФлажки</name>
+        <name>CheckAll</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СнятьФлажки</name>
+    <name>UncheckAll</name>
     <title>
       <key>ru</key>
       <value>Снять флажки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Uncheck all</value>
     </title>
     <id>3</id>
     <use>
@@ -1603,7 +1667,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СнятьФлажки</name>
+        <name>UncheckAll</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

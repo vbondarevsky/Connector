@@ -4,15 +4,19 @@
     <objectType typeId="db95de9a-fdcb-4678-a4ee-30a96a56d24d" valueTypeId="1f2fd82a-86b0-43b8-8676-bb2f0a8c1a82"/>
     <managerType typeId="0a5dcfd0-7fd0-4ad1-aa1a-05ce9d85af61" valueTypeId="c168d927-e9dc-40a2-a254-68120948ef2c"/>
   </producedTypes>
-  <name>Тесты</name>
+  <name>Tests</name>
   <synonym>
     <key>ru</key>
     <value>Тесты</value>
   </synonym>
+  <synonym>
+    <key>en</key>
+    <value>Tests</value>
+  </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.Тесты.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.Tests.Form.Form</defaultForm>
   <attributes uuid="bc78802e-7df5-4ecd-ac11-cfd5db1a3626">
-    <name>ТестироватьСоединениеЧерезПрокси</name>
+    <name>TestConnectionViaProxy</name>
     <synonym>
       <key>ru</key>
       <value>Тестировать соединение через прокси</value>
@@ -24,10 +28,14 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="405017db-c167-4abd-a364-915a8e50be0f">
-    <name>Логин</name>
+    <name>Login</name>
     <synonym>
       <key>ru</key>
       <value>Логин</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Login</value>
     </synonym>
     <type>
       <types>String</types>
@@ -37,10 +45,14 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="cac557df-1b23-4737-bd0a-d2a9a7405a0e">
-    <name>Пароль</name>
+    <name>Password</name>
     <synonym>
       <key>ru</key>
       <value>Пароль</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Password</value>
     </synonym>
     <type>
       <types>String</types>
@@ -50,10 +62,14 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="77acbf78-dd8f-49e7-babb-6b6738a2d29c">
-    <name>ПроксиСервер</name>
+    <name>ProxyHost</name>
     <synonym>
       <key>ru</key>
       <value>Прокси сервер</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Proxy host</value>
     </synonym>
     <type>
       <types>String</types>
@@ -63,10 +79,14 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="522cd04b-e8e9-4781-b59e-e4dfc3968042">
-    <name>ПроксиПорт</name>
+    <name>ProxyPort</name>
     <synonym>
       <key>ru</key>
       <value>Прокси порт</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Proxy port</value>
     </synonym>
     <type>
       <types>Number</types>
@@ -78,7 +98,7 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="c3e490e6-cede-4859-b915-e5b4965f2f9b">
-    <name>ТестироватьПолучениеСпискаРелизовВСайта1С</name>
+    <name>TestReceivingReleasesListFrom1CSite</name>
     <synonym>
       <key>ru</key>
       <value>Тестировать получение списка релизов в сайта 1С</value>
@@ -90,10 +110,14 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="7b9ca888-a35e-4a72-8683-878dec6491d9">
-    <name>ИдентификаторКлючаДоступа</name>
+    <name>AccessKeyID</name>
     <synonym>
       <key>ru</key>
       <value>Идентификатор ключа доступа</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Access key ID</value>
     </synonym>
     <type>
       <types>String</types>
@@ -103,10 +127,14 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="d38084ae-72a0-47f8-b389-d341b921e593">
-    <name>СекретныйКлюч</name>
+    <name>SecretKey</name>
     <synonym>
       <key>ru</key>
       <value>Секретный ключ</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Secret key</value>
     </synonym>
     <type>
       <types>String</types>
@@ -116,10 +144,14 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="3c8913f5-f8c1-4db2-ba1e-474c527e1e64">
-    <name>Регион</name>
+    <name>Region</name>
     <synonym>
       <key>ru</key>
       <value>Регион</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Region</value>
     </synonym>
     <type>
       <types>String</types>
@@ -129,7 +161,7 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="9df47f5e-05fc-44f9-95f5-4bd41a64548c">
-    <name>ТестироватьАутентификациюAWS4_HMAC_SHA256</name>
+    <name>TestAuthentificationAWS4_HMAC_SHA256</name>
     <synonym>
       <key>ru</key>
       <value>Тестировать аутентификацию AWS4-HMAC-SHA256</value>
@@ -141,10 +173,14 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="98dcf63b-5670-42dd-9095-95026b07b4cf">
-    <name>Очередь</name>
+    <name>Queue</name>
     <synonym>
       <key>ru</key>
       <value>Очередь</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Queue</value>
     </synonym>
     <type>
       <types>String</types>
@@ -154,7 +190,7 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="5d607937-2d04-4ff3-b7b6-321b542d93d8">
-    <name>ТестироватьПовторы</name>
+    <name>TestRetries</name>
     <synonym>
       <key>ru</key>
       <value>Тестировать повторы</value>
@@ -166,10 +202,14 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <forms uuid="635599bb-3b26-4761-a94c-b970522231bf">
-    <name>Форма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
       <value>Форма</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
