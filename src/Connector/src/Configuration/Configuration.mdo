@@ -13,6 +13,7 @@
   <containedObjects classId="51f2d5d8-ea4d-4064-8892-82951750031e" objectId="9fc91246-6ff2-4db0-8b45-c5f90ec6f132"/>
   <containedObjects classId="e68182ea-4237-4383-967f-90c1e3370bc7" objectId="c28c44f7-ecfb-4a4b-95c6-09f095a24db3"/>
   <containedObjects classId="fb282519-d103-4dd3-bc12-cb271d631dfc" objectId="68c9e8ac-78c1-4f6b-a679-77a7e3e0372d"/>
+  <configurationExtensionCompatibilityMode>8.3.20</configurationExtensionCompatibilityMode>
   <defaultRunMode>ManagedApplication</defaultRunMode>
   <usePurposes>PersonalComputer</usePurposes>
   <usePurposes>MobileDevice</usePurposes>
