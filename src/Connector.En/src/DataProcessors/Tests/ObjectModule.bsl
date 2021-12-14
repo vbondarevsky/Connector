@@ -140,10 +140,10 @@ EndFunction
 Procedure Test_ParseURLWithEqualSignInRequestParameterValue() Export
 	
 	URLComposition = HTTPConnector.ParseURL(
-		"https://httpbin.org/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2"); //@non-nls-1
+		"https://connectorhttp.ru/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2"); //@non-nls-1
 	
 	AssertEquals(URLComposition.Scheme, "https"); //@non-nls-1
-	AssertEquals(URLComposition.Host, "httpbin.org"); //@non-nls-1
+	AssertEquals(URLComposition.Host, "connectorhttp.ru"); //@non-nls-1
 	AssertEquals(URLComposition.Path, "/anything"); //@non-nls-1
 	AssertEquals(URLComposition.Port, 0);
 	AssertEquals(URLComposition.Fragment, "");
@@ -157,10 +157,10 @@ EndProcedure
 
 Procedure Test_ParseURLWithRequestParameterWithoutValue() Export
 	
-	URLComposition = HTTPConnector.ParseURL("https://httpbin.org/get?key"); //@non-nls-1
+	URLComposition = HTTPConnector.ParseURL("https://connectorhttp.ru/get?key"); //@non-nls-1
 	
 	AssertEquals(URLComposition.Scheme, "https"); //@non-nls-1
-	AssertEquals(URLComposition.Host, "httpbin.org"); //@non-nls-1
+	AssertEquals(URLComposition.Host, "connectorhttp.ru"); //@non-nls-1
 	AssertEquals(URLComposition.Path, "/get"); //@non-nls-1
 	AssertEquals(URLComposition.Port, 0);
 	AssertEquals(URLComposition.Fragment, "");
@@ -172,10 +172,10 @@ EndProcedure
 
 Procedure Test_ParseURLWithPortDefinedExplicit() Export
 	
-	URLComposition = HTTPConnector.ParseURL("https://httpbin.org:443/get?key"); //@non-nls-1
+	URLComposition = HTTPConnector.ParseURL("https://connectorhttp.ru:443/get?key"); //@non-nls-1
 	
 	AssertEquals(URLComposition.Scheme, "https"); //@non-nls-1
-	AssertEquals(URLComposition.Host, "httpbin.org"); //@non-nls-1
+	AssertEquals(URLComposition.Host, "connectorhttp.ru"); //@non-nls-1
 	AssertEquals(URLComposition.Path, "/get"); //@non-nls-1
 	AssertEquals(URLComposition.Port, 443);
 	AssertEquals(URLComposition.Fragment, "");
@@ -187,10 +187,10 @@ EndProcedure
 
 Procedure Test_ParseURLWithRequestParametersWithSomeValues() Export
 	
-	URLComposition = HTTPConnector.ParseURL("http://httpbin.org/anything?i=v1&j=w1&j=w2&i=v2&i=v3"); //@non-nls-1
+	URLComposition = HTTPConnector.ParseURL("http://connectorhttp.ru/anything?i=v1&j=w1&j=w2&i=v2&i=v3"); //@non-nls-1
 	
 	AssertEquals(URLComposition.Scheme, "http"); //@non-nls-1
-	AssertEquals(URLComposition.Host, "httpbin.org"); //@non-nls-1
+	AssertEquals(URLComposition.Host, "connectorhttp.ru"); //@non-nls-1
 	AssertEquals(URLComposition.Path, "/anything"); //@non-nls-1
 	AssertEquals(URLComposition.Port, 0);
 	AssertEquals(URLComposition.Fragment, "");
@@ -331,7 +331,7 @@ Procedure Test_ConnectionViaProxy() Export
 	Proxy = New InternetProxy;
 	Proxy.Set("http", ProxyHost, ProxyPort); //@non-nls-1
 	HTTPConnector.GetJson(
-		"http://httpbin.org/headers", //@non-nls-1
+		"http://connectorhttp.ru/headers", //@non-nls-1
 		Undefined,
 		New Structure("Proxy", Proxy)
 	);
@@ -345,7 +345,7 @@ Procedure Тест_JsonWritingSettings() Export
 	Json.Insert("field", "value"); //@non-nls-1 //@non-nls-2
 	Json.Insert("field2", "value2"); //@non-nls-1 //@non-nls-2
 	Result = HTTPConnector.PostJson(
-		"http://httpbin.org/anything", //@non-nls-1
+		"http://connectorhttp.ru/anything", //@non-nls-1
 		Json,
 		New Structure("JSONWriterSettings", JSONWriterSettings)
 	);
@@ -355,9 +355,9 @@ EndProcedure
 
 Procedure Test_URLWithoutScheme() Export
 	
-	Response = HTTPConnector.Get("httpbin.org/get"); //@non-nls-1
+	Response = HTTPConnector.Get("connectorhttp.ru/get"); //@non-nls-1
 	HTTPConnector.AsJson(Response);
- 	AssertEquals(Response.URL, "http://httpbin.org/get"); //@non-nls-1
+ 	AssertEquals(Response.URL, "http://connectorhttp.ru/get"); //@non-nls-1
 	
 EndProcedure
 
@@ -368,11 +368,11 @@ Procedure Test_TransferParametersToRequestString() Export
 	RequestParameters.Insert("salary", Format(100000, "NG=")); //@non-nls-1
 	RequestParameters.Insert("time", "01:47"); //@non-nls-1
 	
-	Response = HTTPConnector.Get("https://httpbin.org/anything/params", RequestParameters);//@non-nls-1
+	Response = HTTPConnector.Get("https://connectorhttp.ru/anything/params", RequestParameters);//@non-nls-1
 	Result = HTTPConnector.AsJson(Response);
 	
-	AssertEquals(Response.URL, "https://httpbin.org/anything/params?name=%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2&name=%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%B2&salary=100000&time=01%3A47"); //@non-nls-1
-	AssertEquals(Result["url"], "https://httpbin.org/anything/params?name=Иванов&name=Петров&salary=100000&time=01%3A47"); //@non-nls-1 //@non-nls-2
+	AssertEquals(Response.URL, "https://connectorhttp.ru/anything/params?name=%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2&name=%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%B2&salary=100000&time=01%3A47"); //@non-nls-1
+	AssertEquals(Result["url"], "https://connectorhttp.ru/anything/params?name=Иванов&name=Петров&salary=100000&time=01%3A47"); //@non-nls-1 //@non-nls-2
 	AssertEquals(Result["args"]["salary"], "100000"); //@non-nls-1 //@non-nls-2
 	AssertEquals(StrConcat(Result["args"]["name"], ","), "Иванов,Петров"); //@non-nls-1 //@non-nls-2 //@non-nls-4
 	AssertEquals(Result["args"]["time"], "01:47"); //@non-nls-1 //@non-nls-2
@@ -385,7 +385,7 @@ Procedure Test_TransferParametersToRequestStringCombined() Export
 	RequestParameters.Insert("name", StrSplit("Иванов,Петров", ",")); //@non-nls-1 //@non-nls-2
 	RequestParameters.Insert("salary", Format(100000, "NG=")); //@non-nls-1
 	
-	Result = HTTPConnector.GetJson("https://httpbin.org/anything/params?post=Программист", RequestParameters); //@non-nls-1
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/anything/params?post=Программист", RequestParameters); //@non-nls-1
 	
 	AssertEquals(Result["args"]["salary"], "100000"); //@non-nls-1 //@non-nls-2
 	AssertEquals(Result["args"]["post"], "Программист"); //@non-nls-1 //@non-nls-2 //@non-nls-3
@@ -395,21 +395,21 @@ EndProcedure
 
 Procedure Test_ResultAsJsonGet() Export
 	
-	Result = HTTPConnector.GetJson("https://httpbin.org/get"); //@non-nls-1
-	AssertEquals(Result["url"], "https://httpbin.org/get"); //@non-nls-1 //@non-nls-2
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/get"); //@non-nls-1
+	AssertEquals(Result["url"], "https://connectorhttp.ru/get"); //@non-nls-1 //@non-nls-2
 	
 EndProcedure
 
 Procedure Test_ResultAsJsonPost() Export
 	
-	Result = HTTPConnector.AsJson(HTTPConnector.Post("https://httpbin.org/post")); //@non-nls-1
-	AssertEquals(Result["url"], "https://httpbin.org/post"); //@non-nls-1 //@non-nls-2
+	Result = HTTPConnector.AsJson(HTTPConnector.Post("https://connectorhttp.ru/post")); //@non-nls-1
+	AssertEquals(Result["url"], "https://connectorhttp.ru/post"); //@non-nls-1 //@non-nls-2
 	
 EndProcedure
 
 Procedure Test_ResultAsBinaryData() Export
 	
-	Result = HTTPConnector.AsBinaryData(HTTPConnector.Get("http://httpbin.org/image/png")); //@non-nls-1
+	Result = HTTPConnector.AsBinaryData(HTTPConnector.Get("http://connectorhttp.ru/image/png")); //@non-nls-1
 	
 	AssertEquals(TypeOf(Result), Type("BinaryData"));
 	AssertEquals(CalculateMD5(Result), "5cca6069f68fbf739fce37e0963f21e7"); //@non-nls-1
@@ -418,7 +418,7 @@ EndProcedure
 
 Procedure Test_ResultAsText() Export
 	
-	Result = HTTPConnector.AsText(HTTPConnector.Get("http://httpbin.org/encoding/utf8")); //@non-nls-1
+	Result = HTTPConnector.AsText(HTTPConnector.Get("http://connectorhttp.ru/encoding/utf8")); //@non-nls-1
 	AssertEquals(StrFind(Result, "Зарегистрируйтесь сейчас на Десятую Международную"), 3931); //@non-nls-1
 	
 EndProcedure
@@ -428,7 +428,7 @@ Procedure Test_TransferArbitraryHeaders() Export
 	Headers = New Map;
 	Headers.Insert("X-My-Header", "Hello"); //@non-nls-1 //@non-nls-2
 	Result = HTTPConnector.GetJson(
-		"http://httpbin.org/headers", //@non-nls-1
+		"http://connectorhttp.ru/headers", //@non-nls-1
 		Undefined,
 		New Structure("Headers", Headers)
 	);
@@ -448,8 +448,8 @@ Procedure Test_FormDataSending() Export
 	Data.Insert("size", "medium"); //@non-nls-1 //@non-nls-2
 	Data.Insert("topping", StrSplit("bacon,mushroom", ",")); //@non-nls-1 //@non-nls-2
 	
-	Response = HTTPConnector.Post("http://httpbin.org/post", Data); //@non-nls-1
-	AssertEquals(Response.URL, "http://httpbin.org/post"); //@non-nls-1
+	Response = HTTPConnector.Post("http://connectorhttp.ru/post", Data); //@non-nls-1
+	AssertEquals(Response.URL, "http://connectorhttp.ru/post"); //@non-nls-1
 	Result = HTTPConnector.AsJson(Response);
 	AssertEquals(Result["form"]["size"], "medium"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	AssertEquals(Result["form"]["comments"], "Постучать в дверь"); //@non-nls-1 //@non-nls-2 //@non-nls-3
@@ -465,12 +465,12 @@ Procedure Test_JsonSending() Export
 	Json.Insert("Сотрудник", "Иванов Иван Петрович"); //@non-nls-1 //@non-nls-2
 	Json.Insert("Должность", "Разнорабочий"); //@non-nls-1 //@non-nls-2
 	
-	Result = HTTPConnector.PostJson("http://httpbin.org/post", Json); //@non-nls-1
+	Result = HTTPConnector.PostJson("http://connectorhttp.ru/post", Json); //@non-nls-1
 	
 	AssertEquals(Result["json"]["Сотрудник"], "Иванов Иван Петрович"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	AssertEquals(Result["json"]["Должность"], "Разнорабочий"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
-	Result = HTTPConnector.PutJson("http://httpbin.org/put", Json); //@non-nls-1
+	Result = HTTPConnector.PutJson("http://connectorhttp.ru/put", Json); //@non-nls-1
 	AssertEquals(Result["json"]["Сотрудник"], "Иванов Иван Петрович"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	AssertEquals(Result["json"]["Должность"], "Разнорабочий"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
@@ -480,7 +480,7 @@ Procedure Test_Timeout() Export
 	
 	Try
 		HTTPConnector.Get(
-			"https://httpbin.org/delay/10", //@non-nls-1
+			"https://connectorhttp.ru/delay/10", //@non-nls-1
 			Undefined,
 			New Structure("Timeout", 1)
 		);
@@ -495,7 +495,7 @@ EndProcedure
 
 Procedure Test_ReceiveGZip() Export
 	
-	Result = HTTPConnector.GetJson("http://httpbin.org/gzip"); //@non-nls-1
+	Result = HTTPConnector.GetJson("http://connectorhttp.ru/gzip"); //@non-nls-1
 	AssertEquals(Result["gzipped"], True); //@non-nls-1
 	
 EndProcedure
@@ -508,7 +508,7 @@ Procedure Test_SendGZip() Export
 	Headers = New Map;
 	Headers.Insert("Content-Encoding", "gzip"); //@non-nls-1 //@non-nls-2
 	Result = HTTPConnector.PostJson(
-		"http://httpbin.org/anything", //@non-nls-1
+		"http://connectorhttp.ru/anything", //@non-nls-1
 		Json,
 		New Structure("Headers", Headers)
 	);
@@ -526,7 +526,7 @@ EndProcedure
 
 Procedure Test_BasicAuth() Export
 	
-	Result = HTTPConnector.GetJson("https://user:pass@httpbin.org/basic-auth/user/pass"); //@non-nls-1
+	Result = HTTPConnector.GetJson("https://user:pass@connectorhttp.ru/basic-auth/user/pass"); //@non-nls-1
 	AssertEquals(Result["authenticated"], True); //@non-nls-1
 	AssertEquals(Result["user"], "user"); //@non-nls-1 //@non-nls-2
 
@@ -535,7 +535,7 @@ Procedure Test_BasicAuth() Export
 	Authentication.Password = "pass"; //@non-nls-1
 	
 	Result = HTTPConnector.GetJson(
-		"https://httpbin.org/basic-auth/user/pass", //@non-nls-1
+		"https://connectorhttp.ru/basic-auth/user/pass", //@non-nls-1
 		Undefined,
 		New Structure("Authentication", Authentication));
 	AssertEquals(Result["authenticated"], True); //@non-nls-1
@@ -547,7 +547,7 @@ Procedure Test_BasicAuth() Export
 	Authentication.Password = "pass"; //@non-nls-1
 	
 	Result = HTTPConnector.GetJson(
-		"https://httpbin.org/basic-auth/user/pass", //@non-nls-1
+		"https://connectorhttp.ru/basic-auth/user/pass", //@non-nls-1
 		Undefined,
 		New Structure("Authentication", Authentication));
 	AssertEquals(Result["authenticated"], True); //@non-nls-1
@@ -562,7 +562,7 @@ Procedure Test_DigestAuth() Export
 	Authentication.Password = "pass"; //@non-nls-1
 	
 	Result = HTTPConnector.GetJson(
-		"https://httpbin.org/digest-auth/auth/user/pass", //@non-nls-1
+		"https://connectorhttp.ru/digest-auth/auth/user/pass", //@non-nls-1
 		Undefined,
 		New Structure("Authentication", Authentication)
 	);
@@ -583,8 +583,8 @@ EndProcedure
 
 Procedure Test_GetJson() Export
 	
-	Result = HTTPConnector.GetJson("https://httpbin.org/get"); //@non-nls-1
-	AssertEquals(Result["url"], "https://httpbin.org/get"); //@non-nls-1 //@non-nls-2
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/get"); //@non-nls-1
+	AssertEquals(Result["url"], "https://connectorhttp.ru/get"); //@non-nls-1 //@non-nls-2
 	
 EndProcedure
 
@@ -592,7 +592,7 @@ Procedure Тест_GetJsonСтруктура() Export
 	
 	JSONConversionParameters = New Structure("ReadToMap", False);
 	Result = HTTPConnector.GetJson(
-		"http://httpbin.org/json", //@non-nls-1
+		"http://connectorhttp.ru/json", //@non-nls-1
 		Undefined,
 		New Structure("JSONConversionParameters", JSONConversionParameters)
 	);
@@ -615,11 +615,11 @@ Procedure Test_PostJson() Export
 	Json.Insert("Строка", "Привет"); //@non-nls-1 //@non-nls-2
 		
 	Result = HTTPConnector.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Json, 
 		New Structure("JSONConversionParameters", JSONConversionParameters)
 	);
-	AssertEquals(Result["url"], "https://httpbin.org/post"); //@non-nls-1 //@non-nls-2
+	AssertEquals(Result["url"], "https://connectorhttp.ru/post"); //@non-nls-1 //@non-nls-2
 	AssertEquals(Result["json"]["Дата"], '20190121002400'); //@non-nls-1 //@non-nls-2
 	AssertEquals(Result["json"]["Число"], 5); //@non-nls-1 //@non-nls-2
 	AssertEquals(Result["json"]["Булево"], True); //@non-nls-1 //@non-nls-2
@@ -638,7 +638,7 @@ Procedure Test_VerifyConversionJSONDateWritingVariant() Export
 	JSONParameters.Insert("JSONDateWritingVariant", PredefinedValue("JSONDateWritingVariant.UniversalDate"));
 
 	Result = HTTPConnector.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Json,
 		New Structure("JSONConversionParameters", JSONParameters)
 	);
@@ -661,7 +661,7 @@ Procedure Test_VerifyConversionToJsonNotSerializedValues() Export
 	JSONParameters.Insert("ConvertionFunctionModule", HTTPConnector);
 
 	Result = HTTPConnector.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Json,
 		New Structure("JSONConversionParameters", JSONParameters));
 
@@ -691,7 +691,7 @@ Procedure Test_VerifyOfRestoringUnsupportedValuesTypes() Export
 	JSONParameters.Insert("RetriverPropertiesNames", StrSplit("УникальныйИдентификатор,ДвоичныеДанные", ",")); //@non-nls-2
 
 	Result = HTTPConnector.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Json,
 		New Structure("JSONConversionParameters", JSONParameters));
 
@@ -703,10 +703,10 @@ EndProcedure
 
 Procedure Test_PostAndRedirect() Export
 	
-	Response = HTTPConnector.Get("https://httpbin.org/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301"); //@non-nls-1
+	Response = HTTPConnector.Get("https://connectorhttp.ru/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301"); //@non-nls-1
 	AssertEquals(Response.StatusCode, 200);
 	
-	Response = HTTPConnector.Post("https://httpbin.org/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301"); //@non-nls-1
+	Response = HTTPConnector.Post("https://connectorhttp.ru/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301"); //@non-nls-1
 	AssertEquals(Response.StatusCode, 403);
 	
 EndProcedure
@@ -714,10 +714,10 @@ EndProcedure
 Procedure Test_PutJson() Export
 	
 	Result = HTTPConnector.PutJson(
-		"https://httpbin.org/put", //@non-nls-1
+		"https://connectorhttp.ru/put", //@non-nls-1
 		New Structure("Название", "КоннекторHTTP") //@non-nls-1 //@non-nls-2
 	);
-	AssertEquals(Result["url"], "https://httpbin.org/put"); //@non-nls-1 //@non-nls-2
+	AssertEquals(Result["url"], "https://connectorhttp.ru/put"); //@non-nls-1 //@non-nls-2
 	AssertEquals(Result["json"]["Название"], "КоннекторHTTP"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
 EndProcedure
@@ -725,38 +725,38 @@ EndProcedure
 Procedure Test_DeleteJson() Export
 	
 	Result = HTTPConnector.DeleteJson(
-		"https://httpbin.org/delete", //@non-nls-1
+		"https://connectorhttp.ru/delete", //@non-nls-1
 		New Structure("Название", "КоннекторHTTP") //@non-nls-2
 	);
-	AssertEquals(Result["url"], "https://httpbin.org/delete"); //@non-nls-1 //@non-nls-2
+	AssertEquals(Result["url"], "https://connectorhttp.ru/delete"); //@non-nls-1 //@non-nls-2
 	AssertEquals(Result["json"]["Название"], "КоннекторHTTP"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
 EndProcedure
 
 Procedure Test_GetSuccessfullRedirectRelativeAddress() Export
 	
-	Response = HTTPConnector.Get("https://httpbin.org/relative-redirect/6"); //@non-nls-1
+	Response = HTTPConnector.Get("https://connectorhttp.ru/relative-redirect/6"); //@non-nls-1
 	Result = HTTPConnector.AsJson(Response);
 	
 	AssertEquals(Response.StatusCode, 200);
-	AssertEquals(Result["url"], "https://httpbin.org/get"); //@non-nls-1 //@non-nls-2
+	AssertEquals(Result["url"], "https://connectorhttp.ru/get"); //@non-nls-1 //@non-nls-2
 	
 EndProcedure
 
 Procedure Test_GetSuccessfullRedirectAbsoluteAddress() Export
 	
-	Response = HTTPConnector.Get("http://httpbin.org/absolute-redirect/6"); //@non-nls-1
+	Response = HTTPConnector.Get("http://connectorhttp.ru/absolute-redirect/6"); //@non-nls-1
 	Result = HTTPConnector.AsJson(Response);
 	
 	AssertEquals(Response.StatusCode, 200);
-	AssertEquals(Result["url"], "http://httpbin.org/get"); //@non-nls-1 //@non-nls-2
+	AssertEquals(Result["url"], "http://connectorhttp.ru/get"); //@non-nls-1 //@non-nls-2
 	
 EndProcedure
 
 Procedure Test_GetLoopedRedirect() Export
 	
 	Try
-		HTTPConnector.AsJson(HTTPConnector.Get("http://httpbin.org/redirect/31")); //@non-nls-1
+		HTTPConnector.AsJson(HTTPConnector.Get("http://connectorhttp.ru/redirect/31")); //@non-nls-1
 	Except
 		ExceptionIsCorrect(ErrorInfo(), "СлишкомМногоПеренаправлений"); //@non-nls-1
 	EndTry;
@@ -767,7 +767,7 @@ Procedure Test_GetRedirectIsOff() Export
 	
 	Parameters = New Structure("AllowRedirect", False);
 	Response = HTTPConnector.Get(
-		"http://httpbin.org/redirect-to?url=http%3A%2F%2Fhttpbin.org%2Fget&status_code=307", //@non-nls-1
+		"http://connectorhttp.ru/redirect-to?url=http%3A%2F%2Fconnectorhttp.ru%2Fget&status_code=307", //@non-nls-1
 		Undefined,
 		Parameters);
 	
@@ -778,20 +778,20 @@ EndProcedure
 Procedure Test_RedirectWithURLDefining() Export
 	
 	RequestParameters = New Structure;
-	RequestParameters.Insert("url", "https://httpbin.org:443/anything"); //@non-nls-1 //@non-nls-2
+	RequestParameters.Insert("url", "https://connectorhttp.ru:443/anything"); //@non-nls-1 //@non-nls-2
 	RequestParameters.Insert("status_code", "307"); //@non-nls-1 //@non-nls-2
 
-	Response = HTTPConnector.Get("http://httpbin.org:80/redirect-to", RequestParameters); //@non-nls-1
+	Response = HTTPConnector.Get("http://connectorhttp.ru:80/redirect-to", RequestParameters); //@non-nls-1
 	HTTPConnector.AsJson(Response);
 
 	AssertEquals(Response.StatusCode, 200);
-	AssertEquals(Response.URL, "https://httpbin.org:443/anything"); //@non-nls-1
+	AssertEquals(Response.URL, "https://connectorhttp.ru:443/anything"); //@non-nls-1
 	
 EndProcedure
 
 Procedure Test_Error404() Export
 	
-	Response = HTTPConnector.Get("http://httpbin.org/status/404"); //@non-nls-1
+	Response = HTTPConnector.Get("http://connectorhttp.ru/status/404"); //@non-nls-1
 	
 	AssertEquals(Response.StatusCode, 404);
 	
@@ -801,8 +801,8 @@ Procedure Test_WorkingWithSessions() Export
 	
 	Session = HTTPConnector.NewSession();
 	
-	HTTPConnector.Get("https://httpbin.org/cookies/set/key/value", Undefined, Undefined, Session); //@non-nls-1
-	Result = HTTPConnector.GetJson("https://httpbin.org/cookies", Undefined, Undefined, Session); //@non-nls-1
+	HTTPConnector.Get("https://connectorhttp.ru/cookies/set/key/value", Undefined, Undefined, Session); //@non-nls-1
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/cookies", Undefined, Undefined, Session); //@non-nls-1
 	
 	AssertEquals(Result["cookies"]["key"], "value"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
@@ -831,7 +831,7 @@ EndProcedure
 
 Procedure Test_Options() Export
 	
-	Response = HTTPConnector.Options("http://httpbin.org/anything"); //@non-nls-1
+	Response = HTTPConnector.Options("http://connectorhttp.ru/anything"); //@non-nls-1
 	
 	AssertEquals(Response.StatusCode, 200);
 	
@@ -839,7 +839,7 @@ EndProcedure
 
 Procedure Test_Head() Export
 	
-	Response = HTTPConnector.Head("http://httpbin.org/anything"); //@non-nls-1
+	Response = HTTPConnector.Head("http://connectorhttp.ru/anything"); //@non-nls-1
 	
 	AssertEquals(Response.StatusCode, 200);
 	
@@ -847,7 +847,7 @@ EndProcedure
 
 Procedure Test_Delete() Export
 	
-	Response = HTTPConnector.Delete("http://httpbin.org/delete"); //@non-nls-1
+	Response = HTTPConnector.Delete("http://connectorhttp.ru/delete"); //@non-nls-1
 	
 	AssertEquals(Response.StatusCode, 200);
 	
@@ -855,7 +855,7 @@ EndProcedure
 
 Procedure Test_Patch() Export
 	
-	Response = HTTPConnector.Patch("http://httpbin.org/patch"); //@non-nls-1
+	Response = HTTPConnector.Patch("http://connectorhttp.ru/patch"); //@non-nls-1
 	
 	AssertEquals(Response.StatusCode, 200);
 	
@@ -863,7 +863,7 @@ EndProcedure
 
 Procedure Test_ArbitraryMethod() Export
 	
-	Response = HTTPConnector.CallMethod("PATCH", "http://httpbin.org/patch"); //@non-nls-1 //@non-nls-2
+	Response = HTTPConnector.CallMethod("PATCH", "http://connectorhttp.ru/patch"); //@non-nls-1 //@non-nls-2
 	
 	AssertEquals(Response.StatusCode, 200);
 	
@@ -872,7 +872,7 @@ EndProcedure
 Procedure Test_SetCookies() Export
 	
 	Result = HTTPConnector.GetJson(
-		"http://httpbin.org/cookies/set?PHPSESSID=72a68cc1e55&cookie1=1&cookie2=2&other=test"); //@non-nls
+		"http://connectorhttp.ru/cookies/set?PHPSESSID=72a68cc1e55&cookie1=1&cookie2=2&other=test"); //@non-nls
 	
 	AssertEquals(Result["cookies"]["PHPSESSID"], "72a68cc1e55"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	AssertEquals(Result["cookies"]["cookie1"], "1"); //@non-nls-1 //@non-nls-2 //@non-nls-3
@@ -888,7 +888,7 @@ Procedure Test_SendCookies() Export
 	Cookies.Add(New Structure("Description,Value", "k2", String(New UUID))); //@non-nls-2
 	
 	Response = HTTPConnector.Get(
-		"http://httpbin.org/cookies", //@non-nls-1
+		"http://connectorhttp.ru/cookies", //@non-nls-1
 		,
 		New Structure("Cookies", Cookies)
 	);
@@ -908,7 +908,7 @@ Procedure Тест_POST_MultipartFormData_FileOnly() Export
 	Files.Insert("Type", "text/plain"); //@non-nls-2
 	
 	Result = HTTPConnector.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Undefined,
 		New Structure("Files", Files)
 	);
@@ -926,7 +926,7 @@ Procedure Тест_POST_MultipartFormData_FilesAndFormFields() Export
 	Data = New Structure("field1,field2", "value1", "Значение2"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
 	Result = HTTPConnector.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Undefined,
 		New Structure("Files,Data", Files, Data)
 	);
@@ -964,7 +964,7 @@ Procedure Test_POST_MultipartFormData_FilesAndFornFields_ParametersConstructor()
 	AdditionalParameters.Data.Insert("field2", "Значение2"); //@non-nls-1 //@non-nls-2
 	
 	Result = HTTPConnector.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Undefined,
 		AdditionalParameters
 	);
@@ -980,7 +980,7 @@ EndProcedure
 
 Procedure Test_RequestParametersKeyOnly() Export
 
-	Result = HTTPConnector.GetJson("https://httpbin.org/get?key"); //@non-nls-1
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/get?key"); //@non-nls-1
 	AssertEquals(Result["args"]["key"], ""); //@non-nls-1 //@non-nls-2
 	
 EndProcedure
@@ -1110,7 +1110,7 @@ EndFunction
 Procedure Test_ComplexRequestParameters() Export
 
 	Result = HTTPConnector.GetJson(
-		"https://httpbin.org/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2"); //@non-nls-1
+		"https://connectorhttp.ru/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2"); //@non-nls-1
 	AssertEquals(
 		Result["args"]["jql"], //@non-nls-1 //@non-nls-2
 		"worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01" //@non-nls-1
@@ -1123,8 +1123,8 @@ EndProcedure
 Procedure Test_PostEmptyJson() Export
 	
 	Json = New Structure;
-	Result = HTTPConnector.PostJson("https://httpbin.org/post", Json); //@non-nls-1
-	AssertEquals(Result["url"], "https://httpbin.org/post"); //@non-nls-1 //@non-nls-2
+	Result = HTTPConnector.PostJson("https://connectorhttp.ru/post", Json); //@non-nls-1
+	AssertEquals(Result["url"], "https://connectorhttp.ru/post"); //@non-nls-1 //@non-nls-2
 	AssertEquals(
 		TypeOf(Result["json"]), //@non-nls-1
 		Type("Соответствие")

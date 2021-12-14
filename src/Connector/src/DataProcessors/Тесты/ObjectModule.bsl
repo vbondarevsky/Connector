@@ -138,10 +138,10 @@
 Процедура Тест_РазобратьURLСоЗнакомРавноВЗначенииПараметраЗапроса() Экспорт
 	
 	СтруктураURL = КоннекторHTTP.РазобратьURL(
-		"https://httpbin.org/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2"); //@non-nls-1
+		"https://connectorhttp.ru/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2"); //@non-nls-1
 	
 	УтверждениеВерно(СтруктураURL.Схема, "https"); //@non-nls-1
-	УтверждениеВерно(СтруктураURL.Сервер, "httpbin.org"); //@non-nls-1
+	УтверждениеВерно(СтруктураURL.Сервер, "connectorhttp.ru"); //@non-nls-1
 	УтверждениеВерно(СтруктураURL.Путь, "/anything"); //@non-nls-1
 	УтверждениеВерно(СтруктураURL.Порт, 0);
 	УтверждениеВерно(СтруктураURL.Фрагмент, "");
@@ -155,10 +155,10 @@
 
 Процедура Тест_РазобратьURLСПараметромЗапросаБезЗначения() Экспорт
 	
-	СтруктураURL = КоннекторHTTP.РазобратьURL("https://httpbin.org/get?key"); //@non-nls-1
+	СтруктураURL = КоннекторHTTP.РазобратьURL("https://connectorhttp.ru/get?key"); //@non-nls-1
 	
 	УтверждениеВерно(СтруктураURL.Схема, "https"); //@non-nls-1
-	УтверждениеВерно(СтруктураURL.Сервер, "httpbin.org"); //@non-nls-1
+	УтверждениеВерно(СтруктураURL.Сервер, "connectorhttp.ru"); //@non-nls-1
 	УтверждениеВерно(СтруктураURL.Путь, "/get"); //@non-nls-1
 	УтверждениеВерно(СтруктураURL.Порт, 0);
 	УтверждениеВерно(СтруктураURL.Фрагмент, "");
@@ -170,10 +170,10 @@
 
 Процедура Тест_РазобратьURLСЯвноЗаданнымПортом() Экспорт
 	
-	СтруктураURL = КоннекторHTTP.РазобратьURL("https://httpbin.org:443/get?key"); //@non-nls-1
+	СтруктураURL = КоннекторHTTP.РазобратьURL("https://connectorhttp.ru:443/get?key"); //@non-nls-1
 	
 	УтверждениеВерно(СтруктураURL.Схема, "https"); //@non-nls-1
-	УтверждениеВерно(СтруктураURL.Сервер, "httpbin.org"); //@non-nls-1
+	УтверждениеВерно(СтруктураURL.Сервер, "connectorhttp.ru"); //@non-nls-1
 	УтверждениеВерно(СтруктураURL.Путь, "/get"); //@non-nls-1
 	УтверждениеВерно(СтруктураURL.Порт, 443);
 	УтверждениеВерно(СтруктураURL.Фрагмент, "");
@@ -185,10 +185,10 @@
 
 Процедура Тест_РазобратьURLСПараметрамиЗапросаСНесколькимиЗначениями() Экспорт
 	
-	СтруктураURL = КоннекторHTTP.РазобратьURL("http://httpbin.org/anything?i=v1&j=w1&j=w2&i=v2&i=v3"); //@non-nls-1
+	СтруктураURL = КоннекторHTTP.РазобратьURL("http://connectorhttp.ru/anything?i=v1&j=w1&j=w2&i=v2&i=v3"); //@non-nls-1
 	
 	УтверждениеВерно(СтруктураURL.Схема, "http"); //@non-nls-1
-	УтверждениеВерно(СтруктураURL.Сервер, "httpbin.org"); //@non-nls-1
+	УтверждениеВерно(СтруктураURL.Сервер, "connectorhttp.ru"); //@non-nls-1
 	УтверждениеВерно(СтруктураURL.Путь, "/anything"); //@non-nls-1
 	УтверждениеВерно(СтруктураURL.Порт, 0);
 	УтверждениеВерно(СтруктураURL.Фрагмент, "");
@@ -329,7 +329,7 @@
 	Прокси = Новый ИнтернетПрокси;
 	Прокси.Установить("http", ПроксиСервер, ПроксиПорт); //@non-nls-1
 	КоннекторHTTP.GetJson(
-		"http://httpbin.org/headers", //@non-nls-1
+		"http://connectorhttp.ru/headers", //@non-nls-1
 		Неопределено,
 		Новый Структура("Прокси", Прокси)
 	);
@@ -343,7 +343,7 @@
 	Json.Вставить("field", "value"); //@non-nls-1 //@non-nls-2
 	Json.Вставить("field2", "value2"); //@non-nls-1 //@non-nls-2
 	Результат = КоннекторHTTP.PostJson(
-		"http://httpbin.org/anything", //@non-nls-1
+		"http://connectorhttp.ru/anything", //@non-nls-1
 		Json,
 		Новый Структура("ПараметрыЗаписиJSON", ПараметрыЗаписиJSON)
 	);
@@ -353,9 +353,9 @@
 
 Процедура Тест_URLБезСхемы() Экспорт
 	
-	Ответ = КоннекторHTTP.Get("httpbin.org/get"); //@non-nls-1
+	Ответ = КоннекторHTTP.Get("connectorhttp.ru/get"); //@non-nls-1
 	КоннекторHTTP.КакJson(Ответ);
- 	УтверждениеВерно(Ответ.URL, "http://httpbin.org/get"); //@non-nls-1
+ 	УтверждениеВерно(Ответ.URL, "http://connectorhttp.ru/get"); //@non-nls-1
 	
 КонецПроцедуры
 
@@ -366,11 +366,11 @@
 	ПараметрыЗапроса.Вставить("salary", Формат(100000, "ЧГ=")); //@non-nls-1
 	ПараметрыЗапроса.Вставить("time", "01:47"); //@non-nls-1
 	
-	Ответ = КоннекторHTTP.Get("https://httpbin.org/anything/params", ПараметрыЗапроса);//@non-nls-1
+	Ответ = КоннекторHTTP.Get("https://connectorhttp.ru/anything/params", ПараметрыЗапроса);//@non-nls-1
 	Результат = КоннекторHTTP.КакJson(Ответ);
 	
-	УтверждениеВерно(Ответ.URL, "https://httpbin.org/anything/params?name=%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2&name=%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%B2&salary=100000&time=01%3A47"); //@non-nls-1
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/anything/params?name=Иванов&name=Петров&salary=100000&time=01%3A47"); //@non-nls-1 //@non-nls-2
+	УтверждениеВерно(Ответ.URL, "https://connectorhttp.ru/anything/params?name=%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2&name=%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%B2&salary=100000&time=01%3A47"); //@non-nls-1
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/anything/params?name=Иванов&name=Петров&salary=100000&time=01%3A47"); //@non-nls-1 //@non-nls-2
 	УтверждениеВерно(Результат["args"]["salary"], "100000"); //@non-nls-1 //@non-nls-2
 	УтверждениеВерно(СтрСоединить(Результат["args"]["name"], ","), "Иванов,Петров"); //@non-nls-1 //@non-nls-2 //@non-nls-4
 	УтверждениеВерно(Результат["args"]["time"], "01:47"); //@non-nls-1 //@non-nls-2
@@ -383,7 +383,7 @@
 	ПараметрыЗапроса.Вставить("name", СтрРазделить("Иванов,Петров", ",")); //@non-nls-1 //@non-nls-2
 	ПараметрыЗапроса.Вставить("salary", Формат(100000, "ЧГ=")); //@non-nls-1
 	
-	Результат = КоннекторHTTP.GetJson("https://httpbin.org/anything/params?post=Программист", ПараметрыЗапроса); //@non-nls-1
+	Результат = КоннекторHTTP.GetJson("https://connectorhttp.ru/anything/params?post=Программист", ПараметрыЗапроса); //@non-nls-1
 	
 	УтверждениеВерно(Результат["args"]["salary"], "100000"); //@non-nls-1 //@non-nls-2
 	УтверждениеВерно(Результат["args"]["post"], "Программист"); //@non-nls-1 //@non-nls-2 //@non-nls-3
@@ -393,21 +393,21 @@
 
 Процедура Тест_РезультатКакJsonGet() Экспорт
 	
-	Результат = КоннекторHTTP.GetJson("https://httpbin.org/get"); //@non-nls-1
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/get"); //@non-nls-1 //@non-nls-2
+	Результат = КоннекторHTTP.GetJson("https://connectorhttp.ru/get"); //@non-nls-1
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/get"); //@non-nls-1 //@non-nls-2
 	
 КонецПроцедуры
 
 Процедура Тест_РезультатКакJsonPost() Экспорт
 	
-	Результат = КоннекторHTTP.КакJson(КоннекторHTTP.Post("https://httpbin.org/post")); //@non-nls-1
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/post"); //@non-nls-1 //@non-nls-2
+	Результат = КоннекторHTTP.КакJson(КоннекторHTTP.Post("https://connectorhttp.ru/post")); //@non-nls-1
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/post"); //@non-nls-1 //@non-nls-2
 	
 КонецПроцедуры
 
 Процедура Тест_РезультатКакДвоичныеДанные() Экспорт
 	
-	Результат = КоннекторHTTP.КакДвоичныеДанные(КоннекторHTTP.Get("http://httpbin.org/image/png")); //@non-nls-1
+	Результат = КоннекторHTTP.КакДвоичныеДанные(КоннекторHTTP.Get("http://connectorhttp.ru/image/png")); //@non-nls-1
 	
 	УтверждениеВерно(ТипЗнч(Результат), Тип("ДвоичныеДанные"));
 	УтверждениеВерно(ПосчитатьMD5(Результат), "5cca6069f68fbf739fce37e0963f21e7"); //@non-nls-1
@@ -416,7 +416,7 @@
 
 Процедура Тест_РезультатКакТекст() Экспорт
 	
-	Результат = КоннекторHTTP.КакТекст(КоннекторHTTP.Get("http://httpbin.org/encoding/utf8")); //@non-nls-1
+	Результат = КоннекторHTTP.КакТекст(КоннекторHTTP.Get("http://connectorhttp.ru/encoding/utf8")); //@non-nls-1
 	УтверждениеВерно(СтрНайти(Результат, "Зарегистрируйтесь сейчас на Десятую Международную"), 3931); //@non-nls-1
 	
 КонецПроцедуры
@@ -426,7 +426,7 @@
 	Заголовки = Новый Соответствие;
 	Заголовки.Вставить("X-My-Header", "Hello"); //@non-nls-1 //@non-nls-2
 	Результат = КоннекторHTTP.GetJson(
-		"http://httpbin.org/headers", //@non-nls-1
+		"http://connectorhttp.ru/headers", //@non-nls-1
 		Неопределено,
 		Новый Структура("Заголовки", Заголовки)
 	);
@@ -446,8 +446,8 @@
 	Данные.Вставить("size", "medium"); //@non-nls-1 //@non-nls-2
 	Данные.Вставить("topping", СтрРазделить("bacon,mushroom", ",")); //@non-nls-1 //@non-nls-2
 	
-	Ответ = КоннекторHTTP.Post("http://httpbin.org/post", Данные); //@non-nls-1
-	УтверждениеВерно(Ответ.URL, "http://httpbin.org/post"); //@non-nls-1
+	Ответ = КоннекторHTTP.Post("http://connectorhttp.ru/post", Данные); //@non-nls-1
+	УтверждениеВерно(Ответ.URL, "http://connectorhttp.ru/post"); //@non-nls-1
 	Результат = КоннекторHTTP.КакJson(Ответ);
 	УтверждениеВерно(Результат["form"]["size"], "medium"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	УтверждениеВерно(Результат["form"]["comments"], "Постучать в дверь"); //@non-nls-1 //@non-nls-2 //@non-nls-3
@@ -463,12 +463,12 @@
 	Json.Вставить("Сотрудник", "Иванов Иван Петрович"); //@non-nls-1 //@non-nls-2
 	Json.Вставить("Должность", "Разнорабочий"); //@non-nls-1 //@non-nls-2
 	
-	Результат = КоннекторHTTP.PostJson("http://httpbin.org/post", Json); //@non-nls-1
+	Результат = КоннекторHTTP.PostJson("http://connectorhttp.ru/post", Json); //@non-nls-1
 	
 	УтверждениеВерно(Результат["json"]["Сотрудник"], "Иванов Иван Петрович"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	УтверждениеВерно(Результат["json"]["Должность"], "Разнорабочий"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
-	Результат = КоннекторHTTP.PutJson("http://httpbin.org/put", Json); //@non-nls-1
+	Результат = КоннекторHTTP.PutJson("http://connectorhttp.ru/put", Json); //@non-nls-1
 	УтверждениеВерно(Результат["json"]["Сотрудник"], "Иванов Иван Петрович"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	УтверждениеВерно(Результат["json"]["Должность"], "Разнорабочий"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
@@ -478,7 +478,7 @@
 	
 	Попытка
 		КоннекторHTTP.Get(
-			"https://httpbin.org/delay/10", //@non-nls-1
+			"https://connectorhttp.ru/delay/10", //@non-nls-1
 			Неопределено,
 			Новый Структура("Таймаут", 1)
 		);
@@ -493,7 +493,7 @@
 
 Процедура Тест_ПолучитьGZip() Экспорт
 	
-	Результат = КоннекторHTTP.GetJson("http://httpbin.org/gzip"); //@non-nls-1
+	Результат = КоннекторHTTP.GetJson("http://connectorhttp.ru/gzip"); //@non-nls-1
 	УтверждениеВерно(Результат["gzipped"], Истина); //@non-nls-1
 	
 КонецПроцедуры
@@ -506,7 +506,7 @@
 	Заголовки = Новый Соответствие;
 	Заголовки.Вставить("Content-Encoding", "gzip"); //@non-nls-1 //@non-nls-2
 	Результат = КоннекторHTTP.PostJson(
-		"http://httpbin.org/anything", //@non-nls-1
+		"http://connectorhttp.ru/anything", //@non-nls-1
 		Json,
 		Новый Структура("Заголовки", Заголовки)
 	);
@@ -524,7 +524,7 @@
 
 Процедура Тест_BasicAuth() Экспорт
 	
-	Результат = КоннекторHTTP.GetJson("https://user:pass@httpbin.org/basic-auth/user/pass"); //@non-nls-1
+	Результат = КоннекторHTTP.GetJson("https://user:pass@connectorhttp.ru/basic-auth/user/pass"); //@non-nls-1
 	УтверждениеВерно(Результат["authenticated"], Истина); //@non-nls-1
 	УтверждениеВерно(Результат["user"], "user"); //@non-nls-1 //@non-nls-2
 
@@ -533,7 +533,7 @@
 	Аутентификация.Пароль = "pass"; //@non-nls-1
 	
 	Результат = КоннекторHTTP.GetJson(
-		"https://httpbin.org/basic-auth/user/pass", //@non-nls-1
+		"https://connectorhttp.ru/basic-auth/user/pass", //@non-nls-1
 		Неопределено,
 		Новый Структура("Аутентификация", Аутентификация));
 	УтверждениеВерно(Результат["authenticated"], Истина); //@non-nls-1
@@ -545,7 +545,7 @@
 	Аутентификация.Пароль = "pass"; //@non-nls-1
 	
 	Результат = КоннекторHTTP.GetJson(
-		"https://httpbin.org/basic-auth/user/pass", //@non-nls-1
+		"https://connectorhttp.ru/basic-auth/user/pass", //@non-nls-1
 		Неопределено,
 		Новый Структура("Аутентификация", Аутентификация));
 	УтверждениеВерно(Результат["authenticated"], Истина); //@non-nls-1
@@ -560,7 +560,7 @@
 	Аутентификация.Пароль = "pass"; //@non-nls-1
 	
 	Результат = КоннекторHTTP.GetJson(
-		"https://httpbin.org/digest-auth/auth/user/pass", //@non-nls-1
+		"https://connectorhttp.ru/digest-auth/auth/user/pass", //@non-nls-1
 		Неопределено,
 		Новый Структура("Аутентификация", Аутентификация)
 	);
@@ -581,8 +581,8 @@
 
 Процедура Тест_GetJson() Экспорт
 	
-	Результат = КоннекторHTTP.GetJson("https://httpbin.org/get"); //@non-nls-1
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/get"); //@non-nls-1 //@non-nls-2
+	Результат = КоннекторHTTP.GetJson("https://connectorhttp.ru/get"); //@non-nls-1
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/get"); //@non-nls-1 //@non-nls-2
 	
 КонецПроцедуры
 
@@ -590,7 +590,7 @@
 	
 	ПараметрыПреобразованияJSON = Новый Структура("ПрочитатьВСоответствие", Ложь);
 	Результат = КоннекторHTTP.GetJson(
-		"http://httpbin.org/json", //@non-nls-1
+		"http://connectorhttp.ru/json", //@non-nls-1
 		Неопределено,
 		Новый Структура("ПараметрыПреобразованияJSON", ПараметрыПреобразованияJSON)
 	);
@@ -613,11 +613,11 @@
 	Json.Вставить("Строка", "Привет"); //@non-nls-1 //@non-nls-2
 		
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Json, 
 		Новый Структура("ПараметрыПреобразованияJSON", ПараметрыПреобразованияJSON)
 	);
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/post"); //@non-nls-1 //@non-nls-2
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/post"); //@non-nls-1 //@non-nls-2
 	УтверждениеВерно(Результат["json"]["Дата"], '20190121002400'); //@non-nls-1 //@non-nls-2
 	УтверждениеВерно(Результат["json"]["Число"], 5); //@non-nls-1 //@non-nls-2
 	УтверждениеВерно(Результат["json"]["Булево"], True); //@non-nls-1 //@non-nls-2
@@ -636,7 +636,7 @@
 	ПараметрыJSON.Вставить("ВариантЗаписиДатыJSON", ПредопределенноеЗначение("ВариантЗаписиДатыJSON.УниверсальнаяДата"));
 
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Json,
 		Новый Структура("ПараметрыПреобразованияJSON", ПараметрыJSON)
 	);
@@ -659,7 +659,7 @@
 	ПараметрыJSON.Вставить("МодульФункцииПреобразования", КоннекторHTTP);
 
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Json,
 		Новый Структура("ПараметрыПреобразованияJSON", ПараметрыJSON));
 
@@ -689,7 +689,7 @@
 	ПараметрыJSON.Вставить("ИменаСвойствДляОбработкиВосстановления", СтрРазделить("УникальныйИдентификатор,ДвоичныеДанные", ",")); //@non-nls-2
 
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Json,
 		Новый Структура("ПараметрыПреобразованияJSON", ПараметрыJSON));
 
@@ -701,10 +701,10 @@
 
 Процедура Тест_PostИРедирект() Экспорт
 	
-	Ответ = КоннекторHTTP.Get("https://httpbin.org/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301"); //@non-nls-1
+	Ответ = КоннекторHTTP.Get("https://connectorhttp.ru/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301"); //@non-nls-1
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
-	Ответ = КоннекторHTTP.Post("https://httpbin.org/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301"); //@non-nls-1
+	Ответ = КоннекторHTTP.Post("https://connectorhttp.ru/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301"); //@non-nls-1
 	УтверждениеВерно(Ответ.КодСостояния, 403);
 	
 КонецПроцедуры
@@ -712,10 +712,10 @@
 Процедура Тест_PutJson() Экспорт
 	
 	Результат = КоннекторHTTP.PutJson(
-		"https://httpbin.org/put", //@non-nls-1
+		"https://connectorhttp.ru/put", //@non-nls-1
 		Новый Структура("Название", "КоннекторHTTP") //@non-nls-1 //@non-nls-2
 	);
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/put"); //@non-nls-1 //@non-nls-2
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/put"); //@non-nls-1 //@non-nls-2
 	УтверждениеВерно(Результат["json"]["Название"], "КоннекторHTTP"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
 КонецПроцедуры
@@ -723,38 +723,38 @@
 Процедура Тест_DeleteJson() Экспорт
 	
 	Результат = КоннекторHTTP.DeleteJson(
-		"https://httpbin.org/delete", //@non-nls-1
+		"https://connectorhttp.ru/delete", //@non-nls-1
 		Новый Структура("Название", "КоннекторHTTP") //@non-nls-2
 	);
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/delete"); //@non-nls-1 //@non-nls-2
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/delete"); //@non-nls-1 //@non-nls-2
 	УтверждениеВерно(Результат["json"]["Название"], "КоннекторHTTP"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
 КонецПроцедуры
 
 Процедура Тест_GetУспешныйРедиректОтносительныйАдрес() Экспорт
 	
-	Ответ = КоннекторHTTP.Get("https://httpbin.org/relative-redirect/6"); //@non-nls-1
+	Ответ = КоннекторHTTP.Get("https://connectorhttp.ru/relative-redirect/6"); //@non-nls-1
 	Результат = КоннекторHTTP.КакJson(Ответ);
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/get"); //@non-nls-1 //@non-nls-2
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/get"); //@non-nls-1 //@non-nls-2
 	
 КонецПроцедуры
 
 Процедура Тест_GetУспешныйРедиректАбсолютныйАдрес() Экспорт
 	
-	Ответ = КоннекторHTTP.Get("http://httpbin.org/absolute-redirect/6"); //@non-nls-1
+	Ответ = КоннекторHTTP.Get("http://connectorhttp.ru/absolute-redirect/6"); //@non-nls-1
 	Результат = КоннекторHTTP.КакJson(Ответ);
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
-	УтверждениеВерно(Результат["url"], "http://httpbin.org/get"); //@non-nls-1 //@non-nls-2
+	УтверждениеВерно(Результат["url"], "http://connectorhttp.ru/get"); //@non-nls-1 //@non-nls-2
 	
 КонецПроцедуры
 
 Процедура Тест_GetЗацикленныйРедирект() Экспорт
 	
 	Попытка
-		КоннекторHTTP.КакJson(КоннекторHTTP.Get("http://httpbin.org/redirect/31")); //@non-nls-1
+		КоннекторHTTP.КакJson(КоннекторHTTP.Get("http://connectorhttp.ru/redirect/31")); //@non-nls-1
 	Исключение
 		ВерноеИсключение(ИнформацияОбОшибке(), "СлишкомМногоПеренаправлений"); //@non-nls-1
 	КонецПопытки;
@@ -765,7 +765,7 @@
 	
 	Параметры = Новый Структура("РазрешитьПеренаправление", Ложь);
 	Ответ = КоннекторHTTP.Get(
-		"http://httpbin.org/redirect-to?url=http%3A%2F%2Fhttpbin.org%2Fget&status_code=307", //@non-nls-1
+		"http://connectorhttp.ru/redirect-to?url=http%3A%2F%2Fconnectorhttp.ru%2Fget&status_code=307", //@non-nls-1
 		Неопределено,
 		Параметры);
 	
@@ -776,20 +776,20 @@
 Процедура Тест_РедиректСУказаниемURL() Экспорт
 	
 	ПараметрыЗапроса = Новый Структура;
-	ПараметрыЗапроса.Вставить("url", "https://httpbin.org:443/anything"); //@non-nls-1 //@non-nls-2
+	ПараметрыЗапроса.Вставить("url", "https://connectorhttp.ru:443/anything"); //@non-nls-1 //@non-nls-2
 	ПараметрыЗапроса.Вставить("status_code", "307"); //@non-nls-1 //@non-nls-2
 
-	Ответ = КоннекторHTTP.Get("http://httpbin.org:80/redirect-to", ПараметрыЗапроса); //@non-nls-1
+	Ответ = КоннекторHTTP.Get("http://connectorhttp.ru:80/redirect-to", ПараметрыЗапроса); //@non-nls-1
 	КоннекторHTTP.КакJson(Ответ);
 
 	УтверждениеВерно(Ответ.КодСостояния, 200);
-	УтверждениеВерно(Ответ.URL, "https://httpbin.org:443/anything"); //@non-nls-1
+	УтверждениеВерно(Ответ.URL, "https://connectorhttp.ru:443/anything"); //@non-nls-1
 	
 КонецПроцедуры
 
 Процедура Тест_Ошибка404() Экспорт
 	
-	Ответ = КоннекторHTTP.Get("http://httpbin.org/status/404"); //@non-nls-1
+	Ответ = КоннекторHTTP.Get("http://connectorhttp.ru/status/404"); //@non-nls-1
 	
 	УтверждениеВерно(Ответ.КодСостояния, 404);
 	
@@ -799,8 +799,8 @@
 	
 	Сессия = КоннекторHTTP.СоздатьСессию();
 	
-	КоннекторHTTP.Get("https://httpbin.org/cookies/set/key/value", Неопределено, Неопределено, Сессия); //@non-nls-1
-	Результат = КоннекторHTTP.GetJson("https://httpbin.org/cookies", Неопределено, Неопределено, Сессия); //@non-nls-1
+	КоннекторHTTP.Get("https://connectorhttp.ru/cookies/set/key/value", Неопределено, Неопределено, Сессия); //@non-nls-1
+	Результат = КоннекторHTTP.GetJson("https://connectorhttp.ru/cookies", Неопределено, Неопределено, Сессия); //@non-nls-1
 	
 	УтверждениеВерно(Результат["cookies"]["key"], "value"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
@@ -829,7 +829,7 @@
 
 Процедура Тест_Options() Экспорт
 	
-	Ответ = КоннекторHTTP.Options("http://httpbin.org/anything"); //@non-nls-1
+	Ответ = КоннекторHTTP.Options("http://connectorhttp.ru/anything"); //@non-nls-1
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
@@ -837,7 +837,7 @@
 
 Процедура Тест_Head() Экспорт
 	
-	Ответ = КоннекторHTTP.Head("http://httpbin.org/anything"); //@non-nls-1
+	Ответ = КоннекторHTTP.Head("http://connectorhttp.ru/anything"); //@non-nls-1
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
@@ -845,7 +845,7 @@
 
 Процедура Тест_Delete() Экспорт
 	
-	Ответ = КоннекторHTTP.Delete("http://httpbin.org/delete"); //@non-nls-1
+	Ответ = КоннекторHTTP.Delete("http://connectorhttp.ru/delete"); //@non-nls-1
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
@@ -853,7 +853,7 @@
 
 Процедура Тест_Patch() Экспорт
 	
-	Ответ = КоннекторHTTP.Patch("http://httpbin.org/patch"); //@non-nls-1
+	Ответ = КоннекторHTTP.Patch("http://connectorhttp.ru/patch"); //@non-nls-1
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
@@ -861,7 +861,7 @@
 
 Процедура Тест_ПроизвольныйМетод() Экспорт
 	
-	Ответ = КоннекторHTTP.ВызватьМетод("PATCH", "http://httpbin.org/patch"); //@non-nls-1 //@non-nls-2
+	Ответ = КоннекторHTTP.ВызватьМетод("PATCH", "http://connectorhttp.ru/patch"); //@non-nls-1 //@non-nls-2
 	
 	УтверждениеВерно(Ответ.КодСостояния, 200);
 	
@@ -870,7 +870,7 @@
 Процедура Тест_УстановкаCookies() Экспорт
 	
 	Результат = КоннекторHTTP.GetJson(
-		"http://httpbin.org/cookies/set?PHPSESSID=72a68cc1e55&cookie1=1&cookie2=2&other=test"); //@non-nls
+		"http://connectorhttp.ru/cookies/set?PHPSESSID=72a68cc1e55&cookie1=1&cookie2=2&other=test"); //@non-nls
 	
 	УтверждениеВерно(Результат["cookies"]["PHPSESSID"], "72a68cc1e55"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	УтверждениеВерно(Результат["cookies"]["cookie1"], "1"); //@non-nls-1 //@non-nls-2 //@non-nls-3
@@ -886,7 +886,7 @@
 	Cookies.Добавить(Новый Структура("Наименование,Значение", "k2", Строка(Новый УникальныйИдентификатор))); //@non-nls-2
 	
 	Ответ = КоннекторHTTP.Get(
-		"http://httpbin.org/cookies", //@non-nls-1
+		"http://connectorhttp.ru/cookies", //@non-nls-1
 		,
 		Новый Структура("Cookies", Cookies)
 	);
@@ -906,7 +906,7 @@
 	Файлы.Вставить("Тип", "text/plain"); //@non-nls-2
 	
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Неопределено,
 		Новый Структура("Файлы", Файлы)
 	);
@@ -924,7 +924,7 @@
 	Данные = Новый Структура("field1,field2", "value1", "Значение2"); //@non-nls-1 //@non-nls-2 //@non-nls-3
 	
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Неопределено,
 		Новый Структура("Файлы,Данные", Файлы, Данные)
 	);
@@ -962,7 +962,7 @@
 	ДополнительныеПараметры.Данные.Вставить("field2", "Значение2"); //@non-nls-1 //@non-nls-2
 	
 	Результат = КоннекторHTTP.PostJson(
-		"https://httpbin.org/post", //@non-nls-1
+		"https://connectorhttp.ru/post", //@non-nls-1
 		Неопределено,
 		ДополнительныеПараметры
 	);
@@ -978,7 +978,7 @@
 
 Процедура Тест_ПараметрыЗапросаТолькоКлюч() Экспорт
 
-	Результат = КоннекторHTTP.GetJson("https://httpbin.org/get?key"); //@non-nls-1
+	Результат = КоннекторHTTP.GetJson("https://connectorhttp.ru/get?key"); //@non-nls-1
 	УтверждениеВерно(Результат["args"]["key"], ""); //@non-nls-1 //@non-nls-2
 	
 КонецПроцедуры
@@ -1108,7 +1108,7 @@
 Процедура Тест_СложныеПараметрыЗапроса() Экспорт
 
 	Результат = КоннекторHTTP.GetJson(
-		"https://httpbin.org/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2"); //@non-nls-1
+		"https://connectorhttp.ru/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2"); //@non-nls-1
 	УтверждениеВерно(
 		Результат["args"]["jql"], //@non-nls-1 //@non-nls-2
 		"worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01" //@non-nls-1
@@ -1121,8 +1121,8 @@
 Процедура Тест_PostПустойJson() Экспорт
 	
 	Json = Новый Структура;
-	Результат = КоннекторHTTP.PostJson("https://httpbin.org/post", Json); //@non-nls-1
-	УтверждениеВерно(Результат["url"], "https://httpbin.org/post"); //@non-nls-1 //@non-nls-2
+	Результат = КоннекторHTTP.PostJson("https://connectorhttp.ru/post", Json); //@non-nls-1
+	УтверждениеВерно(Результат["url"], "https://connectorhttp.ru/post"); //@non-nls-1 //@non-nls-2
 	УтверждениеВерно(
 		ТипЗнч(Результат["json"]), //@non-nls-1
 		Тип("Соответствие")

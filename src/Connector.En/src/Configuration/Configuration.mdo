@@ -64,12 +64,12 @@
   <languages uuid="1fe335ee-0a9c-4933-92fc-98e549c9e2c6">
     <name>English</name>
     <synonym>
-      <key>en</key>
-      <value>English</value>
-    </synonym>
-    <synonym>
       <key>ru</key>
       <value>Английский</value>
+    </synonym>
+    <synonym>
+      <key>en</key>
+      <value>English</value>
     </synonym>
     <languageCode>en</languageCode>
   </languages>
