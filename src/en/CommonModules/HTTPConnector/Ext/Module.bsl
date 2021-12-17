@@ -2954,7 +2954,7 @@ Procedure Pause(StopDurationInSeconds)
 		Start = CurrentUniversalDateInMilliseconds();
 		Try
 			Connection = New HTTPConnection(
-				LocalHost, RandomFreePort, Undefined, Undefined, Undefined, Timeout);
+				LocalHost, RandomFreePort, Undefined, Undefined, New InternetProxy(False), Timeout);
 			Connection.Get(New HTTPRequest("/does_not_matter"));
 		Except
 			RealTimeout = CurrentUniversalDateInMilliseconds() - Start;
