@@ -1290,10 +1290,11 @@
 			Иначе
 				Тело = КодироватьПараметрыЗапроса(Данные);
 			КонецЕсли;
+			ContentType = "application/x-www-form-urlencoded; charset=utf-8";
 			HTTPЗапрос.УстановитьТелоИзСтроки(Тело, КодировкаТекста.UTF8, ИспользованиеByteOrderMark.НеИспользовать);
 		КонецЕсли;
 	ИначеЕсли Json <> Неопределено Тогда
-		ContentType = "application/json";
+		ContentType = "application/json; charset=utf-8";
 		СтрокаJson = ОбъектВJson(Json, ПодготовленныйЗапрос.ПараметрыПреобразованияJSON, ПараметрыЗаписиJSON);
 		HTTPЗапрос.УстановитьТелоИзСтроки(СтрокаJson, КодировкаТекста.UTF8, ИспользованиеByteOrderMark.НеИспользовать);
 	Иначе
