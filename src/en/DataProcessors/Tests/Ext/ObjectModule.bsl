@@ -74,6 +74,7 @@ Function TestsList() Export
 	Tests.Add("Test_XmlSending");
 	Tests.Add("Test_ReadResponseAsXDTO");
 	Tests.Add("Test_ComplexRequestParameters");
+	Tests.Add("Test_RequestParametersSpecialSymbols");
 	Tests.Add("Test_PostEmptyJson");
 	If TestAuthentificationAWS4_HMAC_SHA256 Then
 		Tests.Add("Тест_AuthentificationAWS4_HMAC_SHA256");
@@ -1007,6 +1008,15 @@ Procedure Test_ComplexRequestParameters() Export
 	AssertEquals(Result["args"]["jql"], "worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01");
 	AssertEquals(Result["args"]["j"], "");
 	AssertEquals(Result["args"]["i"], "2");
+	
+EndProcedure
+
+Procedure Test_RequestParametersSpecialSymbols() Export
+	
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/anything?q-w=1&e.r=2&t[]=42");
+	AssertEquals(Result["args"]["q-w"], "1");
+	AssertEquals(Result["args"]["e.r"], "2");
+	AssertEquals(Result["args"]["t[]"], "42");
 	
 EndProcedure
 

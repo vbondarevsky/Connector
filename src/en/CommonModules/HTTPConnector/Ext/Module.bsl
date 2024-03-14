@@ -424,7 +424,7 @@ Function NewSession() Export
 	Session.Insert("Headers", DefaultHeaders());
 	Session.Insert("Authentication", Undefined);
 	Session.Insert("Proxy", Undefined);
-	Session.Insert("RequestParameters", New Structure);
+	Session.Insert("RequestParameters", New Map);
 	Session.Insert("VerifySSL", True);
 	Session.Insert("ClientSSLCertificate", Undefined);
 	Session.Insert("MaximumNumberOfRedirects", MaximumNumberOfRedirects());
@@ -955,7 +955,7 @@ Function PrepareRequest(Session, Method, URL, AdditionalParameters) Export
 	AuthenticationFromAdditionalParameters =
 		SelectValue(Undefined, AdditionalParameters, "Authentication", New Structure);
 	RequestParametersFromAdditionalParameters =
-		SelectValue(Undefined, AdditionalParameters, "RequestParameters", New Structure);
+		SelectValue(Undefined, AdditionalParameters, "RequestParameters", New Map);
 	HeadersFromAdditionalParameters =
 		SelectValue(Undefined, AdditionalParameters, "Headers", New Map);
 
