@@ -1691,7 +1691,9 @@ Function SendRequest(Session, PreparedRequest, Settings)
 	While True Do
 		Try
 			Response = SendHTTPRequest(Session, PreparedRequest, Settings);
+			RequestExecutionError = Undefined;
 		Except
+			Response = Undefined;
 			RequestExecutionError = ErrorInfo();
 		EndTry;
 
