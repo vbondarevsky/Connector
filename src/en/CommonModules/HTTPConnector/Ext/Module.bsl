@@ -1316,7 +1316,8 @@ Function EncodeRequestParameters(RequestParameters)
 			RequestParametersParts.Add(Parameter.Key);
 		Else
 			For Each Value In Values Do
-				ParameterValue = EncodeString(Value, StringEncodingMethod.URLEncoding);
+				ParameterValue = XMLString(Value);
+				ParameterValue = EncodeString(ParameterValue, StringEncodingMethod.URLEncoding);
 				RequestParametersParts.Add(StrTemplate("%1=%2", Parameter.Key, ParameterValue));
 			EndDo;
 		EndIf;
