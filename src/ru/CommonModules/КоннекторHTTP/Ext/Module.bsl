@@ -17,7 +17,7 @@
 //
 // URL:    https://github.com/vbondarevsky/Connector
 // e-mail: vbondarevsky@gmail.com
-// Версия: 2.5.0
+// Версия: 2.6.0
 //
 // Требования: платформа 1С версии 8.3.10 и выше
 
