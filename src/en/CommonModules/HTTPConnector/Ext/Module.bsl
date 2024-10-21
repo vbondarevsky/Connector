@@ -1514,6 +1514,9 @@ Procedure PrepareAuthentication(PreparedRequest)
 			If AuthenticationType = "aws4-hmac-sha256" Then
 				PrepareAuthenticationAWS4(PreparedRequest);
 			EndIf;
+			If AuthenticationType = "bearer" Then
+				PrepareAuthenticationBearer(PreparedRequest);	
+			EndIf;
 		EndIf;
 	EndIf;
 
@@ -2467,6 +2470,16 @@ EndFunction
 
 #EndRegion
 
+Procedure PrepareAuthenticationBearer(PreparedRequest)   
+	
+	If Not PreparedRequest.Authentication.Property("Token") Or Not ValueIsFilled(PreparedRequest.Authentication.Token) Then
+		// token is empty
+		Return;
+	EndIf;
+
+	PreparedRequest.Headers.Insert("Authorization", StrTemplate("Bearer %1", PreparedRequest.Authentication.Token));
+			
+EndProcedure
 #Region EncodingDecodingData
 
 #Region ServiceStructuresZip
