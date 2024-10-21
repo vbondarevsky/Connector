@@ -397,6 +397,8 @@ EndFunction
 //       If Type = Digest or Basic:
 //          ** User - String - user name.
 //          ** Password - String - user password.
+//	     If Type = Bearer:
+// 			** Token - String - bearer token. 
 //       If Type = AWS4-HMAC-SHA256:
 //          ** AccessKeyID - String - Access key ID.
 //          ** SecretKey - String - secret key.
@@ -1514,6 +1516,9 @@ Procedure PrepareAuthentication(PreparedRequest)
 			If AuthenticationType = "aws4-hmac-sha256" Then
 				PrepareAuthenticationAWS4(PreparedRequest);
 			EndIf;
+			If AuthenticationType = "bearer" Then
+				PrepareAuthenticationBearer(PreparedRequest);	
+			EndIf;
 		EndIf;
 	EndIf;
 
@@ -2467,6 +2472,16 @@ EndFunction
 
 #EndRegion
 
+Procedure PrepareAuthenticationBearer(PreparedRequest)   
+	
+	If Not PreparedRequest.Authentication.Property("Token") Or Not ValueIsFilled(PreparedRequest.Authentication.Token) Then
+		// token is empty
+		Return;
+	EndIf;
+
+	PreparedRequest.Headers.Insert("Authorization", StrTemplate("Bearer %1", PreparedRequest.Authentication.Token));
+			
+EndProcedure
 #Region EncodingDecodingData
 
 #Region ServiceStructuresZip
