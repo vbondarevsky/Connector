@@ -397,6 +397,8 @@ EndFunction
 //       If Type = Digest or Basic:
 //          ** User - String - user name.
 //          ** Password - String - user password.
+//	     If Type = Bearer:
+// 			** Token - String - bearer token. 
 //       If Type = AWS4-HMAC-SHA256:
 //          ** AccessKeyID - String - Access key ID.
 //          ** SecretKey - String - secret key.
