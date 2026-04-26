@@ -3,7 +3,7 @@
 
 #Region Public
 
-// Возвращает список тестов
+// Returns the list of tests
 //
 Function TestsList() Export
 
@@ -27,7 +27,7 @@ Function TestsList() Export
 	If TestReceivingReleasesListFrom1CSite Then
 		Tests.Add("Test_ReceivingReleasesListFrom1CSite");
 	EndIf;
-	Tests.Add("Тест_JsonWritingSettings");
+	Tests.Add("Test_JsonWritingSettings");
 	Tests.Add("Test_URLWithoutScheme");
 	Tests.Add("Test_TransferParametersToRequestString");
 	Tests.Add("Test_TransferParametersToRequestStringCombined");
@@ -67,8 +67,8 @@ Function TestsList() Export
 	Tests.Add("Test_ArbitraryMethod");
 	Tests.Add("Test_SetCookies");
 	Tests.Add("Test_SendCookies");
-	Tests.Add("Тест_POST_MultipartFormData_FileOnly");
-	Tests.Add("Тест_POST_MultipartFormData_FilesAndFormFields");
+	Tests.Add("Test_POST_MultipartFormData_FileOnly");
+	Tests.Add("Test_POST_MultipartFormData_FilesAndFormFields");
 	Tests.Add("Test_POST_MultipartFormData_FilesAndFornFields_ParametersConstructor");
 	Tests.Add("Test_RequestParametersKeyOnly");
 	Tests.Add("Test_XmlSending");
@@ -76,8 +76,8 @@ Function TestsList() Export
 	Tests.Add("Test_ComplexRequestParameters");
 	Tests.Add("Test_RequestParametersSpecialSymbols");
 	Tests.Add("Test_PostEmptyJson");
-	If TestAuthentificationAWS4_HMAC_SHA256 Then
-		Tests.Add("Тест_AuthentificationAWS4_HMAC_SHA256");
+	If TestAuthenticationAWS4_HMAC_SHA256 Then
+		Tests.Add("Test_AuthenticationAWS4_HMAC_SHA256");
 	EndIf;
 	
 	Tests.Add("Test_AuthentificationAWS4_HMAC_SHA256_EmptyBodyPortNotDefined");
@@ -97,12 +97,19 @@ Function TestsList() Export
 	Tests.Add("Test_CorrectExceptionInMethodAsJson");
 	Tests.Add("Test_VerifyConversionToJsonNotSerializedValues");
 	Tests.Add("Test_VerifyConversionJSONDateWritingVariant");
+	Tests.Add("Test_CheckRestoreUnsupportedTypesValues");
+
+	Tests.Add("Test_SendRequestBreaksPassedSettings_GitHub_Issue_33");
+
+	Tests.Add("Test_ParametersRequestInSeparateParameterApplyWithPriorityOverAdditionalParameters");
+	
+	Tests.Add("Test_DateFromStringRFC7231");
 
 	Return Tests;
 	
 EndFunction
 
-// Запускает прогон тестов
+// Runs the test execution
 //
 Function ExecuteTestsAtServer(Tests) Export
 
@@ -134,10 +141,10 @@ EndFunction
 Procedure Test_ParseURLWithEqualSignInRequestParameterValue() Export
 	
 	URLComposition = HTTPConnector.ParseURL(
-		"https://httpbin.org/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2");
+		"https://connectorhttp.ru/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2");
 	
 	AssertEquals(URLComposition.Scheme, "https");
-	AssertEquals(URLComposition.Host, "httpbin.org");
+	AssertEquals(URLComposition.Host, "connectorhttp.ru");
 	AssertEquals(URLComposition.Path, "/anything");
 	AssertEquals(URLComposition.Port, 0);
 	AssertEquals(URLComposition.Fragment, "");
@@ -151,10 +158,10 @@ EndProcedure
 
 Procedure Test_ParseURLWithRequestParameterWithoutValue() Export
 	
-	URLComposition = HTTPConnector.ParseURL("https://httpbin.org/get?key");
+	URLComposition = HTTPConnector.ParseURL("https://connectorhttp.ru/get?key");
 	
 	AssertEquals(URLComposition.Scheme, "https");
-	AssertEquals(URLComposition.Host, "httpbin.org");
+	AssertEquals(URLComposition.Host, "connectorhttp.ru");
 	AssertEquals(URLComposition.Path, "/get");
 	AssertEquals(URLComposition.Port, 0);
 	AssertEquals(URLComposition.Fragment, "");
@@ -166,10 +173,10 @@ EndProcedure
 
 Procedure Test_ParseURLWithPortDefinedExplicit() Export
 	
-	URLComposition = HTTPConnector.ParseURL("https://httpbin.org:443/get?key");
+	URLComposition = HTTPConnector.ParseURL("https://connectorhttp.ru:443/get?key");
 	
 	AssertEquals(URLComposition.Scheme, "https");
-	AssertEquals(URLComposition.Host, "httpbin.org");
+	AssertEquals(URLComposition.Host, "connectorhttp.ru");
 	AssertEquals(URLComposition.Path, "/get");
 	AssertEquals(URLComposition.Port, 443);
 	AssertEquals(URLComposition.Fragment, "");
@@ -181,10 +188,10 @@ EndProcedure
 
 Procedure Test_ParseURLWithRequestParametersWithSomeValues() Export
 	
-	URLComposition = HTTPConnector.ParseURL("http://httpbin.org/anything?i=v1&j=w1&j=w2&i=v2&i=v3");
+	URLComposition = HTTPConnector.ParseURL("http://connectorhttp.ru/anything?i=v1&j=w1&j=w2&i=v2&i=v3");
 	
 	AssertEquals(URLComposition.Scheme, "http");
-	AssertEquals(URLComposition.Host, "httpbin.org");
+	AssertEquals(URLComposition.Host, "connectorhttp.ru");
 	AssertEquals(URLComposition.Path, "/anything");
 	AssertEquals(URLComposition.Port, 0);
 	AssertEquals(URLComposition.Fragment, "");
@@ -324,26 +331,26 @@ Procedure Test_ConnectionViaProxy() Export
 	
 	Proxy = New InternetProxy;
 	Proxy.Set("http", ProxyHost, ProxyPort);
-	HTTPConnector.GetJson("http://httpbin.org/headers", Undefined, New Structure("Proxy", Proxy));
+	HTTPConnector.GetJson("http://connectorhttp.ru/headers", Undefined, New Structure("Proxy", Proxy));
 
 EndProcedure
 
-Procedure Тест_JsonWritingSettings() Export
+Procedure Test_JsonWritingSettings() Export
 	
 	JSONWriterSettings = New Structure("NewLines", JSONLineBreak.None);
 	Json = New Structure;
 	Json.Insert("field", "value");
 	Json.Insert("field2", "value2");
-	Result = HTTPConnector.PostJson("http://httpbin.org/anything", Json, New Structure("JSONWriterSettings", JSONWriterSettings));
+	Result = HTTPConnector.PostJson("http://connectorhttp.ru/anything", Json, New Structure("JSONWriterSettings", JSONWriterSettings));
 	AssertEquals(Result["data"], "{""field"":""value"",""field2"":""value2""}");
 	
 EndProcedure
 
 Procedure Test_URLWithoutScheme() Export
 	
-	Response = HTTPConnector.Get("httpbin.org/get");
+	Response = HTTPConnector.Get("connectorhttp.ru/get");
 	HTTPConnector.AsJson(Response);
- 	AssertEquals(Response.URL, "http://httpbin.org/get");
+ 	AssertEquals(Response.URL, "http://connectorhttp.ru/get");
 	
 EndProcedure
 
@@ -354,11 +361,11 @@ Procedure Test_TransferParametersToRequestString() Export
 	RequestParameters.Insert("salary", Format(100000, "ЧГ="));
 	RequestParameters.Insert("time", "01:47");
 	
-	Response = HTTPConnector.Get("https://httpbin.org/anything/params", RequestParameters);	
+	Response = HTTPConnector.Get("https://connectorhttp.ru/anything/params", RequestParameters);	
 	Result = HTTPConnector.AsJson(Response);
 	
-	AssertEquals(Response.URL, "https://httpbin.org/anything/params?name=%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2&name=%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%B2&salary=100000&time=01%3A47");
-	AssertEquals(Result["url"], "https://httpbin.org/anything/params?name=Иванов&name=Петров&salary=100000&time=01%3A47");
+	AssertEquals(Response.URL, "https://connectorhttp.ru/anything/params?name=%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2&name=%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%B2&salary=100000&time=01%3A47");
+	AssertEquals(Result["url"], "https://connectorhttp.ru/anything/params?name=Иванов&name=Петров&salary=100000&time=01%3A47");
 	AssertEquals(Result["args"]["salary"], "100000");
 	AssertEquals(StrConcat(Result["args"]["name"], ","), "Иванов,Петров");
 	AssertEquals(Result["args"]["time"], "01:47");
@@ -371,7 +378,7 @@ Procedure Test_TransferParametersToRequestStringCombined() Export
 	RequestParameters.Insert("name", StrSplit("Иванов,Петров", ","));
 	RequestParameters.Insert("salary", Format(100000, "ЧГ="));
 	
-	Result = HTTPConnector.GetJson("https://httpbin.org/anything/params?post=Программист", RequestParameters);	
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/anything/params?post=Программист", RequestParameters);	
 	
 	AssertEquals(Result["args"]["salary"], "100000");
 	AssertEquals(Result["args"]["post"], "Программист");
@@ -381,21 +388,21 @@ EndProcedure
 
 Procedure Test_ResultAsJsonGet() Export
 	
-	Result = HTTPConnector.GetJson("https://httpbin.org/get");
-	AssertEquals(Result["url"], "https://httpbin.org/get");
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/get");
+	AssertEquals(Result["url"], "https://connectorhttp.ru/get");
 	
 EndProcedure
 
 Procedure Test_ResultAsJsonPost() Export
 	
-	Result = HTTPConnector.AsJson(HTTPConnector.Post("https://httpbin.org/post"));
-	AssertEquals(Result["url"], "https://httpbin.org/post");
+	Result = HTTPConnector.AsJson(HTTPConnector.Post("https://connectorhttp.ru/post"));
+	AssertEquals(Result["url"], "https://connectorhttp.ru/post");
 	
 EndProcedure
 
 Procedure Test_ResultAsBinaryData() Export
 	
-	Result = HTTPConnector.AsBinaryData(HTTPConnector.Get("http://httpbin.org/image/png"));
+	Result = HTTPConnector.AsBinaryData(HTTPConnector.Get("http://connectorhttp.ru/image/png"));
 	
 	AssertEquals(TypeOf(Result), Type("BinaryData"));
 	AssertEquals(CalculateMD5(Result), "5cca6069f68fbf739fce37e0963f21e7");
@@ -404,7 +411,7 @@ EndProcedure
 
 Procedure Test_ResultAsText() Export
 	
-	Result = HTTPConnector.AsText(HTTPConnector.Get("http://httpbin.org/encoding/utf8"));
+	Result = HTTPConnector.AsText(HTTPConnector.Get("http://connectorhttp.ru/encoding/UTF8"));
 	AssertEquals(StrFind(Result, "Зарегистрируйтесь сейчас на Десятую Международную"), 3931);
 	
 EndProcedure
@@ -413,7 +420,7 @@ Procedure Test_TransferArbitraryHeaders() Export
 	
 	Headers = New Map;
 	Headers.Insert("X-My-Header", "Hello");
-	Result = HTTPConnector.GetJson("http://httpbin.org/headers", Undefined, New Structure("Headers", Headers));
+	Result = HTTPConnector.GetJson("http://connectorhttp.ru/headers", Undefined, New Structure("Headers", Headers));
 	
 	AssertEquals(Result["headers"]["X-My-Header"], "Hello");
 	
@@ -424,14 +431,14 @@ Procedure Test_FormDataSending() Export
 	Data = New Structure;
 	Data.Insert("comments", "Постучать в дверь");
 	Data.Insert("custemail", "vasya@mail.ru");
-	Data.Insert("custname", "Вася");
+	Data.Insert("custname", "Vasya");
 	Data.Insert("custtel", "112");
 	Data.Insert("delivery", "20:20");
 	Data.Insert("size", "medium");
 	Data.Insert("topping", StrSplit("bacon,mushroom", ","));
 	
-	Response = HTTPConnector.Post("http://httpbin.org/post", Data);
-	AssertEquals(Response.URL, "http://httpbin.org/post");
+	Response = HTTPConnector.Post("http://connectorhttp.ru/post", Data);
+	AssertEquals(Response.URL, "http://connectorhttp.ru/post");
 	Result = HTTPConnector.AsJson(Response);
 	AssertEquals(Result["form"]["size"], "medium");
 	AssertEquals(Result["form"]["comments"], "Постучать в дверь");
@@ -444,24 +451,24 @@ EndProcedure
 Procedure Test_JsonSending() Export
 	
 	Json = New Structure;
-	Json.Insert("Сотрудник", "Иванов Иван Петрович");
-	Json.Insert("Должность", "Разнорабочий");
+	Json.Insert("Employee", "Иванов Иван Петрович");
+	Json.Insert("JobTitle", "Handyman");
 	
-	Result = HTTPConnector.PostJson("http://httpbin.org/post", Json);
+	Result = HTTPConnector.PostJson("http://connectorhttp.ru/post", Json);
 	
-	AssertEquals(Result["json"]["Сотрудник"], "Иванов Иван Петрович");
-	AssertEquals(Result["json"]["Должность"], "Разнорабочий");
+	AssertEquals(Result["json"]["Employee"], "Иванов Иван Петрович");
+	AssertEquals(Result["json"]["JobTitle"], "Handyman");
 	
-	Result = HTTPConnector.PutJson("http://httpbin.org/put", Json);
-	AssertEquals(Result["json"]["Сотрудник"], "Иванов Иван Петрович");
-	AssertEquals(Result["json"]["Должность"], "Разнорабочий");
+	Result = HTTPConnector.PutJson("http://connectorhttp.ru/put", Json);
+	AssertEquals(Result["json"]["Employee"], "Иванов Иван Петрович");
+	AssertEquals(Result["json"]["JobTitle"], "Handyman");
 	
 EndProcedure
 
 Procedure Test_Timeout() Export
 	
 	Try
-		HTTPConnector.Get("https://httpbin.org/delay/10", Undefined, New Structure("Timeout", 1));
+		HTTPConnector.Get("https://connectorhttp.ru/delay/10", Undefined, New Structure("Timeout", 1));
 	Except
 		ExceptionIsCorrect(ErrorInfo(), StrSplit("Превышено время ожидания|Timeout exceeded", "|"));
 	EndTry;
@@ -470,7 +477,7 @@ EndProcedure
 
 Procedure Test_ReceiveGZip() Export
 	
-	Result = HTTPConnector.GetJson("http://httpbin.org/gzip");
+	Result = HTTPConnector.GetJson("http://connectorhttp.ru/gzip");
 	AssertEquals(Result["gzipped"], True);
 	
 EndProcedure
@@ -482,7 +489,7 @@ Procedure Test_SendGZip() Export
 	Json.Insert("field2", "value2");
 	Headers = New Map;
 	Headers.Insert("Content-Encoding", "gzip");
-	Result = HTTPConnector.PostJson("http://httpbin.org/anything", Json, New Structure("Headers", Headers));
+	Result = HTTPConnector.PostJson("http://connectorhttp.ru/anything", Json, New Structure("Headers", Headers));
 	
 	RequestBody = GetBinaryDataFromBase64String(StrSplit(Result["data"], ",")[1]);
 	InitialValue = HTTPConnector.JsonToObject(HTTPConnector.ReadGZip(RequestBody));
@@ -495,21 +502,21 @@ EndProcedure
 
 Procedure Test_BasicAuth() Export
 	
-	Result = HTTPConnector.GetJson("https://user:pass@httpbin.org/basic-auth/user/pass");
+	Result = HTTPConnector.GetJson("https://user:pass@connectorhttp.ru/basic-auth/user/pass");
 	AssertEquals(Result["authenticated"], True);
 	AssertEquals(Result["user"], "user");
 
 	Authentication = New Structure("User, Password", "user", "pass");
 	Result = HTTPConnector.GetJson(
-		"https://httpbin.org/basic-auth/user/pass",
+		"https://connectorhttp.ru/basic-auth/user/pass",
 		Undefined,
 		New Structure("Authentication", Authentication));
 	AssertEquals(Result["authenticated"], True);
 	AssertEquals(Result["user"], "user");
 
-	Authentication = New Structure("User, Password, Type", "user", "pass", "Basic");
+	Authentication = HTTPConnector.NewAuthenticationBasic("user", "pass");
 	Result = HTTPConnector.GetJson(
-		"https://httpbin.org/basic-auth/user/pass",
+		"https://connectorhttp.ru/basic-auth/user/pass",
 		Undefined,
 		New Structure("Authentication", Authentication));
 	AssertEquals(Result["authenticated"], True);
@@ -521,13 +528,13 @@ Procedure Test_DigestAuth() Export
 	
 	Authentication = New Structure("User, Password, Type", "user", "pass", "Digest");
 	Result = HTTPConnector.GetJson(
-		"https://httpbin.org/digest-auth/auth/user/pass",
+		"https://connectorhttp.ru/digest-auth/auth/user/pass",
 		Undefined,
 		New Structure("Authentication", Authentication));
 	AssertEquals(Result["authenticated"], True);
 	AssertEquals(Result["user"], "user");
 	
-	Authentication = New Structure("User, Password, Type", "guest", "guest", "Digest");
+	Authentication = HTTPConnector.NewAuthenticationDigest("guest", "guest");
 	Result = HTTPConnector.Get(
 		"https://jigsaw.w3.org/HTTP/Digest/",
 		Undefined,
@@ -538,8 +545,8 @@ EndProcedure
 
 Procedure Test_GetJson() Export
 	
-	Result = HTTPConnector.GetJson("https://httpbin.org/get");
-	AssertEquals(Result["url"], "https://httpbin.org/get");
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/get");
+	AssertEquals(Result["url"], "https://connectorhttp.ru/get");
 	
 EndProcedure
 
@@ -547,7 +554,7 @@ Procedure Test_GetJsonStructure() Export
 	
 	JSONConversionParameters = New Structure("ReadToMap", False);
 	Result = HTTPConnector.GetJson(
-		"http://httpbin.org/json", Undefined, New Structure("JSONConversionParameters", JSONConversionParameters));
+		"http://connectorhttp.ru/json", Undefined, New Structure("JSONConversionParameters", JSONConversionParameters));
 	AssertEquals(Result.slideshow.author, "Yours Truly");
 	AssertEquals(Result.slideshow.date, "date of publication");
 	AssertEquals(Result.slideshow.slides.Count(), 2);
@@ -563,18 +570,18 @@ Procedure Test_PostJson() Export
 	Json = New Structure;
 	Json.Insert("Date", '20190121002400');
 	Json.Insert("Number", 5);
-	Json.Insert("Булево", True);
-	Json.Insert("String", "Привет");
+	Json.Insert("Boolean", True);
+	Json.Insert("String", "Hello");
 		
 	Result = HTTPConnector.PostJson(
-		"https://httpbin.org/post", 
+		"https://connectorhttp.ru/post", 
 		Json, 
 		New Structure("JSONConversionParameters", JSONConversionParameters));
-	AssertEquals(Result["url"], "https://httpbin.org/post");
+	AssertEquals(Result["url"], "https://connectorhttp.ru/post");
 	AssertEquals(Result["json"]["Date"], '20190121002400');
 	AssertEquals(Result["json"]["Number"], 5);
-	AssertEquals(Result["json"]["Булево"], True);
-	AssertEquals(Result["json"]["String"], "Привет");
+	AssertEquals(Result["json"]["Boolean"], True);
+	AssertEquals(Result["json"]["String"], "Hello");
 	
 EndProcedure
 
@@ -589,7 +596,7 @@ Procedure Test_VerifyConversionJSONDateWritingVariant() Export
 	JSONParameters.Insert("JSONDateWritingVariant", PredefinedValue("JSONDateWritingVariant.UniversalDate"));
 
 	Result = HTTPConnector.PostJson(
-		"https://httpbin.org/post",
+		"https://connectorhttp.ru/post",
 		Json,
 		New Structure("JSONConversionParameters", JSONParameters));
 
@@ -608,7 +615,7 @@ Procedure Test_VerifyConversionToJsonNotSerializedValues() Export
 	JSONParameters.Insert("ConvertionFunctionModule", HTTPConnector);
 
 	Result = HTTPConnector.PostJson(
-		"https://httpbin.org/post",
+		"https://connectorhttp.ru/post",
 		Json,
 		New Structure("JSONConversionParameters", JSONParameters));
 
@@ -617,56 +624,86 @@ Procedure Test_VerifyConversionToJsonNotSerializedValues() Export
 
 EndProcedure
 
+Procedure Test_CheckRestoreUnsupportedTypesValues() Export
+
+	UUID = New UUID("be4ee795-7f5e-4d1a-be43-a6d6902f5cfd");
+	BinaryData = GetBinaryDataFromString("test", "utf-8", False);
+
+	Json = New Structure;
+	Json.Insert("UUID", String(UUID));
+	Json.Insert("BinaryData", GetBase64StringFromBinaryData(BinaryData));
+	Json.Insert("OtherData", 1);
+
+	JSONParameters = New Structure;
+	JSONParameters.Insert("ModuleFunctionRestore", HTTPConnector);
+	JSONParameters.Insert("NameFunctionRestore", "RestoreJson");
+	TypesProperties = New Map;
+	TypesProperties.Insert("UUID", Type("UUID"));
+	TypesProperties.Insert("BinaryData", Type("BinaryData"));
+	JSONParameters.Insert("AdditionalParametersFunctionRestore", TypesProperties);
+	JSONParameters.Insert("NamesPropertiesForProcessingRestore", StrSplit("UUID,BinaryData", ","));
+
+	Result = HTTPConnector.PostJson(
+		"https://connectorhttp.ru/post",
+		Json,
+		New Structure("JSONConversionParameters", JSONParameters));
+
+	AssertEquals(Result["json"]["UUID"], UUID);
+	AssertEquals(Result["json"]["BinaryData"], BinaryData);
+	AssertEquals(Result["json"]["OtherData"], 1);
+
+EndProcedure
+
 Procedure Test_PostAndRedirect() Export
 	
-	Response = HTTPConnector.Get("https://httpbingo.org/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301");
+	Response = HTTPConnector.Get("https://connectorhttp.ru/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301");
 	AssertEquals(Response.StatusCode, 200);
 	
-	Response = HTTPConnector.Post("https://httpbingo.org/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301");
-	AssertEquals(Response.StatusCode, 403);
+	Response = HTTPConnector.Post("https://connectorhttp.ru/redirect-to?url=https%3A%2F%2Fya.ru&status_code=301");
+	AssertEquals(Response.StatusCode, 200);
 	
 EndProcedure
 
 Procedure Test_PutJson() Export
 	
-	Result = HTTPConnector.PutJson("https://httpbin.org/put", New Structure("Название", "HTTPConnector"));
-	AssertEquals(Result["url"], "https://httpbin.org/put");
-	AssertEquals(Result["json"]["Название"], "HTTPConnector");
+	Result = HTTPConnector.PutJson("https://connectorhttp.ru/put", New Structure("Title", "HTTPConnector"));
+	AssertEquals(Result["url"], "https://connectorhttp.ru/put");
+	AssertEquals(Result["json"]["Title"], "HTTPConnector");
 	
 EndProcedure
 
 Procedure Test_DeleteJson() Export
 	
-	Result = HTTPConnector.DeleteJson("https://httpbin.org/delete", New Structure("Название", "HTTPConnector"));
-	AssertEquals(Result["url"], "https://httpbin.org/delete");
-	AssertEquals(Result["json"]["Название"], "HTTPConnector");
+	Result = HTTPConnector.DeleteJson("https://connectorhttp.ru/delete", New Structure("Title", "HTTPConnector"));
+	AssertEquals(Result["url"], "https://connectorhttp.ru/delete");
+	AssertEquals(Result["json"]["Title"], "HTTPConnector");
 	
 EndProcedure
 
 Procedure Test_GetSuccessfullRedirectRelativeAddress() Export
 	
-	Response = HTTPConnector.Get("https://httpbingo.org/relative-redirect/6");
+	Response = HTTPConnector.Get("https://connectorhttp.ru/relative-redirect/6");
 	Result = HTTPConnector.AsJson(Response);
 	
 	AssertEquals(Response.StatusCode, 200);
-	AssertEquals(Result["url"], "https://httpbingo.org/get");
+	AssertEquals(Result["url"], "https://connectorhttp.ru/get");
 	
 EndProcedure
 
 Procedure Test_GetSuccessfullRedirectAbsoluteAddress() Export
 	
-	Response = HTTPConnector.Get("http://httpbingo.org/absolute-redirect/6");
+	Response = HTTPConnector.Get("http://connectorhttp.ru/absolute-redirect/6");
 	Result = HTTPConnector.AsJson(Response);
 	
 	AssertEquals(Response.StatusCode, 200);
-	AssertEquals(Result["url"], "http://httpbingo.org/get");
+	AssertEquals(Result["url"], "http://connectorhttp.ru/get");
 	
 EndProcedure
 
 Procedure Test_GetLoopedRedirect() Export
 	
 	Try
-		HTTPConnector.AsJson(HTTPConnector.Get("http://httpbingo.org/redirect/31"));
+		HTTPConnector.AsJson(HTTPConnector.Get("http://connectorhttp.ru/redirect/31"));
 	Except
 		ExceptionIsCorrect(ErrorInfo(), "TooManyRedirects");
 	EndTry;
@@ -677,7 +714,7 @@ Procedure Test_GetRedirectIsOff() Export
 	
 	Parameters = New Structure("AllowRedirect", False);
 	Response = HTTPConnector.Get(
-		"http://httpbingo.org/redirect-to?url=http%3A%2F%2Fhttpbin.org%2Fget&status_code=307",
+		"http://connectorhttp.ru/redirect-to?url=http%3A%2F%2Fconnectorhttp.ru%2Fget&status_code=307",
 		Undefined,
 		Parameters);
 	
@@ -688,20 +725,20 @@ EndProcedure
 Procedure Test_RedirectWithURLDefining() Export
 	
 	RequestParameters = New Structure;
-	RequestParameters.Insert("url", "https://httpbingo.org:443/get");
+	RequestParameters.Insert("url", "https://connectorhttp.ru:443/anything");
 	RequestParameters.Insert("status_code", "307");
 
-	Response = HTTPConnector.Get("http://httpbingo.org:80/redirect-to", RequestParameters);
+	Response = HTTPConnector.Get("http://connectorhttp.ru:80/redirect-to", RequestParameters);
 	HTTPConnector.AsJson(Response);
 
 	AssertEquals(Response.StatusCode, 200);
-	AssertEquals(Response.URL, "https://httpbingo.org:443/get");
+	AssertEquals(Response.URL, "https://connectorhttp.ru:443/anything");
 	
 EndProcedure
 
 Procedure Test_Error404() Export
 	
-	Response = HTTPConnector.Get("http://httpbin.org/status/404");
+	Response = HTTPConnector.Get("http://connectorhttp.ru/status/404");
 	
 	AssertEquals(Response.StatusCode, 404);
 	
@@ -711,8 +748,8 @@ Procedure Test_WorkingWithSessions() Export
 	
 	Session = HTTPConnector.NewSession();
 	
-	HTTPConnector.Get("https://httpbin.org/cookies/set/key/value", Undefined, Undefined, Session);
-	Result = HTTPConnector.GetJson("https://httpbin.org/cookies", Undefined, Undefined, Session);
+	HTTPConnector.Get("https://connectorhttp.ru/cookies/set/key/value", Undefined, Undefined, Session);
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/cookies", Undefined, Undefined, Session);
 	
 	AssertEquals(Result["cookies"]["key"], "value"); 
 	
@@ -741,7 +778,7 @@ EndProcedure
 
 Procedure Test_Options() Export
 	
-	Response = HTTPConnector.Options("http://httpbin.org/anything");
+	Response = HTTPConnector.Options("http://connectorhttp.ru/anything");
 	
 	AssertEquals(Response.StatusCode, 200);
 	
@@ -749,7 +786,7 @@ EndProcedure
 
 Procedure Test_Head() Export
 	
-	Response = HTTPConnector.Head("http://httpbin.org/anything");
+	Response = HTTPConnector.Head("http://connectorhttp.ru/anything");
 	
 	AssertEquals(Response.StatusCode, 200);
 	
@@ -757,7 +794,7 @@ EndProcedure
 
 Procedure Test_Delete() Export
 	
-	Response = HTTPConnector.Delete("http://httpbin.org/delete");
+	Response = HTTPConnector.Delete("http://connectorhttp.ru/delete");
 	
 	AssertEquals(Response.StatusCode, 200);
 	
@@ -765,7 +802,7 @@ EndProcedure
 
 Procedure Test_Patch() Export
 	
-	Response = HTTPConnector.Patch("http://httpbin.org/patch");
+	Response = HTTPConnector.Patch("http://connectorhttp.ru/patch");
 	
 	AssertEquals(Response.StatusCode, 200);
 	
@@ -773,7 +810,7 @@ EndProcedure
 
 Procedure Test_ArbitraryMethod() Export
 	
-	Response = HTTPConnector.CallMethod("PATCH", "http://httpbin.org/patch");
+	Response = HTTPConnector.CallMethod("PATCH", "http://connectorhttp.ru/patch");
 	
 	AssertEquals(Response.StatusCode, 200);
 	
@@ -782,7 +819,7 @@ EndProcedure
 Procedure Test_SetCookies() Export
 	
 	Result = HTTPConnector.GetJson(
-		"http://httpbin.org/cookies/set?PHPSESSID=72a68cc1e55&cookie1=1&cookie2=2&other=test");
+		"http://connectorhttp.ru/cookies/set?PHPSESSID=72a68cc1e55&cookie1=1&cookie2=2&other=test");
 	
 	AssertEquals(Result["cookies"]["PHPSESSID"], "72a68cc1e55");
 	AssertEquals(Result["cookies"]["cookie1"], "1");
@@ -794,9 +831,9 @@ EndProcedure
 Procedure Test_SendCookies() Export
 	
 	Cookies = New Array;
-	Cookies.Add(New Structure("Description,Value", "k1", String(New UUID)));
-	Cookies.Add(New Structure("Description,Value", "k2", String(New UUID)));
-	Response = HTTPConnector.Get("http://httpbin.org/cookies",, New Structure("Cookies", Cookies));
+	Cookies.Add(New Structure("Name,Value", "k1", String(New UUID)));
+	Cookies.Add(New Structure("Name,Value", "k2", String(New UUID)));
+	Response = HTTPConnector.Get("http://connectorhttp.ru/cookies",, New Structure("Cookies", Cookies));
 	Result = HTTPConnector.AsJson(Response);
 	
 	AssertEquals(Result["cookies"]["k1"], Cookies[0].Value);
@@ -804,34 +841,34 @@ Procedure Test_SendCookies() Export
 	
 EndProcedure
 
-Procedure Тест_POST_MultipartFormData_FileOnly() Export
+Procedure Test_POST_MultipartFormData_FileOnly() Export
 	
 	Files = New Structure;
 	Files.Insert("Name", "f1");
 	Files.Insert("FileName", "file1.txt");
-	Files.Insert("Data", Base64Значение("0J/RgNC40LLQtdGCLCDQnNC40YA="));
+	Files.Insert("Data", Base64Value("0J/RgNC40LLQtdGCLCDQnNC40YA="));
 	Files.Insert("Type", "text/plain");
 	
-	Result = HTTPConnector.PostJson("https://httpbin.org/post", Undefined, New Structure("Files", Files));
+	Result = HTTPConnector.PostJson("https://connectorhttp.ru/post", Undefined, New Structure("Files", Files));
 	
 	AssertEquals(Result["files"]["f1"], "Привет, Мир");
 	
 EndProcedure
 
-Procedure Тест_POST_MultipartFormData_FilesAndFormFields() Export
+Procedure Test_POST_MultipartFormData_FilesAndFormFields() Export
 	
 	Files = New Array;
-	Files.Add(New Structure("Name,Data,FileName", "f1", Base64Значение("ZmlsZTE="), "file1.txt"));
-	Files.Add(New Structure("Name,Data,FileName", "f2", Base64Значение("ZmlsZTI="), "file2.txt"));
+	Files.Add(New Structure("Name,Data,FileName", "f1", Base64Value("ZmlsZTE="), "file1.txt"));
+	Files.Add(New Structure("Name,Data,FileName", "f2", Base64Value("ZmlsZTI="), "file2.txt"));
 	
-	Data = New Structure("field1,field2", "value1", "Значение2");
+	Data = New Structure("field1,field2", "value1", "Value2");
 	
-	Result = HTTPConnector.PostJson("https://httpbin.org/post", Undefined, New Structure("Files,Data", Files, Data));
+	Result = HTTPConnector.PostJson("https://connectorhttp.ru/post", Undefined, New Structure("Files,Data", Files, Data));
 	
 	AssertEquals(Result["files"]["f1"], "file1");
 	AssertEquals(Result["files"]["f2"], "file2");
 	AssertEquals(Result["form"]["field1"], "value1");
-	AssertEquals(Result["form"]["field2"], "Значение2");
+	AssertEquals(Result["form"]["field2"], "Value2");
 	
 EndProcedure
 
@@ -858,22 +895,22 @@ Procedure Test_POST_MultipartFormData_FilesAndFornFields_ParametersConstructor()
 	
 	AdditionalParameters.Data = New Structure;
 	AdditionalParameters.Data.Insert("field1", "value1");
-	AdditionalParameters.Data.Insert("field2", "Значение2"); 
+	AdditionalParameters.Data.Insert("field2", "Value2"); 
 	
-	Result = HTTPConnector.PostJson("https://httpbin.org/post", Undefined, AdditionalParameters);
+	Result = HTTPConnector.PostJson("https://connectorhttp.ru/post", Undefined, AdditionalParameters);
 	
 	AssertEquals(Result["files"]["f1"], "file1");
 	AssertEquals(Result["files"]["f2"], "file2");
-	AssertEquals(Result["files"]["f3"], "data:text/plain;base64,Z0J/RgNC40LLQtdGCLCDQnNC40YA"); // Должно быть "Привет, Мир"
+	AssertEquals(Result["files"]["f3"], "data:text/plain;base64,Z0J/RgNC40LLQtdGCLCDQnNC40YA"); // Should be "Привет, Мир"
 	AssertEquals(Result["files"]["f4"], "");
 	AssertEquals(Result["form"]["field1"], "value1");
-	AssertEquals(Result["form"]["field2"], "Значение2");
+	AssertEquals(Result["form"]["field2"], "Value2");
 	
 EndProcedure
 
 Procedure Test_RequestParametersKeyOnly() Export
 
-	Result = HTTPConnector.GetJson("https://httpbin.org/get?key");
+	Result = HTTPConnector.GetJson("https://connectorhttp.ru/get?key");
 	AssertEquals(Result["args"]["key"], "");
 	
 EndProcedure
@@ -905,13 +942,13 @@ EndProcedure
 
 Procedure Test_ReadResponseAsXDTO() Export
 	
-	ТекстОтветXML = Test_ReadResponseAsXDTO_ResponseTextXML();
+	TextResponseXML = Test_ReadResponseAsXDTO_ResponseTextXML();
 	
 	FullFileName = GetTempFileName("xml");
 	
-	ФайлТекст = New ЗаписьТекста(FullFileName, TextEncoding.UTF8); 
-	ФайлТекст.WriteLine(ТекстОтветXML); 	
-	ФайлТекст.Close(); 
+	FileText = New TextWriter(FullFileName, TextEncoding.UTF8); 
+	FileText.WriteLine(TextResponseXML); 	
+	FileText.Close(); 
 	
 	BinaryDataResponse = New BinaryData(FullFileName);
 	DeleteFiles(FullFileName);
@@ -919,10 +956,9 @@ Procedure Test_ReadResponseAsXDTO() Export
 	Headers = New Map;
 	Headers.Insert("Content-Type", "text/xml; charset=utf-8");
 	
-	PreparedResponse = New Structure;
-	PreparedResponse.Insert("Body", BinaryDataResponse);
-	PreparedResponse.Insert("Headers", Headers);
-	PreparedResponse.Insert("Encoding", "UTF-8");
+	PreparedResponse = HTTPConnector.NewResponse();
+	PreparedResponse.Body = BinaryDataResponse;
+	PreparedResponse.Headers = Headers;
 	
 	XDTOResponse = HTTPConnector.AsXDTO(PreparedResponse);
 	
@@ -937,13 +973,13 @@ EndProcedure
 
 Function Test_ReadResponseAsXDTO_ResponseTextXML() 
 	
-	ТекстОтветXML = "
-	|<Document>
+	TextResponseXML = "
+	|<DOCUMENT>
 	|<Id>1642606</Id>
 	|<TypeId>65</TypeId>
-	|<TypeName>Документ</TypeName>
+	|<TypeName>Document</TypeName>
 	|<DocumentTypeCode>DOCUMENT</DocumentTypeCode>
-	|<Description>Документ тест 00001 от 21.05.2021</Description>
+	|<Description>Document test 00001 from 21.05.2021</Description>
 	|<BarcodeType>None</BarcodeType>
 	|<SenderId>12776</SenderId>
 	|<ReceiverId>48519</ReceiverId>
@@ -951,30 +987,30 @@ Function Test_ReadResponseAsXDTO_ResponseTextXML()
 	|<Status>Received</Status>
 	|<Date>2021-05-21T00:00:00</Date>
 	|<RequestSign>true</RequestSign>
-	|<Number>ТЕСТ 00001</Number>
+	|<Number>TEST 00001</Number>
 	|<IsMarked>false</IsMarked>
 	|<Created>2021-05-21T10:32:02</Created>
 	|<SendDate>2021-05-21T10:32:43</SendDate>
 	|<ReceiveDate>2021-05-21T10:32:43</ReceiveDate>
 	|<IsDocflowCompleted>false</IsDocflowCompleted>
-	|<Comment>ТЕСТ Документ </Comment>
-	|<Type>Document</Type>
-	|<FormType>Document</FormType>
-	|<SellerCode>ИдентификаторЭДООтправитель</SellerCode>
-	|<BuyerCode>ИдентификаторЭДОПолучатель</BuyerCode>
-	|<Filename>ФайлОсновной.xlsx</Filename>
+	|<Comment>TEST Document </Comment>
+	|<Type>DOCUMENT</Type>
+	|<FormType>DOCUMENT</FormType>
+	|<SellerCode>IdentifierEDISender</SellerCode>
+	|<BuyerCode>IdentifierEDIReceiver</BuyerCode>
+	|<Filename>FileMain.xlsx</Filename>
 	|<ContractDescription />
 	|<IsRoaming>false</IsRoaming>
 	|<IsPrintable>false</IsPrintable>
 	|<Relations>
 	|    <DocumentRelation>
 	|        <Id>1642606</Id>
-	|        <Description>Документ №ТЕСТ 00002 от 21.05.2021</Description>
+	|        <Description>Document №TEST 00002 from 21.05.2021</Description>
 	|    </DocumentRelation>
 	|</Relations>
-	|<StatusName>Получен</StatusName>
-	|<SenderName>ООО Отправитель</SenderName>
-	|<ReceiverName>ООО Получатель</ReceiverName>
+	|<StatusName>Received</StatusName>
+	|<SenderName>LLC From</SenderName>
+	|<ReceiverName>LLC Recipient</ReceiverName>
 	|<ExistRouteSigner>false</ExistRouteSigner>
 	|<DocumentRelationType>Productive</DocumentRelationType>
 	|<Attachments>
@@ -982,29 +1018,29 @@ Function Test_ReadResponseAsXDTO_ResponseTextXML()
 	|        <Id>44624</Id>
 	|        <Uuid>8711ca1b76794467ba74529d2bb01e3e</Uuid>
 	|        <DocumentId>0</DocumentId>
-	|        <Filename>ТестФайл.xlsx</Filename>
+	|        <Filename>TestFile.xlsx</Filename>
 	|        <Content />
 	|    </Attachment>
 	|    <Attachment>
 	|        <Id>44625</Id>
 	|        <Uuid>f6d8e6cdcbf846f4b97d5ab8e18d1b79</Uuid>
 	|        <DocumentId>0</DocumentId>
-	|        <Filename>ТестФайл2.pdf</Filename>
+	|        <Filename>TestFile2.pdf</Filename>
 	|        <Content />
 	|    </Attachment>
 	|</Attachments>
 	|<StatusChanged>2021-05-21T10:32:44</StatusChanged>
-	|</Document>	
+	|</DOCUMENT>	
 	|";
 	
-	Return ТекстОтветXML;
+	Return TextResponseXML;
 	
 EndFunction 
 
 Procedure Test_ComplexRequestParameters() Export
 
 	Result = HTTPConnector.GetJson(
-		"https://httpbin.org/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2");
+		"https://connectorhttp.ru/anything?jql=worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01&j&i=2");
 	AssertEquals(Result["args"]["jql"], "worklogDate >= 2017-04-01 AND worklogDate <= 2017-05-01");
 	AssertEquals(Result["args"]["j"], "");
 	AssertEquals(Result["args"]["i"], "2");
@@ -1023,13 +1059,13 @@ EndProcedure
 Procedure Test_PostEmptyJson() Export
 	
 	Json = New Structure;
-	Result = HTTPConnector.PostJson("https://httpbin.org/post", Json);
-	AssertEquals(Result["url"], "https://httpbin.org/post");
+	Result = HTTPConnector.PostJson("https://connectorhttp.ru/post", Json);
+	AssertEquals(Result["url"], "https://connectorhttp.ru/post");
 	AssertEquals(TypeOf(Result["json"]), Type("Map"));
 	
 EndProcedure
 
-Procedure Тест_AuthentificationAWS4_HMAC_SHA256() Export
+Procedure Test_AuthenticationAWS4_HMAC_SHA256() Export
 	
 	Authentication = New Structure;
 	Authentication.Insert("Type", "AWS4-HMAC-SHA256");
@@ -1270,6 +1306,52 @@ Procedure Test_CorrectExceptionInMethodAsJson() Export
 	
 EndProcedure
 
+Procedure Test_SendRequestBreaksPassedSettings_GitHub_Issue_33() Export
+	
+	Settings = New Structure; 
+	Headers = New Map;
+	Headers.Insert("Content-Type","application/json");
+	Settings.Insert("Headers", Headers);
+	
+	RequestParameters = New Structure("username, password", "anonymous", "hrgesf7HDR67Bd");
+	
+	SettingsCopyUntilSend = ValueFromStringInternal(ValueToStringInternal(Settings));
+	
+	HTTPConnector.Post("https://jsonplaceholder.typicode.com/posts", RequestParameters, Settings);
+	
+	AssertEquals(HTTPConnector.ObjectToJson(Settings), HTTPConnector.ObjectToJson(SettingsCopyUntilSend));
+	
+EndProcedure
+
+Procedure Test_ParametersRequestInSeparateParameterApplyWithPriorityOverAdditionalParameters() Export
+	
+	RequestParameters = New Structure("param1", "value1");
+	AdditionalParameters = HTTPConnector.NewParameters();
+	AdditionalParameters.Headers.Insert("X-My-Header", "my_header");
+
+	Response = HTTPConnector.Get("https://connectorhttp.ru/get", RequestParameters, AdditionalParameters);
+	Result = HTTPConnector.AsJson(Response);
+	
+	AssertEquals(Result["args"]["param1"], "value1");
+	AssertEquals(Result["headers"]["X-My-Header"], "my_header");
+
+EndProcedure
+
+Procedure Test_DateFromStringRFC7231() Export
+	
+	DateString = "Sun, 06 Nov 1994 08:49:37 GMT";
+	Result = HTTPConnector.DateFromStringRFC7231(DateString);
+	AssertEquals(Result, Date(1994, 11, 06, 8, 49, 37));
+
+	DateString = "Sun, 06 Nov 94 08:49:37 GMT";
+	Result = HTTPConnector.DateFromStringRFC7231(DateString);
+	AssertEquals(Result, Date(2094, 11, 06, 8, 49, 37));
+	
+	Result = HTTPConnector.DateFromStringRFC7231("");
+	AssertEquals(Result, Date(1, 1, 1));
+	
+EndProcedure
+
 #EndRegion
 
 Function ExtractExecution(Response)
@@ -1326,7 +1408,7 @@ Procedure ExceptionIsCorrect(ErrorInfo, ExpectedException)
 	EndIf;
 	
 EndProcedure
-
+	
 #EndRegion
 
 #EndIf
