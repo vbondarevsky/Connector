@@ -1,4 +1,4 @@
-﻿#Region EventHandlers
+﻿#Region FormEventHandlers
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
@@ -29,8 +29,8 @@ Procedure TestReceivingReleasesListFrom1CSiteOnChange(Item)
 EndProcedure
 
 &AtClient
-Procedure TestAuthentificationAWS4_HMAC_SHA256OnChange(Item)
-	TestAuthentificationAWS4_HMAC_SHA256OnChangeAtServer();
+Procedure TestAuthenticationAWS4_HMAC_SHA256OnChange(Item)
+	TestAuthenticationAWS4_HMAC_SHA256OnChangeAtServer();
 EndProcedure
 
 &AtClient
@@ -40,7 +40,7 @@ EndProcedure
 
 #EndRegion
 
-#Region FormCommandHandlers
+#Region FormCommandsEventHandlers
 
 &AtClient
 Procedure ExecuteTests(Command)
@@ -78,7 +78,7 @@ Procedure FillTestsList()
 	For Each Test In FormAttributeToValue("Object").TestsList() Do
 		NewRow = Tests.Add();
 		NewRow.Use = True;
-		NewRow.Test= Test;
+		NewRow.Test = Test;
 	EndDo;
 	TestsNumber = Tests.Count();
 
@@ -99,7 +99,7 @@ Procedure TestReceivingReleasesListFrom1CSiteOnChangeAtServer()
 EndProcedure
 
 &AtServer
-Procedure TestAuthentificationAWS4_HMAC_SHA256OnChangeAtServer()
+Procedure TestAuthenticationAWS4_HMAC_SHA256OnChangeAtServer()
 
 	FillTestsList();
 
