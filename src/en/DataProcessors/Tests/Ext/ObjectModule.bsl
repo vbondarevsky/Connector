@@ -411,7 +411,7 @@ EndProcedure
 
 Procedure Test_ResultAsText() Export
 	
-	Result = HTTPConnector.AsText(HTTPConnector.Get("http://connectorhttp.ru/encoding/UTF8"));
+	Result = HTTPConnector.AsText(HTTPConnector.Get("http://connectorhttp.ru/encoding/utf8"));
 	AssertEquals(StrFind(Result, "Зарегистрируйтесь сейчас на Десятую Международную"), 3931);
 	
 EndProcedure
