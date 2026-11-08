@@ -1,6 +1,6 @@
 ﻿// Connector: handy HTTP-client for 1C:Enterprise 8 platform
 //
-// Copyright 2017-2021 Vladimir Bondarevskiy
+// Copyright 2017-2023 Vladimir Bondarevskiy
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -11,13 +11,13 @@
 //   Unless required by applicable law or agreed to in writing, software
 //   distributed under the License is distributed on an "AS IS" BASIS,
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
+//    See the License for the specific language governing permissions and
 //   limitations under the License.
 //
 //
 // URL:    https://github.com/vbondarevsky/Connector
 // e-mail: vbondarevsky@gmail.com
-// Version: 2.3.1
+// Version: 2.6.0
 //
 // Requirements: 1C:Enterprise platform version **8.3.10** and higher.
 
@@ -34,18 +34,22 @@
 //   RequestParameters - Structure, Map - URL parameters to append to the URL (a part after ?):
 //     * Key - String - URL parameter key.
 //     * Value - String - URL parameter value
-//                  - Array - makes a string from several parameters: key=value1&key=value2 и т.д.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//                  - Array - builds a string from multiple parameters: key=value1&key=value2 etc.
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
-//   see CallMethod
+//   See CallMethod
 //
 Function Get(URL, RequestParameters = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, RequestParameters, Undefined, Undefined);
-	Return CallHTTPMethod(CurrentSession, "GET", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(RequestParameters, Undefined, Undefined));
+	
+	Return CallHTTPMethod(CurrentSession, "GET", URL, Parameters);
 
 EndFunction
 
@@ -53,17 +57,21 @@ EndFunction
 //
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
-//   see CallMethod
+//   See CallMethod
 //
 Function Options(URL, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Undefined);
-	Return CallHTTPMethod(CurrentSession, "OPTIONS", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Undefined));
+	
+	Return CallHTTPMethod(CurrentSession, "OPTIONS", URL, Parameters);
 
 EndFunction
 
@@ -71,17 +79,21 @@ EndFunction
 //
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
-//   see CallMethod
+//   See CallMethod
 //
 Function Head(URL, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Undefined);
-	Return CallHTTPMethod(CurrentSession, "HEAD", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Undefined));
+	
+	Return CallHTTPMethod(CurrentSession, "HEAD", URL, Parameters);
 
 EndFunction
 
@@ -90,17 +102,21 @@ EndFunction
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
 //   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
-//   see CallMethod
+//   See CallMethod
 //
 Function Post(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
-	Return CallHTTPMethod(CurrentSession, "POST", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(Undefined, Data, Undefined));
+	
+	Return CallHTTPMethod(CurrentSession, "POST", URL, Parameters);
 
 EndFunction
 
@@ -109,17 +125,21 @@ EndFunction
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
 //   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
-//   see CallMethod
+//   See CallMethod
 //
 Function Put(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
-	Return CallHTTPMethod(CurrentSession, "PUT", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(Undefined, Data, Undefined));
+	
+	Return CallHTTPMethod(CurrentSession, "PUT", URL, Parameters);
 
 EndFunction
 
@@ -128,17 +148,21 @@ EndFunction
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
 //   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
-//   see CallMethod
+//   See CallMethod
 //
 Function Patch(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
-	Return CallHTTPMethod(CurrentSession, "PATCH", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(Undefined, Data, Undefined));
+	
+	Return CallHTTPMethod(CurrentSession, "PATCH", URL, Parameters);
 
 EndFunction
 
@@ -147,17 +171,75 @@ EndFunction
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
 //   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
-//   see CallMethod
+//   See CallMethod
 //
 Function Delete(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
-	Return CallHTTPMethod(CurrentSession, "DELETE", URL, AdditionalParameters);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(Undefined, Data, Undefined));
+	
+	Return CallHTTPMethod(CurrentSession, "DELETE", URL, Parameters);
+
+EndFunction
+
+// Sends a MKCOL request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
+//
+// Returns:
+//   See CallMethod
+//
+Function Mkcol(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(Undefined, Data, Undefined));
+	
+	Return CallHTTPMethod(CurrentSession, "MKCOL", URL, Parameters);
+
+EndFunction
+
+// Sends data to a specific URL with a specific HTTP verb.
+//
+// Parameters:
+//   Method - String - HTTP request verb name.
+//   URL - String - HTTP URL to send the request to.
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
+//
+// Returns:
+//   Structure - a response for the executed request:
+//     * TimeExecution - Number - execution response duration in milliseconds.
+//     * Cookies - Map - cookies received from host.
+//     * Headers - Map - HTTP response headers.
+//     * IsPermanentRedirect - Boolean - permanent redirect flag.
+//     * IsRedirect - Boolean - redirect flag.
+//     * Encoding - String - response text encoding.
+//     * Body - BinaryData - response body.
+//     * StatusCode - Number - response status code.
+//     * URL - String - final request URL.
+//
+Function CallMethod(Method, URL, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Undefined));
+	Supplement(Parameters, AdditionalParameters);
+	
+	Return CallHTTPMethod(CurrentSession, Method, URL, Parameters);
 
 EndFunction
 
@@ -170,9 +252,9 @@ EndFunction
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
 //   RequestParameters - Structure, Map - URL parameters to append to the URL (a part after ?).
-//     see details in Session.RequestParameters.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//      see details in Session.RequestParameters.
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
 //   Map, Structure - deserialized response from JSON.
@@ -184,10 +266,15 @@ Function GetJson(URL,
 				Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, RequestParameters, Undefined, Undefined);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(RequestParameters, Undefined, Undefined));
+	
 	JSONConversionParameters =
-		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
-	Return AsJson(CallHTTPMethod(CurrentSession, "GET", URL, AdditionalParameters), JSONConversionParameters);
+		SelectValue(Undefined, Parameters, "JSONConversionParameters", Undefined);
+	
+	Return AsJson(CallHTTPMethod(CurrentSession, "GET", URL, Parameters), JSONConversionParameters);
 
 EndFunction
 
@@ -196,8 +283,8 @@ EndFunction
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
 //   Json - Structure, Map - data to serialize into JSON.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
 //   Map, Structure - deserialized response from JSON.
@@ -206,10 +293,15 @@ EndFunction
 Function PostJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Json);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Json));
+	
 	JSONConversionParameters =
-		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
-	Return AsJson(CallHTTPMethod(CurrentSession, "POST", URL, AdditionalParameters), JSONConversionParameters);
+		SelectValue(Undefined, Parameters, "JSONConversionParameters", Undefined);
+	
+	Return AsJson(CallHTTPMethod(CurrentSession, "POST", URL, Parameters), JSONConversionParameters);
 
 EndFunction
 
@@ -218,8 +310,8 @@ EndFunction
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
 //   Json - Structure, Map - data to serialize into JSON.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
 //   Map, Structure - deserialized response from JSON.
@@ -228,10 +320,14 @@ EndFunction
 Function PutJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Json);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Json));
+	
 	JSONConversionParameters =
-		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
-	Return AsJson(CallHTTPMethod(CurrentSession, "PUT", URL, AdditionalParameters), JSONConversionParameters);
+		SelectValue(Undefined, Parameters, "JSONConversionParameters", Undefined);
+	Return AsJson(CallHTTPMethod(CurrentSession, "PUT", URL, Parameters), JSONConversionParameters);
 
 EndFunction
 
@@ -240,8 +336,8 @@ EndFunction
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
 //   Json - Structure, Map - data to serialize into JSON.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
+//   AdditionalParameters - See NewParameters
+//   Session - See NewSession
 //
 // Returns:
 //   Map, Structure - deserialized response from JSON.
@@ -250,58 +346,80 @@ EndFunction
 Function DeleteJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
 
 	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Json);
+	
+	Parameters = NewParameters();
+	Supplement(Parameters, AdditionalParameters);
+	Supplement(Parameters, ParametersFromArguments(Undefined, Undefined, Json));
+	
 	JSONConversionParameters =
-		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
-	Return AsJson(CallHTTPMethod(CurrentSession, "DELETE", URL, AdditionalParameters), JSONConversionParameters);
+		SelectValue(Undefined, Parameters, "JSONConversionParameters", Undefined);
+	Return AsJson(CallHTTPMethod(CurrentSession, "DELETE", URL, Parameters), JSONConversionParameters);
 
 EndFunction
 
 #EndRegion
 
+#Region Constructors
+
 // Additional parameters constructor
 //
 // Returns:
-//  Structure - Allows you to set additional parameters.:
-//    * Headers - Map - see details in Session.Headers.
-//    * Authentication - Structure - see details in Session.Authentication
-//    * Proxy - InternetProxy - see details in Session.Proxy.
-//    * RequestParameters - Structure, Map - see details in Session.RequestParameters.
-//    * VerifySSL - Boolean - see details in Session.VerifySSL.
-//    * ClientSSLCertificate - FileClientCertificate, WindowsClientCertificate - Default value: Undefined.
-//    * Cookies - Array - see details in Session.Cookies.
-//    * Timeout - Number - connections and operations timeout, in seconds.
+//  Structure - allows specifying additional parameters:
+//    * Headers - Map - see description of Session.Headers.
+//    * Authentication - Structure - see description of Session.Authentication
+//    * Proxy - InternetProxy - see description of Session.Proxy.
+//    * ParametersRequest - Structure, Map - see description of Session.ParametersRequest.
+//    * VerifySSL - Boolean - see description of Session.VerifySSL.
+//    * ClientCertificateSSL - FileClientCertificate, WindowsClientCertificate - Default value: Undefined.
+//    * Cookies - Array - see description of Session.Cookies.
+//    * Timeout - Number - timeout for the connection and operations, in seconds.
 //        Default value - 30 sec.
-//    * AllowRedirect - Boolean - True - redirects are allowed automatically.
-//                                          False - a single request will be sent to the host.
-//    * Json - Structure, Map - data to serialize into JSON.
-//    * JSONConversionParameters - Structure - sets JSON conversion parameters:
-//        ** ReadToMap - Boolean - If True, JSON object will be read in Map, otherwise in Structure.
-//        ** JSONDateFormat - JSONDateFormat - Sets the date serialization format.
-//        ** PropertiesNamesWithDateValues -  String, Array of Strings - JSON properties names,
-//             For the specified properties date restoration from string will be called.
-//    * JSONWriterSettings - JSONWriterSettings - Defines a set of parameters used for JSON writing..
-//    * Data - String, BinaryData - arnitrary data to send in a request. 
-//             - Structure, Map - form fields to send in a request:
-//                 ** Key - String - field name.
-//                 ** Value - String - field value.
-//    * Files - see NewFileToSend, Array from NewFileToSend - files to send
-//    * MaximumNumberOfRetries - Number - Number of connection/request sending retries.
-//        Delay duration between attempts grows exponentially.
-//        But, if the status code is one of 413, 429, 503
-//        and response has the Retry-After header,
-//        delay duration value is taken from this header value
-//        Default value: 0 - no retries.
-//    * MaximumTimeOfRetries - Number - max. total time (in seconds) of sending request and retries.
-//        Default value: 600.
-//    * ExponentialDelayRatio - Number - exponential delay factor.
-//        1 forms the delays sequence: 1, 2, 4, 8 и т.д.
-//        2 forms the delays sequence: 2, 4, 8, 16 и т.д.
-//        ...
-//        Default value: 1.
-//    * ToRetryForStatusesCodes - Undefined - retries will run for status codes >= 500.
-//                                 - Array - retries will run for specific status codes.
-//        Default value: Undefined.
+//    * AllowRedirect - Boolean - True - redirects will be automatically allowed.
+//                                          False - only a single request to the server will be made.
+//    * Json - Structure, Map - data to serialize to JSON.
+//    * ParametersConversionJSON - Structure - specifies JSON conversion parameters:
+//        ** ReadInMap - Boolean - If True, JSON object reading will be done into Map.
+//             If False, objects will be read into an object of type Structure.
+//        ** JSONDateFormat - JSONDateFormat - format in which the date is represented in the string,
+//             to be converted.
+//        ** NamesPropertiesWithDateValues -  String, Array Of String - JSON property names
+//             for which date restoration from string should be called.
+//        ** NameFunctionRestore - String - specifies the name of the function that will be called when reading
+//            each property and must have the following parameters:
+//               ** Property - String - specified only when reading JSON objects
+//               ** Value - Arbitrary - value of a serializable type
+//               ** AdditionalParameters - Arbitrary
+//            Returns:
+//               Arbitrary - allows to specify additional parameters 
+//        
+//            allows to specify additional parameters
+//        
+//            
+//        
+//            
+//        
+//    
+//     
+//             
+//                 
+//                 
+//     See NewFileToSend See NewFileToSend
+//    
+//        
+//        
+//        
+//        
+//        
+//    
+//        
+//    
+//        
+//        
+//        
+//        
+//    
+//                                 
+//        
 //
 Function NewParameters() Export
 
@@ -316,7 +434,7 @@ Function NewParameters() Export
 	Parameters.Insert("Timeout", TimeoutByDefault());
 	Parameters.Insert("AllowRedirect", True);
 	Parameters.Insert("Json", Undefined);
-	Parameters.Insert("JSONConversionParameters", New Structure);
+	Parameters.Insert("JSONConversionParameters", ParametersConversionJSONByDefault());
 	Parameters.Insert("Data", Undefined);
 	Parameters.Insert("Files", New Array);
 	Parameters.Insert("MaximumNumberOfRetries", 0);
@@ -328,20 +446,20 @@ Function NewParameters() Export
 
 EndFunction
 
-// A constructor of a submitting file description
+// Constructor of the file-to-send description.
 //
 // Parameters:
 //   Name - String - form field name.
 //   FileName - String - file name.
 //   Data - BinaryData - file binary data.
-//   Type - String - file MIME-type
+//   Type - String - file MIME type
 //
 // Returns:
 //  Structure:
 //    * Name - String - form field name.
 //    * FileName - String - file name.
 //    * Data - BinaryData - file binary data.
-//    * Type - String - file MIME-type.
+//    * Type - String - file MIME type.
 //    * Headers - Map - HTTP request headers.
 //
 Function NewFileToSend(Name, FileName, Data = Undefined, Type = Undefined) Export
@@ -357,68 +475,45 @@ Function NewFileToSend(Name, FileName, Data = Undefined, Type = Undefined) Expor
 	
 EndFunction
 
-// Sends data to a specific URL with a specific HTTP verb.
-//
-// Parameters:
-//   Method - String - HTTP request verb name.
-//   URL - String - HTTP URL to send the request to.
-//   AdditionalParameters - see NewParameters
-//   Session - see NewSession
-//
-// Returns:
-//   Structure - a response for the executed request:
-//     * ExecutionTime - Number - execution response duration in milliseconds.
-//     * Cookies - Map - cookies received from host.
-//     * Headers - Map - HTTP response headers.
-//     * IsPermanentRedirect - Boolean - permanent redirect flag.
-//     * IsRedirect - Boolean - redirect flag.
-//     * Encoding - String - response text encoding.
-//     * Body - BinaryData - response body.
-//     * StatusCode - Number - response status code.
-//     * URL - String - final request URL.
-//
-Function CallMethod(Method, URL, AdditionalParameters = Undefined, Session = Undefined) Export
-
-	CurrentSession = CurrentSession(Session);
-	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Undefined);
-	Return CallHTTPMethod(CurrentSession, Method, URL, AdditionalParameters);
-
-EndFunction
-
-// Session constructor.
+// Creates an object to store session parameters.
 //
 // Returns:
 //  Structure - session parameters:
 //    * Headers - Map - HTTP request headers.
 //    * Authentication - Structure - request authentication parameters.
-//          ** UseOSAuthentication - Boolean - Contains the current value of NTLM or Negotiate authentication use.
-//                                                   Default value: False.
-//          ** Type - String - authentication type. The Basic type can be omitted.
-//       If Type = Digest or Basic:
-//          ** User - String - user name.
-//          ** Password - String - user password.
-//	     If Type = Bearer:
-// 			** Token - String - bearer token. 
+//          ** Token - String - token.
+//                                                   If Type = AWS4-HMAC-SHA256:
+//          ** Token - String - token.
 //       If Type = AWS4-HMAC-SHA256:
-//          ** AccessKeyID - String - Access key ID.
-//          ** SecretKey - String - secret key.
-//          ** Service - String - service to be connected.
-//          ** Region - String - region to be connected.
-//    * Proxy - InternetProxy - proxy parameters to send request.
-//        Default value: Undefined. If your configuration based on `SSL`,
-//        proxy settings will be taken from `SSL` by default.
-//    * RequestParameters - Structure, Map - URL parameters to append to the URL (a part after ?):
+//          ** Token - String - token.
+//             If Type = AWS4-HMAC-SHA256:
+//          ** Token - String - token.
+// 	 	 If Type = AWS4-HMAC-SHA256:
+// 			** Token - String - token.
+//       If Type = AWS4-HMAC-SHA256:
+//          ** Token - String - token.
+//             If Type = AWS4-HMAC-SHA256:
+//          ** Token - String - token.
+//             If Type = AWS4-HMAC-SHA256:
+//          ** Token - String - token.
+//             If Type = AWS4-HMAC-SHA256:
+//          ** Token - String - token.
+//             If Type = AWS4-HMAC-SHA256:
+//    * Proxy - InternetProxy - proxy parameters to be used when sending the request.
+//        Default value: Undefined. If the configuration uses SSL (Standard Subsystems Library),
+//        the proxy values will be taken from SSL.
+//    * RequestParameters - Structure, Map - parameters to send in the URL (the part after ?):
 //        * Key - String - URL parameter key.
 //        * Value - String - URL parameter value
-//                     - Array - makes a string from several parameters: key=value1&key=value2 etc.
-//    * VerifySSL - Boolean - False - If it is not specified, the server certificate is not verified.
-//                            - True - the value OSCertificationAuthorityCertificates is used.
-//                   - FileCertificationAuthorityCertificates - see FileCertificationAuthorityCertificates.
+//                     - Array - builds a string from multiple parameters: key=value1&key=value2 etc.
+//    * VerifySSL - Boolean - False - server certificate verification is not performed.
+//                            - True - the value of CACertificatesOS is used.
+//                   - FileCertificationAuthorityCertificates - See CACertificatesFile.
 //        Default value: True.
 //    * ClientSSLCertificate - FileClientCertificate, WindowsClientCertificate - Default value: Undefined.
-//    * MaximumNumberOfRedirects - Number - max. number of redirections. Looping protection.
+//    * MaximumNumberOfRedirects - Number - maximum redirect count. Loop protection.
 //        Default value: 30
-//    * Cookies - Map - cookies set.
+//    * Cookies - Map - cookies storage.
 //
 Function NewSession() Export
 
@@ -437,6 +532,136 @@ Function NewSession() Export
 
 EndFunction
 
+// Response package of an HTTP method call result.
+//
+// Returns:
+//   * Method - String - HTTP request verb name
+//   * URL - String - final request URL.
+//   String - HTTP request verb name
+//   * URL - String - final request URL.
+//   
+//   
+//   
+//   
+//   
+//   
+//   
+//
+Function NewResponse() Export
+	
+	Result = New Structure;
+	Result.Insert("Method", "GET");
+	Result.Insert("URL", "");
+	Result.Insert("StatusCode", 600); // Network error (>500)
+	Result.Insert("Headers", New Map);
+	Result.Insert("Body", Base64Value(""));
+	Result.Insert("Encoding", "utf-8");
+	Result.Insert("TimeExecution", Undefined);
+	Result.Insert("IsPermanentRedirect", False);
+	Result.Insert("IsRedirect", False);
+	Result.Insert("Cookies", New Map);
+	Result.Insert("Error", New Array);
+	
+	Return Result;
+	
+EndFunction
+
+
+// Operating system authentication constructor
+// 
+// Returns:
+//  Structure:
+//    * UseOSAuthentication - String - enables the use of NTLM or Negotiate authentication.
+//
+Function NewAuthenticationOS() Export
+	
+	Result = New Structure;
+	Result.Insert("UseOSAuthentication", True);
+	
+	Return Result;
+	
+EndFunction
+
+
+// Basic authentication constructor
+// 
+// Returns:
+//  Structure:
+//    * User - String - user name.
+//    * Password - String - user password.
+//
+Function NewAuthenticationBasic(User = "", Password = "") Export
+	
+	Result = New Structure;
+	Result.Insert("Type", "Basic");
+	Result.Insert("User", User);
+	Result.Insert("Password", Password);
+	
+	Return Result;
+		
+EndFunction
+
+// Digest authentication constructor
+// 
+// Returns:
+//  Structure:
+//    * Type - String - Authentication type code. Always "Digest".
+//    * User - String - user name.
+//    * Password - String - user password.
+//
+Function NewAuthenticationDigest(User = "", Password = "") Export
+	
+	Result = New Structure;
+	Result.Insert("Type", "Digest");
+	Result.Insert("User", User);
+	Result.Insert("Password", Password);
+	
+	Return Result;
+	
+EndFunction
+
+// Bearer authentication constructor
+// 
+// Returns:
+//  Structure:
+//    * Type - String - Authentication type code. Always "Bearer".
+//    * Token - String - Bearer token.
+//
+Function NewAuthenticationBearer(Token = "") Export
+	
+	Result = New Structure;
+	Result.Insert("Type", "Bearer");
+	Result.Insert("Token", Token);
+	
+	Return Result;
+	
+EndFunction
+
+// AWS4-HMAC-SHA256 authentication constructor
+// 
+// Returns:
+//  Structure:
+//    * Type - String - Authentication type code. Always "AWS4-HMAC-SHA256".
+//    * AccessKeyID - String - access key identifier (AccessKey).
+//    * SecretKey - String - secret key (SecretKey).
+//    * Service - String - service being connected to.
+//    * Region - String - region being connected to.
+//
+Function NewAuthenticationAWS4(KeyAccess = "", SecretKey = "", Service = "", Region = "") Export
+	
+	Result = New Structure;
+	Result.Insert("Type", "AWS4-HMAC-SHA256");
+	Result.Insert("AccessKeyID", KeyAccess);
+	Result.Insert("SecretKey", SecretKey);
+	Result.Insert("Service", Service);
+	Result.Insert("Region", Region);
+	
+	Return Result;
+	
+EndFunction
+
+#EndRegion
+
 #EndRegion
 
 #Region ResponsesFormats
@@ -444,34 +669,46 @@ EndFunction
 // Returns host response as deserialized JSON value.
 //
 // Parameters:
-//   Response - see CallMethod
-//   JSONConversionParameters - Structure - sets JSON conversion parameters.
-//     * ReadToMap - Boolean - If True, JSON object will be read in Map, otherwise in Structure.
-//     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
-//     * PropertiesNamesWithDateValues -  Array, String - JSON properties names,
-//          For the specified properties date restoration from string will be called.
+//   Response - See NewResponse
+//   JSONConversionParameters - Structure - If False, objects will be read into a Structure.
+//     * JSONDateFormat - JSONDateFormat - the format in which the date is represented in the string being converted.
+//                                             * PropertiesNamesWithDateValues -  Array, String - JSON property names,
+//                                             for which date restoration from string should be called.
+//                                             * RestoreFunctionName - String - specifies the name of the function that will be called when reading
+//                                             each property and must have the following parameters:
+//                                             ** Property - String - specified only when reading JSON objects
+//                                             ** Value - Arbitrary - value of a serializable type
+//                                             ** AdditionalParameters - Arbitrary
+//                                         If False, objects will be read into a Structure.
+//     * JSONDateFormat - JSONDateFormat - the format in which the date is represented in the string being converted.
+//     * PropertiesNamesWithDateValues -  Array, String - JSON property names,
+//         for which date restoration from string should be called.
+//     * RestoreFunctionName - String - specifies the name of the function that will be called when reading
+//         each property and must have the following parameters:
+//            ** Property - String - specified only when reading JSON objects
+//            ** Value - Arbitrary - value of a serializable type
+//            ** AdditionalParameters - Arbitrary
+//         Returns:
+//            Arbitrary - value deserialized from JSON. 
+//     * ModuleFunctionRestore - Arbitrary - specifies the module whose procedure will be used for
+//         value restoration.
+//     * AdditionalParametersFunctionRestore - Arbitrary - specifies additional parameters that
+//         will be passed to the value restoration function.
+//     * NamesPropertiesForProcessingRestore - Array - specifies an array of JSON property names for which
+//         the restoration function will be called.
+//     * MaxNesting - Number - specifies the maximum nesting level of the JSON object.
 //
 // Returns:
-//   Map - host response as JSON deserialized value.
+//   Map - host response as deserialized JSON value.
 //     If ConversionParameters.ReadToMap = True (by default).
 //   Structure - If ConversionParameters.ReadToMap = False.
 //
 Function AsJson(Response, JSONConversionParameters = Undefined) Export
-
+		
 	Try
 		Return JsonToObject(UnpackResponse(Response), Response.Encoding, JSONConversionParameters);
 	Except
-		ResponseAsText = AsText(Response);
-		ExceptionTextMaxLength = 1000;
-		If StrLen(ResponseAsText) <= ExceptionTextMaxLength Then
-			ExceptionText = ResponseAsText;
-		Else
-			HalfOfExceptionTextMaxLength = ExceptionTextMaxLength / 2;
-			ExceptionText = Left(ResponseAsText, HalfOfExceptionTextMaxLength);
-			ExceptionText = ExceptionText + Chars.LF + "..." + Chars.LF;
-			ExceptionText = ExceptionText + Прав(ResponseAsText, HalfOfExceptionTextMaxLength);
-		EndIf;
-		Raise ExceptionText;
+		Raise AsException(Response, NStr("en = 'JSON deserialization error.'"));
 	EndTry;
 
 EndFunction
@@ -479,7 +716,7 @@ EndFunction
 // Returns host response as text.
 //
 // Parameters:
-//   Response - see CallMethod
+//   Response - See NewResponse
 //   Encoding - String, TextEncoding - contains text encoding.
 //     If value is empty, the encoding is taken from Response.Encoding.
 //
@@ -507,7 +744,7 @@ EndFunction
 // Returns host response as binary data.
 //
 // Parameters:
-//   Response - see CallMethod
+//   Response - See NewResponse
 //
 // Returns:
 //   String - host response as binary data.
@@ -521,62 +758,109 @@ EndFunction
 // Returns host response as XDTO.
 //
 // Parameters:
-//   Response - see CallMethod
+//   Response - See NewResponse
 //   XMLReaderSettings - XMLReaderSettings - Parameters for reading XML data
-//     See details of the method XMLReader.OpenStream in the Syntax Assistant
+//      See details of the method XMLReader.OpenStream in the Syntax Assistant
 //   XMLSchemaSet - XMLSchemaSet - An XML schema set used for validation of the document being read.
-//     If a schema set is speficied but not validated and XML document validation is enabled, the schema set is validated.
-//     See details of the method XMLReader.OpenStream in the Syntax Assistant
+//     If a schema set is specified but not validated and XML document validation is enabled, the schema set is validated.
+//      See details of the method XMLReader.OpenStream in the Syntax Assistant
+//     
 //   Encoding - String, TextEncoding - Contains the input stream encoding.
-//     See details of the method XMLReader.OpenStream in the Syntax Assistant
+//      See details of the method XMLReader.OpenStream in the Syntax Assistant
 //
 // Returns:
-//   XDTOObject, XDTOList - Return value can have any type that supports serialization to XDTO.
+//   XDTODataObject, XDTOList - Return value can have any type that supports serialization to XDTO.
 //
 Function AsXDTO(Response,
 				XMLReaderSettings = Undefined,
 				XMLSchemaSet = Undefined,
 				Encoding = Undefined) Export
 
-	BinaryData = UnpackResponse(Response);
-	StreamForRead = BinaryData.OpenStreamForRead();
-
-	If Not ValueIsFilled(Encoding) Then
-		Encoding = Response.Encoding;
-	EndIf;
-
-	XMLReader = New XMLReader;
-	XMLReader.OpenStream(StreamForRead, XMLReaderSettings, XMLSchemaSet, Encoding);
-
-	XDTOObject = XDTOFactory.ReadXML(XMLReader);
+	Try
+		BinaryData = UnpackResponse(Response);
+		
+		StreamForRead = BinaryData.OpenStreamForRead();
+	
+		If Not ValueIsFilled(Encoding) Then
+			Encoding = Response.Encoding;
+		EndIf;
+	
+		XMLReader = New XMLReader;
+		XMLReader.OpenStream(StreamForRead, XMLReaderSettings, XMLSchemaSet, Encoding);
+	
+		XDTOObject = XDTOFactory.ReadXML(XMLReader);
+	Except
+		Raise AsException(Response, NStr("en = 'XDTO deserialization error.'"));
+	EndTry;
 
 	Return XDTOObject;
 
+EndFunction
+
+// Returns host response as text intended for use in Raise.
+//
+// Parameters:
+//   Response - See NewResponse.
+//   TextForUser - String - Reason explanation text for the user.
+//
+// Returns:
+//   String - host response as exception text.
+//
+Function AsException(Response, Val TextForUser = Undefined) Export
+	
+	ExceptionText = StrTemplate(
+		NStr("en = 'HTTP %1 %2
+		           |%3'"),
+		Response.Method,
+		Response.URL,
+		HTTPStatusCodePresentation(Response.StatusCode)
+	);
+	
+	BodyResponse = CutText(AsText(Response));
+	
+	If Not IsBlankString(BodyResponse) Then
+		ExceptionText = ExceptionText + Chars.LF + StrTemplate(
+			NStr("en = 'Response body:
+			           |%1'"),
+			BodyResponse);
+	EndIf;
+	
+	If Response.Error.Count() Then
+		ExceptionText = ExceptionText + Chars.LF + Chars.LF
+			+ StrConcat(Response.Error, Chars.LF + Chars.LF);
+	EndIf;
+	
+	If Not IsBlankString(TextForUser) Then
+		ExceptionText = TextForUser + Chars.LF + Chars.LF + ExceptionText;
+	EndIf;
+	
+	Return ExceptionText;
+	
 EndFunction
 
 #EndRegion
 
 #Region SupportingMethods
 
-// Returns a structured URL presentation.
+// Returns a structured representation of a URL.
 //
 // Parameters:
 //   URL - String - HTTP URL to send the request to.
 //
 // Returns:
-//   Structure - Structure URL:
-//     * Scheme - String - access server scheme (http, https).
-//     * Authentification - Structure - authentification parameters:
+//   Structure - URL structure:
+//     * Scheme - String - server access scheme (http, https).
+//     * Authentication - Structure - authentication parameters:
 //         ** User - String - user name.
 //         ** Password - String - user password.
-//     * Host - String - host address.
-//     * Port - Number - host port.
-//     * Path - String - адрес ресурса на сервере.
-//     * RequestParameters - Map - URL parameters to append to the URL (a part after ?):
+//     * Host - String - server address.
+//     * Port - Number - server port.
+//     * Path - String - resource address on the server.
+//     * RequestParameters - Map - request parameters passed to the server in the URL (the part after ?):
 //         ** Key - String - URL parameter key.
 //         ** Value - String - URL parameter value;
-//                       - Array - parameter's values (key=value1&key=value2).
-//     * Fragment - String - a part of URL after #.
+//                       - Array - parameter values (key=value1&key=value2).
+//     * Fragment - String - URL part after #.
 //
 Function ParseURL(Val URL) Export
 
@@ -597,7 +881,7 @@ Function ParseURL(Val URL) Export
 		Scheme = "";
 	EndIf;
 
-	Result = SplitByFirstFoundDelimiter(URL, StrSplit("/,?,#", ","));
+	Result = SplitByFirstFoundSeparator(URL, StrSplit("/,?,#", ","));
 	URL = Result[0];
 	If ValueIsFilled(Result[2]) Then
 		Path = Result[2] + Result[1];
@@ -658,53 +942,69 @@ Function ParseURL(Val URL) Export
 
 EndFunction
 
-// Converts Object into JSON.
+// Converts an Object to JSON.
 //
 // Parameters:
-//   Object - Arbitrary - data to convert into JSON.
-//   ConversionParameters - Structure.
-//     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
-//     * JSONDateWritingVariant - JSONDateWritingVariant - Specifies JSON date writing options.
-//     * ConvertionFunctionName - String - This function is called for all properties if their types
-//         do not support direct conversion to JSON format.
-//         Function should be exported and must have the following parameters:
-//           ** Property - String - Name of property is transferred into the parameter if the structure
-//                or mapping is written.
-//           ** Value - String - The source value is transferred into the parameter.
-//           ** AdditionalParameters - Arbitrary - Additional parameters specified in the call to the
-//                WriteJSON method.
-//           ** Cancel - Boolean - Cancels the property write operation.
-//         Function return value:
+//   Object - Arbitrary - data to convert to JSON.
+//   ConversionParameters - Structure - * JSONDateWriteMode - JSONDateWriteMode - specifies how dates are written in JSON format.
+//     * ConversionFunctionName - String - a function called for all properties
+//                                         whose type does not support automatic serialization to JSON.
+//                                         The function must be exported and have the following parameters:
+//                                         ** Property - String - a data structure property that cannot be
+//                                         automatically serialized to JSON.
+//                                         ** Value - String - the value of a data structure property that
+//                                         cannot be automatically serialized to JSON.
+//                                         ** AdditionalParameters - Arbitrary - this parameter will receive
+//                                         AdditionalConversionFunctionParameters.
+//                                         ** Cancel - Boolean - cancels the property-write operation.
+//                                         Return value of the function:
+//                                         Arbitrary - conversion result.
+//                                         * ConversionFunctionModule - Arbitrary - module where the ConversionFunctionName function is defined.
+//                                         * AdditionalConversionFunctionParameters - Arbitrary - parameters that will be passed
+//                                         to the ConversionFunctionName function.
+//     * JSONDateWriteMode - JSONDateWriteMode - specifies how dates are written in JSON format.
+//     * ConversionFunctionName - String - a function called for all properties
+//         whose type does not support automatic serialization to JSON.
+//         The function must be exported and have the following parameters:
+//           ** Property - String - a data structure property that cannot be
+//                automatically serialized to JSON.
+//           ** Value - String - the value of a data structure property that
+//                cannot be automatically serialized to JSON.
+//           ** AdditionalParameters - Arbitrary - this parameter will receive
+//                AdditionalConversionFunctionParameters.
+//           ** Cancel - Boolean - cancels the property-write operation.
+//         Return value of the function:
 //           Arbitrary - conversion result.
-//     * ConvertionFunctionModule - Arbitrary - Specifies the module, in which the JSON conversion function is implemented.
-//     * ConvertionFunctionAdditionalParameters - Arbitrary - Additional parameters to be transferred to the conversion function.
+//     * ConversionFunctionModule - Arbitrary - module where the ConversionFunctionName function is defined.
+//     * AdditionalConversionFunctionParameters - Arbitrary - parameters that will be passed
+//                                                                     to the ConversionFunctionName function.
 //   WriterSettings - Structure - JSON conversion parameters:
-//     * NewLines - JSONLineBreak - Manages the setting of the start and the end of the objects and arrays,
-//         keys and values in a new string.
-//     * PaddingSymbols - String - Specifies the indent characters used when writing a JSON document.
-//     * UseDoubleQuotes - Boolean - Specifies to use double quotes when writing the JSON properties and values.
-//     * EscapeCharacters - JSONCharactersEscapeMode - Specifies the character screening method when writing
-//         a JSON document.
-//     * EscapeAngleBrackets - Boolean - Specifies if the angle brackets characters will be screened when
-//         writing a JSON document.
-//     * EscapeLineTerminators - Boolean - Specifies screening of the characters "U+2028" (string separator)
-//         and "U+2029" (paragraph separator) for JavaScript compatibility.
-//     * EscapeAmpersand - Boolean - Specifies if the ampersand character will be screened when writing a JSON document.
-//     * EscapeSingleQuotes - Boolean - Specifies if the single quotes character will be screened when writing a JSON document.
-//     * EscapeSlash - Boolean - Defines whether slash is screened while writing a value.
+//     * NewLines - JSONLineBreak - specifies the line-break method
+//         to be used when writing JSON data.
+//     * PaddingSymbols - String - specifies the indent characters used when writing JSON data.
+//     * UseDoubleQuotes - Boolean - specifies whether JSON property names will be
+//         written in double quotes.
+//     * EscapeCharacters - JSONCharactersEscapeMode - specifies the character escaping (replacement) method
+//         to use when writing JSON data.
+//     * EscapeAngleBrackets - Boolean - specifies whether the "<" and ">" characters will be escaped when writing.
+//     * EscapeLineTerminators - Boolean - specifies whether the line separators
+//         U+2028 (line-separator) and U+2029 (page-separator) will be escaped.
+//     * EscapeAmpersand - Boolean - specifies whether the ampersand "&" character will be escaped when writing.
+//     * EscapeSingleQuotes - Boolean - specifies whether single quotes will be escaped.
+//     * EscapeSlash - Boolean - specifies whether the slash will be escaped when writing the value.
 //
 // Returns:
 //   String - object in JSON format.
 //
 Function ObjectToJson(Object, Val ConversionParameters = Undefined, Val WriterSettings = Undefined) Export
 
-	JSONConversionParameters = SupplementJSONConversionParameters(ConversionParameters);
+	JSONConversionParameters = Merge(ParametersConversionJSONByDefault(), ConversionParameters);
 
 	SerializerSettings = New JSONSerializerSettings;
 	SerializerSettings.DateSerializationFormat = JSONConversionParameters.JSONDateFormat;
 	SerializerSettings.DateWritingVariant = JSONConversionParameters.JSONDateWritingVariant;
 
-	WriterSettings = SupplementJSONWriterSettings(WriterSettings);
+	WriterSettings = Merge(JSONWriterSettingsByDeafult(), WriterSettings);
 
 	JSONWriterSettings = New JSONWriterSettings(
 		WriterSettings.NewLines,
@@ -734,24 +1034,38 @@ Function ObjectToJson(Object, Val ConversionParameters = Undefined, Val WriterSe
 
 EndFunction
 
-// Converts JSON into Object.
+// Converts JSON to Object.
 //
 // Parameters:
-//   Json - Stream, BinaryData, String - JSON data.
+//   Json - Stream, BinaryData, String - JSON-formatted data.
 //   Encoding - String - JSON text encoding. Default value - utf-8.
 //   ConversionParameters - Structure - JSON conversion parameters:
-//     * ReadToMap - Boolean - If True, JSON object will be read in Map,
-//                                         otherwise in Structure.
-//     * PropertiesNamesWithDateValues - Array, String, FixedArray - JSON properties names,
-//             For the specified properties date restoration from string will be called.
-//     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
+//     * ReadToMap - Boolean - if True, the JSON object will be read into a Map,
+//         otherwise into a Structure.
+//     * PropertiesNamesWithDateValues - Array, String, FixedArray - JSON property names
+//         for which date restoration from string should be called.
+//     * JSONDateFormat - JSONDateFormat - specifies the deserialization format of JSON object dates.
+//     * NameFunctionRestore - String - specifies the name of the function that will be called when reading
+//         each property and must have the following parameters:
+//            ** Property - String - specified only when reading JSON objects
+//            ** Value - Arbitrary - value of a serializable type
+//            ** AdditionalParameters - Arbitrary
+//         Returns:
+//            Arbitrary - value deserialized from JSON. 
+//     * ModuleFunctionRestore - Arbitrary - specifies the module whose procedure will be used for
+//         value restoration.
+//     * AdditionalParametersFunctionRestore - Arbitrary - specifies additional parameters that
+//         will be passed to the value restoration function.
+//     * NamesPropertiesForProcessingRestore - Array - specifies an array of JSON property names for which
+//         the restoration function will be called.
+//     * MaxNesting - Number - specifies the maximum nesting level of the JSON object.
 //
 // Returns:
-//   Arbitrary - deserialized value from JSON.
+//   Arbitrary - value deserialized from JSON.
 //
 Function JsonToObject(Json, Encoding = "utf-8", ConversionParameters = Undefined) Export
 
-	JSONConversionParameters = SupplementJSONConversionParameters(ConversionParameters);
+	JSONConversionParameters = Merge(ParametersConversionJSONByDefault(), ConversionParameters);
 
 	JSONReader = New JSONReader;
 	If TypeOf(Json) = Type("BinaryData") Then
@@ -765,7 +1079,12 @@ Function JsonToObject(Json, Encoding = "utf-8", ConversionParameters = Undefined
 		JSONReader,
 		JSONConversionParameters.ReadToMap,
 		JSONConversionParameters.PropertiesNamesWithDateValues,
-		JSONConversionParameters.JSONDateFormat);
+		JSONConversionParameters.JSONDateFormat,
+		JSONConversionParameters.NameFunctionRestore,
+		JSONConversionParameters.ModuleFunctionRestore,
+		JSONConversionParameters.AdditionalParametersFunctionRestore,
+		JSONConversionParameters.NamesPropertiesForProcessingRestore,
+		JSONConversionParameters.MaxNesting);
 	JSONReader.Close();
 
 	Return Object;
@@ -775,7 +1094,7 @@ EndFunction
 // Calculates HMAC (hash-based message authentication code).
 //
 // Parameters:
-//   Key - BinaryData - secret key.
+//   Key_ - BinaryData - secret key.
 //   Data - BinaryData - data to calculate HMAC.
 //   Algorithm - HashFunction - Defines method for calculating the hash-sum.
 //
@@ -827,7 +1146,7 @@ Function HMAC(Key_, Data, Algorithm) Export
 
 EndFunction
 
-// Returns the structure of the named HTTP status codes.
+// Returns a structure of named HTTP status codes.
 //
 // Returns:
 //   Structure - named HTTP status codes.
@@ -843,13 +1162,13 @@ Function HTTPStatusCodes() Export
 
 EndFunction
 
-// Returns a text presentation of HTTP status code.
+// Returns a text representation of the given HTTP status code.
 //
 // Parameters:
-//   StatusCode - Number - HTTP status code to get a text presentation.
+//   StatusCode - Number - HTTP status code for which to obtain a text representation.
 //
 // Returns:
-//   String - HTTP status code as text presentation.
+//   String - text representation of the HTTP status code.
 //
 Function HTTPStatusCodePresentation(StatusCode) Export
 
@@ -862,7 +1181,7 @@ Function HTTPStatusCodePresentation(StatusCode) Export
 	EndDo;
 
 	If StatusCodeDescription = Undefined Then
-		Raise(StrTemplate(НСтр("ru = 'Неизвестный код состояния HTTP: %1'; en = 'Неизвестный код состояния HTTP: %1'"), StatusCode));
+		Return StrTemplate(NStr("en = '%1: Unknown HTTP status code'"), StatusCode);
 	Else
 		Return StrTemplate("%1: %2", StatusCodeDescription.Code, StatusCodeDescription.Description);
 	EndIf;
@@ -872,7 +1191,7 @@ EndFunction
 // Reads data from a GZip archive.
 //
 // Parameters:
-//   CompressedData - BinaryData - data packed into GZip.
+//   CompressedData - BinaryData - GZip-packed data.
 //
 // Returns:
 //   BinaryData - unpacked data.
@@ -907,13 +1226,13 @@ Function ReadGZip(CompressedData) Export
 
 EndFunction
 
-// Writes data to GZip archive.
+// Writes data to a GZip archive.
 //
 // Parameters:
-//   Data - BinaryData - initial data.
+//   Data - BinaryData - source data.
 //
 // Returns:
-//   BinaryData - data packed into GZip.
+//   BinaryData - GZip-packed data.
 //
 Function WriteGZip(Data) Export
 
@@ -947,7 +1266,7 @@ EndFunction
 
 #EndRegion
 
-#Region Protected
+#Region Internal
 
 Function PrepareRequest(Session, Method, URL, AdditionalParameters) Export
 
@@ -956,14 +1275,14 @@ Function PrepareRequest(Session, Method, URL, AdditionalParameters) Export
 
 	AuthenticationFromAdditionalParameters =
 		SelectValue(Undefined, AdditionalParameters, "Authentication", New Structure);
-	RequestParametersFromAdditionalParameters =
+	ParametersRequestFromAdditionalParameters =
 		SelectValue(Undefined, AdditionalParameters, "RequestParameters", New Map);
 	HeadersFromAdditionalParameters =
 		SelectValue(Undefined, AdditionalParameters, "Headers", New Map);
 
-	Authentication = MergeAuthenticationParameters(AuthenticationFromAdditionalParameters, Session.Authentication);
-	RequestParameters = MergeRequestParameters(RequestParametersFromAdditionalParameters, Session.RequestParameters);
-	Headers = MergeHeaders(HeadersFromAdditionalParameters, Session.Headers);
+	Authentication = Merge(Copy(AuthenticationFromAdditionalParameters), Session.Authentication);
+	RequestParameters = Merge(Copy(ParametersRequestFromAdditionalParameters), Session.RequestParameters);
+	Headers = Merge(Copy(HeadersFromAdditionalParameters), Session.Headers);
 	JSONConversionParameters =
 		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
 
@@ -983,7 +1302,7 @@ Function PrepareRequest(Session, Method, URL, AdditionalParameters) Export
 	Json = SelectValue(Undefined, AdditionalParameters, "Json", Undefined);
 	JSONWriterSettings = SelectValue(Undefined, AdditionalParameters, "JSONWriterSettings", Undefined);
 
-	PrepareRequestBody(PreparedRequest, Data, Files, Json, JSONWriterSettings);
+	PrepareBodyRequest(PreparedRequest, Data, Files, Json, JSONWriterSettings);
 	PrepareAuthentication(PreparedRequest);
 
 	Return PreparedRequest;
@@ -994,399 +1313,188 @@ EndFunction
 
 #Region Private
 
-Function IsStatusCodeForWhichRetryAfterHeaderMustBeConsidered(StatusCode)
+#Region WorkWithHTTPRequests
 
-	Codes = HTTPStatusCodes();
-	Return StatusCode = Codes.PayloadTooLarge_413
-		Or StatusCode = Codes.TooManyRequests_429
-		Or StatusCode = Codes.ServiceUnavailable_503;
+Function ParametersFromArguments(RequestParameters, Data, Json)
 
-EndFunction
-
-Function NumberFromString(Val String) Export
-
-	ATypeDescription = New TypeDescription("Number");
-	Return ATypeDescription.AdjustValue(String);
-
-EndFunction
-
-Function DateFromString(Val String) Export
-
-	DateQualifier = New DateQualifiers(DateFractions.DateTime);
-	ATypeDescription = New TypeDescription("Date", Undefined, Undefined, DateQualifier);
-	Return ATypeDescription.AdjustValue(String);
-
-EndFunction
-
-Function DateFromStringRFC7231(Val String) Export
-
-	Delimiters = ",-:/\.";
-	For Index = 1 To StrLen(Delimiters) Do
-		Delimiter = Mid(Delimiters, Index, 1);
-		String = StrReplace(String, Delimiter, " ");
-	EndDo;
-	String = StrReplace(String, "  ", " ");
-	DateComponents = StrSplit(String, " ");
-	MonthString = DateComponents[2];
-
-	Months = StrSplit("Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec", ",");
-	Month = Months.Find(MonthString);
-	If Month = Undefined Then
-		Return '00010101';
-	EndIf;
-
-	Date = DateComponents[3] + Format(Month + 1, "ЧЦ=2; ЧВН=;") + DateComponents[1];
-	Time = DateComponents[4] + DateComponents[5] + DateComponents[6];
-
-	Return DateFromString(Date + Time);
+	Result = New Structure;
+	Result.Insert("RequestParameters", RequestParameters);
+	Result.Insert("Data", Data);
+	Result.Insert("Json", Json);
+	
+	Return Result;
 
 EndFunction
 
 Function CallHTTPMethod(Session, Method, URL, AdditionalParameters)
 
-	HTTPStatusCodes = HTTPStatusCodes();
-
 	PreparedRequest = PrepareRequest(Session, Method, URL, AdditionalParameters);
 
-	ConnectionSettings = ConnectionSettings(Method, URL, AdditionalParameters);
+	ConnectionSettings = ConnectionSettings(Session, Method, URL, AdditionalParameters);
 
 	Response = SendRequest(Session, PreparedRequest, ConnectionSettings);
-
-	NumberOfRedirects = 0;
-	While NumberOfRedirects < Session.MaximumNumberOfRedirects Do
-		If Not ConnectionSettings.AllowRedirect Or Not Response.IsRedirect Then
-			Return Response;
-		EndIf;
-
-		NewURL = NewURLOnRedirect(Response);
-
-		PreparedRequest.URL = EncodeString(NewURL, StringEncodingMethod.URLInURLEncoding);
-		NewHTTPRequest = New HTTPRequest(AssembleResourceAddress(ParseURL(NewURL), Undefined));
-		OverrideMethod(PreparedRequest, Response);
-
-		If Response.StatusCode <> HTTPStatusCodes.TemporaryRedirect_307
-			And Response.StatusCode <> HTTPStatusCodes.PermanentRedirect_308 Then
-			RemoveHeaders(PreparedRequest.Headers, "content-length,content-type,transfer-encoding");
-			NewHTTPRequest.Headers = PreparedRequest.Headers;
-		Else
-			SourceStream = PreparedRequest.HTTPRequest.GetBodyAsStream();
-			SourceStream.CopyTo(NewHTTPRequest.GetBodyAsStream());
-		EndIf;
-		PreparedRequest.HTTPRequest = NewHTTPRequest;
-		RemoveHeaders(PreparedRequest.Headers, "cookies");
-
-		PreparedRequest.Cookies = MergeCookies(Session.Cookies, PreparedRequest.Cookies);
-		PrepareCookies(PreparedRequest);
-
-		// INFO: по хорошему аутентификацию нужно привести к новых параметрам, но пока будем игнорировать.
-
-		Response = SendRequest(Session, PreparedRequest, ConnectionSettings);
-
-		NumberOfRedirects = NumberOfRedirects + 1;
-	EndDo;
-
-	Raise("TooManyRedirects");
-
-EndFunction
-
-Function NewURLOnRedirect(Response)
-
-	NewURL = HeaderValue("location", Response.Headers);
-	NewURL = DecodeString(NewURL, StringEncodingMethod.URLInURLEncoding);
-
-	// Редирект без схемы
-	If StrStartsWith(NewURL, "//") Then
-		URLComposition = ParseURL(Response.URL);
-		NewURL = URLComposition.Scheme + ":" + NewURL;
+	
+	If ConnectionSettings.AllowRedirect And Response.IsRedirect Then
+		// INFO: in general, authentication should be aligned with new parameters, but we'll ignore it for now.
+		Response = RedirectRequest(Session, ConnectionSettings, PreparedRequest, Response);
 	EndIf;
-
-	URLComposition = ParseURL(NewURL);
-	If Not ValueIsFilled(URLComposition.Host) Then
-		URLResponseComposition = ParseURL(Response.URL);
-		BaseURL = StrTemplate("%1://%2", URLResponseComposition.Scheme, URLResponseComposition.Host);
-		If ValueIsFilled(URLResponseComposition.Port) Then
-			BaseURL = BaseURL + ":" + Format(URLResponseComposition.Port, "ЧРГ=; ЧГ=");
-		EndIf;
-		NewURL = BaseURL + NewURL;
-	EndIf;
-
-	Return NewURL;
+	
+	Return Response;
 
 EndFunction
 
-Procedure RemoveHeaders(Headers, HeadersListAsString)
-
-	HeadersToRemove = New Array;
-	HeadersList = StrSplit(HeadersListAsString, ",", False);
-	For Each Header In Headers Do
-		If HeadersList.Find(Lower(Header.Key)) <> Undefined Then
-			HeadersToRemove.Add(Header.Key);
+Function RedirectRequest(Session, ConnectionSettings, PreparedRequest, RedirectedResponse)
+	
+	Redirect = 0;
+	
+	While RedirectedResponse.IsRedirect Do
+		
+		PrepareRequestForRedirect(Session, PreparedRequest, RedirectedResponse);
+		
+		RedirectedResponse = SendRequest(Session, PreparedRequest, ConnectionSettings);
+		
+		Redirect = Redirect + 1;
+		
+		If Redirect > Session.MaximumNumberOfRedirects Then
+			Raise("TooManyRedirects");
 		EndIf;
+		
 	EndDo;
-	For Each HeaderToRemove In HeadersToRemove Do
-		Headers.Delete(HeaderToRemove);
-	EndDo;
-
-EndProcedure
-
-Function ConnectionSettings(Method, URL, AdditionalParameters)
-
-	AllowRedirect =
-		ValueByKey(AdditionalParameters, "AllowRedirect", Upper(Method) <> "HEAD");
-	VerifySSL = ValueByKey(AdditionalParameters, "VerifySSL", True);
-	ClientSSLCertificate = ValueByKey(AdditionalParameters, "ClientSSLCertificate");
-	Proxy = ValueByKey(AdditionalParameters, "Proxy", ProxyByDefault(URL));
-	MaximumNumberOfRetries = ValueByKey(AdditionalParameters, "MaximumNumberOfRetries", 0);
-	ToRetryForStatusesCodes =
-		ValueByKey(AdditionalParameters, "ToRetryForStatusesCodes", Undefined);
-	ExponentialDelayRatio =
-		ValueByKey(AdditionalParameters, "ExponentialDelayRatio", 1);
-	MaximumTimeOfRetries = ValueByKey(AdditionalParameters, "MaximumTimeOfRetries", 600);
-
-	Settings = New Structure;
-	Settings.Insert("Timeout", Timeout(AdditionalParameters));
-	Settings.Insert("AllowRedirect", AllowRedirect);
-	Settings.Insert("VerifySSL", VerifySSL);
-	Settings.Insert("ClientSSLCertificate", ClientSSLCertificate);
-	Settings.Insert("Proxy", Proxy);
-	Settings.Insert("MaximumNumberOfRetries", MaximumNumberOfRetries);
-	Settings.Insert("ToRetryForStatusesCodes", ToRetryForStatusesCodes);
-	Settings.Insert("ExponentialDelayRatio", ExponentialDelayRatio);
-	Settings.Insert("MaximumTimeOfRetries", MaximumTimeOfRetries);
-
-	Return Settings;
-
+	
+	Return RedirectedResponse;
+	
 EndFunction
 
-Function Timeout(AdditionalParameters)
+Procedure PrepareRequestForRedirect(Session, PreparedRequest, RedirectedResponse)
+	
+	HTTPStatusCodes = HTTPStatusCodes();
+	
+	NewURL = BuildNewURLOnRedirect(RedirectedResponse);
+	
+	PreparedRequest.URL = EncodeString(NewURL, StringEncodingMethod.URLInURLEncoding);
+	NewHTTPRequest = New HTTPRequest(BuildAddressResource(ParseURL(NewURL), New Map));
+	OverrideMethod(PreparedRequest, RedirectedResponse);
 
-	If AdditionalParameters.Property("Timeout") And ValueIsFilled(AdditionalParameters.Timeout) Then
-		Timeout = AdditionalParameters.Timeout;
+	If RedirectedResponse.StatusCode <> HTTPStatusCodes.TemporaryRedirect_307
+		And RedirectedResponse.StatusCode <> HTTPStatusCodes.PermanentRedirect_308 Then
+		RemoveHeaders(PreparedRequest.Headers, "content-length,content-type,transfer-encoding");
+		NewHTTPRequest.Headers = PreparedRequest.Headers;
 	Else
-		Timeout = TimeoutByDefault();
+		SourceStream = PreparedRequest.HTTPRequest.GetBodyAsStream();
+		SourceStream.CopyTo(NewHTTPRequest.GetBodyAsStream());
 	EndIf;
+	
+	PreparedRequest.HTTPRequest = NewHTTPRequest;
+	RemoveHeaders(PreparedRequest.Headers, "cookies");
 
-	Return Timeout;
-
-EndFunction
-
-Function ProxyByDefault(URL)
-
-	ProxyByDefault = New InternetProxy;
-	// BSLLS:ExecuteExternalCodeInCommonModule-off
-	CMNameGetFilesSSL = "GetFilesFromInternet";
-	If Metadata.CommonModules.Find(CMNameGetFilesSSL) <> Undefined Then
-		URLComposition = ParseURL(URL);
-		Модуль = Eval(CMNameGetFilesSSL);
-		ProxyByDefault = Модуль.GetProxy(URLComposition.Scheme);
-	EndIf;
-	// BSLLS:ExecuteExternalCodeInCommonModule-on
-
-	Return ProxyByDefault;
-
-EndFunction
-
-Function RefillCookie(Cookies, URL)
-
-	URLComposition = ParseURL(URL);
-	NewCookies = New Array;
-	If TypeOf(Cookies) = Type("Array") Then
-		For Each Cookie In Cookies Do
-			NewCookie = CookieConstructor(Cookie.Description, Cookie.Value);
-			FillPropertyValues(NewCookie, Cookie);
-
-			If Not ValueIsFilled(NewCookie.Domain) Then
-				NewCookie.Domain = URLComposition.Host;
-			EndIf;
-			If Not ValueIsFilled(NewCookie.Path) Then
-				NewCookie.Path = "/";
-			EndIf;
-
-			NewCookies.Add(NewCookie);
-		EndDo;
-
-		Return NewCookies;
-	EndIf;
-
-	Return Cookies;
-
-EndFunction
-
-Procedure DeleteCookieFromRepository(CookiesRepository, Cookie)
-
-	If CookiesRepository.Get(Cookie.Domain) <> Undefined
-		And CookiesRepository[Cookie.Domain].Get(Cookie.Path) <> Undefined
-		And CookiesRepository[Cookie.Domain][Cookie.Path].Get(Cookie.Description) <> Undefined Then
-		CookiesRepository[Cookie.Domain][Cookie.Path].Delete(Cookie.Description);
-	EndIf;
-
+	PreparedRequest.Cookies = MergeCookies(PreparedRequest.Cookies, Session.Cookies);
+	PrepareCookies(PreparedRequest);
+	
 EndProcedure
 
-Procedure AddCookieToRepository(CookiesRepository, Cookie, ToReplace = False)
+Procedure PrepareAuthentication(PreparedRequest)
 
-	If CookiesRepository.Get(Cookie.Domain) = Undefined Then
-		CookiesRepository[Cookie.Domain] = New Map;
-	EndIf;
-	If CookiesRepository[Cookie.Domain].Get(Cookie.Path) = Undefined Then
-		CookiesRepository[Cookie.Domain][Cookie.Path] = New Map;
-	EndIf;
-	If CookiesRepository[Cookie.Domain][Cookie.Path].Get(Cookie.Description) = Undefined Or ToReplace Then
-		CookiesRepository[Cookie.Domain][Cookie.Path][Cookie.Description] = Cookie;
-	EndIf;
-
-EndProcedure
-
-Function AddLeadingDot(Val Domain)
-
-	If Not StrStartsWith(Domain, ".") Then
-		Domain = "." + Domain;
-	EndIf;
-
-	Return Domain;
-
-EndFunction
-
-Procedure FillListWithFilteredCookies(Cookies, URLComposition, List)
-
-	For Each Cookie In Cookies Do
-		If Cookie.Value.OnlySecureConnection = True And URLComposition.Scheme <> "https" Then
-			Continue;
+	PreparedRequest.Insert("ResponseEvents", New Array);
+	If Not ValueIsFilled(PreparedRequest.Authentication) Then
+		URLComposition = ParseURL(PreparedRequest.URL);
+		If ValueIsFilled(URLComposition.Authentication) Then
+			PreparedRequest.Authentication = URLComposition.Authentication;
 		EndIf;
-		// INFO: проверка срока действия игнорируется (Cookie.Value.ExpiresOn)
-		// INFO: проверка порта игнорируется
+	EndIf;
 
-		List.Add(Cookie.Value);
-	EndDo;
+	If ValueIsFilled(PreparedRequest.Authentication) Then
+		If PreparedRequest.Authentication.Property("Type") Then
+			TypeAuthentication = Lower(PreparedRequest.Authentication.Type);
+			If TypeAuthentication = "digest" Then
+				PreparedRequest.ResponseEvents.Add("Code401_ResponseHandler");
+			EndIf;
+			If TypeAuthentication = "aws4-hmac-sha256" Then
+				PrepareAuthenticationAWS4(PreparedRequest);	
+			EndIf;                                              
+			If TypeAuthentication = "bearer" Then
+				PrepareAuthenticationBearer(PreparedRequest);	
+			EndIf;
+		EndIf;
+	EndIf;
 
 EndProcedure
 
-Function SelectCookiesForRequest(URLComposition, Cookies)
-
-	IsHostInRequest = AddLeadingDot(URLComposition.Host);
-
-	Result = New Array;
-	For Each Domain In Cookies Do
-		If Not StrEndsWith(IsHostInRequest, Domain.Key) Then
-			Continue;
-		EndIf;
-		For Each Path In Domain.Value Do
-			If Not StrStartsWith(URLComposition.Path, Path.Key) Then
-				Continue;
-			EndIf;
-			FillListWithFilteredCookies(Path.Value, URLComposition, Result);
-		EndDo;
-	EndDo;
-
-	Return Result;
-
-EndFunction
-
-Function PrepareCookieHeader(PreparedRequest)
+Procedure PrepareBodyRequest(PreparedRequest, Data, Files, Json, JSONWriterSettings)
 
 	URLComposition = ParseURL(PreparedRequest.URL);
 
-	Cookies = New Array;
-	For Each Cookie In SelectCookiesForRequest(URLComposition, PreparedRequest.Cookies) Do
-		Cookies.Add(StrTemplate("%1=%2", Cookie.Description, Cookie.Value));
-	EndDo;
-
-	Return StrConcat(Cookies, "; ");
-
-EndFunction
-
-Procedure PrepareCookies(PreparedRequest)
-
-	CookieHeader = PrepareCookieHeader(PreparedRequest);
-	If ValueIsFilled(CookieHeader) Then
-		PreparedRequest.Headers["Cookie"] = CookieHeader;
+	HTTPRequest = New HTTPRequest;
+	HTTPRequest.ResourceAddress = BuildAddressResource(URLComposition, PreparedRequest.RequestParameters);
+	If ValueIsFilled(Files) Then
+		ContentType = EncodeFiles(HTTPRequest, Files, Data);
+	ElsIf ValueIsFilled(Data) Then
+		ContentType = "application/x-www-form-urlencoded";
+		If TypeOf(Data) = Type("BinaryData") Then
+			HTTPRequest.SetBodyFromBinaryData(Data);
+		Else
+			If TypeOf(Data) = Type("String") Then
+				Body = Data;
+			Else
+				Body = EncodeRequestParameters(Data);
+			EndIf;
+			ContentType = "application/x-www-form-urlencoded; charset=utf-8";
+			HTTPRequest.SetBodyFromString(Body, TextEncoding.UTF8, ByteOrderMarkUse.DontUse);
+		EndIf;
+	ElsIf Json <> Undefined Then
+		ContentType = "application/json; charset=utf-8";
+		StringJson = ObjectToJson(Json, PreparedRequest.JSONConversionParameters, JSONWriterSettings);
+		HTTPRequest.SetBodyFromString(StringJson, TextEncoding.UTF8, ByteOrderMarkUse.DontUse);
+	Else
+		ContentType = Undefined;
 	EndIf;
+	HeaderValue = HeaderValue("content-type", PreparedRequest.Headers);
+	If HeaderValue = False And ValueIsFilled(ContentType) Then
+		PreparedRequest.Headers.Insert("Content-Type", ContentType);
+	EndIf;
+
+	HTTPRequest.Headers = PreparedRequest.Headers;
+
+	PackRequest(HTTPRequest);
+
+	PreparedRequest.Insert("HTTPRequest", HTTPRequest);
 
 EndProcedure
 
-Function EncodeRequestParameters(RequestParameters)
+Function EncodeFiles(HTTPRequest, Files, Data)
 
-	RequestParametersParts = New Array;
-	For Each Parameter In RequestParameters Do
-		If TypeOf(Parameter.Value) = Type("Array") Then
-			Values = Parameter.Value;
-		Else
-			Values = New Array;
-			Values.Add(Parameter.Value);
-		EndIf;
-
-		If Parameter.Value = Undefined Then
-			RequestParametersParts.Add(Parameter.Key);
-		Else
-			For Each Value In Values Do
-				ParameterValue = EncodeString(Value, StringEncodingMethod.URLEncoding);
-				RequestParametersParts.Add(StrTemplate("%1=%2", Parameter.Key, ParameterValue));
-			EndDo;
-		EndIf;
-	EndDo;
-
-	Return StrConcat(RequestParametersParts, "&");
-
-EndFunction
-
-Function PrepareURL(Val URL, RequestParameters = Undefined)
-
-	URL = TrimL(URL);
-
-	URLComposition = ParseURL(URL);
-
-	PreparedURL = URLComposition.Scheme + "://";
-	If ValueIsFilled(URLComposition.Authentication.User) Then
-		PreparedURL = PreparedURL
-			+ URLComposition.Authentication.User + ":"
-			+ URLComposition.Authentication.Password + "@";
+	Parts = New Array;
+	If ValueIsFilled(Data) Then
+		For Each Field In Data Do
+			Parts.Add(NewFormField(New Structure("Name,Data", Field.Key, Field.Value)));
+		EndDo;
 	EndIf;
-	PreparedURL = PreparedURL + URLComposition.Host;
-	If ValueIsFilled(URLComposition.Port) Then
-		PreparedURL = PreparedURL + ":" + Format(URLComposition.Port, "ЧРГ=; ЧГ=");
-	EndIf;
-
-	PreparedURL = PreparedURL + AssembleResourceAddress(URLComposition, RequestParameters);
-
-	Return PreparedURL;
-
-EndFunction
-
-Function HeadersToString(Headers)
-
-	StringDelimiter = Chars.CR + Chars.LF;
-	Strings = New Array;
-
-	SortedHeaders = "Content-Disposition,Content-Type,Content-Location";
-	For Each Key_ In StrSplit(SortedHeaders, ",") Do
-		Value = HeaderValue(Key_, Headers);
-		If Value <> False And ValueIsFilled(Value) Then
-			Strings.Add(StrTemplate("%1: %2", Key_, Value));
-		EndIf;
-	EndDo;
-
-	Keys = StrSplit(Upper(SortedHeaders), ",");
-	For Each Header In Headers Do
-		If Keys.Find(Upper(Header.Key)) = Undefined Then
-			Strings.Add(StrTemplate("%1: %2", Header.Key, Header.Value));
-		EndIf;
-	EndDo;
-	Strings.Add(StringDelimiter);
-
-	Return StrConcat(Strings, StringDelimiter);
-
-EndFunction
-
-Function ValueByKey(Structure, Key_, ValueByDefault = Undefined)
-
-	If TypeOf(Structure) = Type("Structure") And Structure.Property(Key_) Then
-		Value = Structure[Key_];
-	ElsIf TypeOf(Structure) = Type("Map") And Structure.Get(Key_) <> Undefined Then
-		Value = Structure.Get(Key_);
+	If TypeOf(Files) = Type("Array") Then
+		For Each File In Files Do
+			Parts.Add(NewFormField(File));
+		EndDo;
 	Else
-		Value = ValueByDefault;
+		Parts.Add(NewFormField(Files));
 	EndIf;
 
-	Return Value;
+	Separator = StrReplace(New UUID, "-", "");
+	StringDelimiter = Chars.CR + Chars.LF;
+
+	RequestBody = HTTPRequest.GetBodyAsStream();
+	DataWriter = New DataWriter(RequestBody, TextEncoding.UTF8, ByteOrder.LittleEndian, "", "", False);
+	For Each Part In Parts Do
+		DataWriter.WriteLine("--" + Separator + StringDelimiter);
+		DataWriter.WriteLine(HeadersInString(Part.Headers));
+		If TypeOf(Part.Data) = Type("BinaryData") Then
+			DataWriter.Write(Part.Data);
+		Else
+			DataWriter.WriteLine(Part.Data);
+		EndIf;
+		DataWriter.WriteLine(StringDelimiter);
+	EndDo;
+	DataWriter.WriteLine("--" + Separator + "--" + StringDelimiter);
+	DataWriter.Close();
+
+	Return StrTemplate("multipart/form-data; boundary=%1", Separator);
 
 EndFunction
 
@@ -1419,203 +1527,168 @@ Function NewFormField(SourceParameters)
 
 EndFunction
 
-Function EnocodeFiles(HTTPRequest, Files, Data)
-
-	Parts = New Array;
-	If ValueIsFilled(Data) Then
-		For Each Field In Data Do
-			Parts.Add(NewFormField(New Structure("Name,Data", Field.Key, Field.Value)));
-		EndDo;
-	EndIf;
-	If TypeOf(Files) = Type("Array") Then
-		For Each File In Files Do
-			Parts.Add(NewFormField(File));
-		EndDo;
-	Else
-		Parts.Add(NewFormField(Files));
-	EndIf;
-
-	Delimiter = StrReplace(New UUID, "-", "");
-	StringDelimiter = Chars.CR + Chars.LF;
-
-	RequestBody = HTTPRequest.GetBodyAsStream();
-	DataWriter = New DataWriter(RequestBody, TextEncoding.UTF8, ByteOrder.LittleEndian, "", "", False);
-	For Each Part In Parts Do
-		DataWriter.WriteLine("--" + Delimiter + StringDelimiter);
-		DataWriter.WriteLine(HeadersToString(Part.Headers));
-		If TypeOf(Part.Data) = Type("BinaryData") Then
-			DataWriter.Write(Part.Data);
-		Else
-			DataWriter.WriteLine(Part.Data);
-		EndIf;
-		DataWriter.WriteLine(StringDelimiter);
-	EndDo;
-	DataWriter.WriteLine("--" + Delimiter + "--" + StringDelimiter);
-	DataWriter.Close();
-
-	Return StrTemplate("multipart/form-data; boundary=%1", Delimiter);
-
-EndFunction
-
-Procedure PrepareRequestBody(PreparedRequest, Data, Files, Json, JSONWriterSettings)
-
-	URLComposition = ParseURL(PreparedRequest.URL);
-
-	HTTPRequest = New HTTPRequest;
-	HTTPRequest.ResourceAddress = AssembleResourceAddress(URLComposition, PreparedRequest.RequestParameters);
-	If ValueIsFilled(Files) Then
-		ContentType = EnocodeFiles(HTTPRequest, Files, Data);
-	ElsIf ValueIsFilled(Data) Then
-		ContentType = "application/x-www-form-urlencoded";
-		If TypeOf(Data) = Type("BinaryData") Then
-			HTTPRequest.SetBodyFromBinaryData(Data);
-		Else
-			If TypeOf(Data) = Type("String") Then
-				Body = Data;
-			Else
-				Body = EncodeRequestParameters(Data);
-			EndIf;
-			HTTPRequest.SetBodyFromString(Body, TextEncoding.UTF8, ByteOrderMarkUse.DontUse);
-		EndIf;
-	ElsIf Json <> Undefined Then
-		ContentType = "application/json";
-		JsonString = ObjectToJson(Json, PreparedRequest.JSONConversionParameters, JSONWriterSettings);
-		HTTPRequest.SetBodyFromString(JsonString, TextEncoding.UTF8, ByteOrderMarkUse.DontUse);
-	Else
-		ContentType = Undefined;
-	EndIf;
-	HeaderValue = HeaderValue("content-type", PreparedRequest.Headers);
-	If HeaderValue = False And ValueIsFilled(ContentType) Then
-		PreparedRequest.Headers.Insert("Content-Type", ContentType);
-	EndIf;
-
-	HTTPRequest.Headers = PreparedRequest.Headers;
-
-	PackRequest(HTTPRequest);
-
-	PreparedRequest.Insert("HTTPRequest", HTTPRequest);
-
-EndProcedure
-
-Procedure PrepareAuthentication(PreparedRequest)
-
-	PreparedRequest.Insert("ResponseEvents", New Array);
-	If Not ValueIsFilled(PreparedRequest.Authentication) Then
-		URLComposition = ParseURL(PreparedRequest.URL);
-		If ValueIsFilled(URLComposition.Authentication) Then
-			PreparedRequest.Authentication = URLComposition.Authentication;
-		EndIf;
-	EndIf;
-
-	If ValueIsFilled(PreparedRequest.Authentication) Then
-		If PreparedRequest.Authentication.Property("Type") Then
-			AuthenticationType = Lower(PreparedRequest.Authentication.Type);
-			If AuthenticationType = "digest" Then
-				PreparedRequest.ResponseEvents.Add("Code401_ResponseHandler");
-			EndIf;
-			If AuthenticationType = "aws4-hmac-sha256" Then
-				PrepareAuthenticationAWS4(PreparedRequest);
-			EndIf;
-			If AuthenticationType = "bearer" Then
-				PrepareAuthenticationBearer(PreparedRequest);	
-			EndIf;
-		EndIf;
-	EndIf;
-
-EndProcedure
-
-Function MergeCookies(MainSource, AdditionalSource)
-
-	Cookies = New Map;
-	For Each Cookie In TransformCookiesRepositoryToArray(MainSource) Do
-		AddCookieToRepository(Cookies, Cookie, False);
-	EndDo;
-	For Each Cookie In TransformCookiesRepositoryToArray(AdditionalSource) Do
-		AddCookieToRepository(Cookies, Cookie, False);
-	EndDo;
-
-	Return Cookies;
-
-EndFunction
-
-Function TransformCookiesRepositoryToArray(CookiesRepository)
-
-	Cookies = New Array;
-	If TypeOf(CookiesRepository) = Type("Array") Then
-		For Each Cookie In CookiesRepository Do
-			NewCookie = CookieConstructor();
-			FillPropertyValues(NewCookie, Cookie);
-			Cookies.Add(NewCookie);
-		EndDo;
-
-		Return Cookies;
-	EndIf;
-
-	For Each Domain In CookiesRepository Do
-		For Each Path In Domain.Value Do
-			For Each Description In Path.Value Do
-				Cookies.Add(Description.Value);
-			EndDo;
-		EndDo;
-	EndDo;
-
-	Return Cookies;
-
-EndFunction
-
-Function MergeAuthenticationParameters(MainSource, AdditionalSource)
-
-	AuthenticationParameters = New Structure;
-	If TypeOf(MainSource) = Type("Structure") Then
-		For Each Parameter In MainSource Do
-			AuthenticationParameters.Insert(Parameter.Key, Parameter.Value);
-		EndDo;
-	EndIf;
-	If TypeOf(AdditionalSource) = Type("Structure") Then
-		For Each Parameter In AdditionalSource Do
-			If Not AuthenticationParameters.Property(Parameter) Then
-				AuthenticationParameters.Insert(Parameter.Key, Parameter.Value);
-			EndIf;
-		EndDo;
-	EndIf;
-
-	Return AuthenticationParameters;
-
-EndFunction
-
-Function MergeHeaders(MainSource, AdditionalSource)
-
-	Headers = New Map;
-	For Each Header In MainSource Do
-		Headers.Insert(Header.Key, Header.Value);
-	EndDo;
-	For Each Header In AdditionalSource Do
-		If Headers.Get(Header.Key) = Undefined Then
-			Headers.Insert(Header.Key, Header.Value);
-		EndIf;
-	EndDo;
-
-	Return Headers;
-
-EndFunction
-
-Function MergeRequestParameters(MainSource, AdditionalSource)
+Function FillRequestParameters(Path)
 
 	RequestParameters = New Map;
-	If TypeOf(MainSource) = Type("Structure") Or TypeOf(MainSource) = Type("Map") Then
-		For Each Parameter In MainSource Do
-			RequestParameters.Insert(Parameter.Key, Parameter.Value);
-		EndDo;
-	EndIf;
-	If TypeOf(AdditionalSource) = Type("Structure") Or TypeOf(AdditionalSource) = Type("Map") Then
-		For Each Parameter In AdditionalSource Do
-			If RequestParameters.Get(Parameter) = Undefined Then
-				RequestParameters.Insert(Parameter.Key, Parameter.Value);
+
+	Request = "";
+	SplitStringByDelimiter(Request, Path, "?", True);
+	For Each StringKeyEqualsParameter In StrSplit(Request, "&", False) Do
+		StringKeyEqualsParameter = DecodeString(
+			StringKeyEqualsParameter, StringEncodingMethod.URLInURLEncoding);
+
+		PositionEquals = StrFind(StringKeyEqualsParameter, "=");
+		If PositionEquals = 0 Then
+			Key_ = StringKeyEqualsParameter;
+			Value = Undefined;
+		Else
+			Key_ = Left(StringKeyEqualsParameter, PositionEquals - 1);
+			Value = Mid(StringKeyEqualsParameter, PositionEquals + 1);
+		EndIf;
+
+		If RequestParameters.Get(Key_) <> Undefined Then
+			If TypeOf(RequestParameters[Key_]) = Type("Array") Then
+				RequestParameters[Key_].Add(Value);
+			Else
+				Values = New Array;
+				Values.Add(RequestParameters[Key_]);
+				Values.Add(Value);
+				RequestParameters[Key_] = Values;
 			EndIf;
-		EndDo;
-	EndIf;
+		Else
+			RequestParameters.Insert(Key_, Value);
+		EndIf;
+
+	EndDo;
 
 	Return RequestParameters;
+
+EndFunction
+
+Function EncodeRequestParameters(RequestParameters)
+
+	PartsParametersRequest = New Array;
+	For Each Parameter In RequestParameters Do
+		If TypeOf(Parameter.Value) = Type("Array") Then
+			Values = Parameter.Value;
+		Else
+			Values = New Array;
+			Values.Add(Parameter.Value);
+		EndIf;
+
+		If Parameter.Value = Undefined Then
+			PartsParametersRequest.Add(Parameter.Key);
+		Else
+			For Each Value In Values Do
+				ParameterValue = EncodeString(Value, StringEncodingMethod.URLEncoding);
+				PartsParametersRequest.Add(StrTemplate("%1=%2", Parameter.Key, ParameterValue));
+			EndDo;
+		EndIf;
+	EndDo;
+
+	Return StrConcat(PartsParametersRequest, "&");
+
+EndFunction
+
+Procedure OverrideMethod(PreparedRequest, Response)
+
+	HTTPStatusCodes = HTTPStatusCodes();
+
+	Method = PreparedRequest.Method;
+
+	// http://tools.ietf.org/html/rfc7231#section-6.4.4
+	If Response.StatusCode = HTTPStatusCodes.SeeOther_303 And Method <> "HEAD" Then
+		Method = "GET";
+	EndIf;
+
+	// Browser behavior
+	If Response.StatusCode = HTTPStatusCodes.MovedTemporarily_302 And Method <> "HEAD" Then
+		Method = "GET";
+	EndIf;
+
+	PreparedRequest.Method = Method;
+
+EndProcedure
+
+Function SendRequest(Session, PreparedRequest, Settings)
+
+	Start = CurrentUniversalDateInMilliseconds();
+	MillisecondsInSecond = 1000;
+
+	Retry = 0;
+	Duration = 0;
+	Error = New Array;
+	
+	While True Do
+		Try
+			Response = SendHTTPRequest(Session, PreparedRequest, Settings);
+			ErrorExecutionRequest = Undefined;
+		Except
+			Response = Undefined;
+			ErrorExecutionRequest = ErrorInfo();
+			
+			ErrorText = StrTemplate(
+				NStr("en = 'HTTP %1 %2
+				           |Network error:
+				           |%3'"),
+				PreparedRequest.Method,
+				PreparedRequest.URL,
+				DetailErrorDescription(ErrorInfo())
+			);
+			Error.Add(ErrorText);
+		EndTry;
+
+		Retry = Retry + 1;
+		Duration = (CurrentUniversalDateInMilliseconds() - Start) / MillisecondsInSecond;
+
+		If Not RequiredRetryRequest(Response, Settings, ErrorExecutionRequest) Then
+			Break;
+		EndIf;
+
+		If Retry > Settings.MaximumNumberOfRetries
+			Or Duration > Settings.MaximumTimeOfRetries Then
+			Break;
+		EndIf;
+
+		If ErrorExecutionRequest <> Undefined
+			Or Not IsCodeStatusOnWhichMustConsiderHeaderRetryAfter(Response.StatusCode) Then
+			RetryAfterHeader = False;
+		Else
+			RetryAfterHeader = HeaderValue("retry-after", Response.Headers);
+		EndIf;
+		
+		DurationPause = CalculateDurationPause(
+			Retry,
+			Settings.ExponentialDelayRatio,
+			RetryAfterHeader,
+			Settings.MaximumTimeOfRetries - Duration);
+		Pause(DurationPause);
+	EndDo;
+
+	If ErrorExecutionRequest <> Undefined Then
+		Raise(DetailErrorDescription(ErrorExecutionRequest));
+	EndIf;
+
+	HeaderContentType = HeaderValue("content-type", Response.Headers);
+	If HeaderContentType = False Then
+		HeaderContentType = "";
+	EndIf;
+
+	PreparedResponse = NewResponse();
+	PreparedResponse.Method = PreparedRequest.Method;
+	PreparedResponse.URL = PreparedRequest.URL;
+	PreparedResponse.StatusCode = Response.StatusCode;
+	PreparedResponse.Headers = Response.Headers;
+	PreparedResponse.Body = Response.GetBodyAsBinaryData();
+	PreparedResponse.Encoding = EncodingFromHeader(HeaderContentType);
+	PreparedResponse.TimeExecution = CurrentUniversalDateInMilliseconds() - Start;
+	PreparedResponse.IsPermanentRedirect = IsPermanentRedirect(Response.StatusCode, Response.Headers);
+	PreparedResponse.IsRedirect = IsRedirect(Response.StatusCode, Response.Headers);
+	PreparedResponse.Cookies = ExtractCookies(Response.Headers, PreparedRequest.URL);
+	
+	Session.Cookies = MergeCookies(Session.Cookies, PreparedResponse.Cookies);
+
+	Return PreparedResponse;
 
 EndFunction
 
@@ -1635,301 +1708,29 @@ Function SendHTTPRequest(Session, PreparedRequest, Settings)
 
 EndFunction
 
-Function CalculatePauseDuration(RetriesNumber, ExponentialDelayRatio, RetryAfterHeader, Remainder)
-
-	If RetryAfterHeader <> False Then
-		Duration = NumberFromString(RetryAfterHeader);
-
-		If Duration = 0 Then
-			Date = DateFromStringRFC7231(RetryAfterHeader);
-			If ValueIsFilled(Date) Then
-				Duration = Date - CurrentUniversalDate();
-			EndIf;
-		EndIf;
-	Else
-		Duration = ExponentialDelayRatio * Pow(2, RetriesNumber - 1);
-	EndIf;
-
-	Duration = Min(Duration, Remainder);
-
-	If Duration < 0 Then
-		Duration = 0;
-	EndIf;
-
-	Return Duration;
-
-EndFunction
-
-Function RequestMustBeRepeated(Response, Settings, RequestExecutionError)
+Function RequiredRetryRequest(Response, Settings, ErrorExecutionRequest)
 
 	If Settings.MaximumNumberOfRetries < 1 Then
 		RetryRequest = False;
-	ElsIf RequestExecutionError <> Undefined Or RetryOnStatusCode(Response.StatusCode, Settings) Then
+	ElsIf ErrorExecutionRequest <> Undefined Or RetryOnCodeStatus(Response.StatusCode, Settings) Then
 		RetryRequest = True;
 	Else
 		RetryAfterHeader = HeaderValue("retry-after", Response.Headers);
 		RetryRequest = RetryAfterHeader <> False
-			And IsStatusCodeForWhichRetryAfterHeaderMustBeConsidered(Response.StatusCode);
+			And IsCodeStatusOnWhichMustConsiderHeaderRetryAfter(Response.StatusCode);
 	EndIf;
 
 	Return RetryRequest;
 
 EndFunction
 
-Function RetryOnStatusCode(StatusCode, Settings)
+Function RetryOnCodeStatus(StatusCode, Settings)
 
-	RetryOnAnyStatusCodeMoreOrEqual500 = Settings.ToRetryForStatusesCodes = Undefined
+	RetryOnAnyCodeStatusGreaterOrEqual500 = Settings.ToRetryForStatusesCodes = Undefined
 		And StatusCode >= HTTPStatusCodes().InternalServerError_500;
-	StatusCodeMatchesRetryStatusCode = TypeOf(Settings.ToRetryForStatusesCodes) = Type("Array")
+	CodeStatusMatchesCodeStatusRetry = TypeOf(Settings.ToRetryForStatusesCodes) = Type("Array")
 		And Settings.ToRetryForStatusesCodes.Find(StatusCode) <> Undefined;
-	Return RetryOnAnyStatusCodeMoreOrEqual500 Or StatusCodeMatchesRetryStatusCode;
-
-EndFunction
-
-Function SendRequest(Session, PreparedRequest, Settings)
-
-	Start = CurrentUniversalDateInMilliseconds();
-	MillisecondsInSecond = 1000;
-
-	RetriesNumber = 0;
-	Duration = 0;
-	While True Do
-		Try
-			Response = SendHTTPRequest(Session, PreparedRequest, Settings);
-			RequestExecutionError = Undefined;
-		Except
-			Response = Undefined;
-			RequestExecutionError = ErrorInfo();
-		EndTry;
-
-		RetriesNumber = RetriesNumber + 1;
-		Duration = (CurrentUniversalDateInMilliseconds() - Start) / MillisecondsInSecond;
-
-		If Not RequestMustBeRepeated(Response, Settings, RequestExecutionError) Then
-			Break;
-		EndIf;
-
-		If RetriesNumber > Settings.MaximumNumberOfRetries
-			Or Duration > Settings.MaximumTimeOfRetries Then
-			Break;
-		EndIf;
-
-		If RequestExecutionError <> Undefined
-			Or НЕ IsStatusCodeForWhichRetryAfterHeaderMustBeConsidered(Response.StatusCode) Then
-			RetryAfterHeader = False;
-		Else
-			RetryAfterHeader = HeaderValue("retry-after", Response.Headers);
-		EndIf;
-		PauseDuration = CalculatePauseDuration(
-			RetriesNumber,
-			Settings.ExponentialDelayRatio,
-			RetryAfterHeader,
-			Settings.MaximumTimeOfRetries - Duration);
-		Pause(PauseDuration);
-	EndDo;
-
-	If RequestExecutionError <> Undefined Then
-		Raise(DetailErrorDescription(RequestExecutionError));
-	EndIf;
-
-	ContentTypeHeader = HeaderValue("content-type", Response.Headers);
-	If ContentTypeHeader = False Then
-		ContentTypeHeader = "";
-	EndIf;
-
-	PreparedResponse = New Structure;
-	PreparedResponse.Insert("ExecutionTime", CurrentUniversalDateInMilliseconds() - Start);
-	PreparedResponse.Insert("Cookies", ExtractCookies(Response.Headers, PreparedRequest.URL));
-	PreparedResponse.Insert("Headers", Response.Headers);
-	PreparedResponse.Insert("IsPermanentRedirect", IsPermanentRedirect(Response.StatusCode, Response.Headers));
-	PreparedResponse.Insert("IsRedirect", IsRedirect(Response.StatusCode, Response.Headers));
-	PreparedResponse.Insert("Encoding", EncodingFromHeader(ContentTypeHeader));
-	PreparedResponse.Insert("Body", Response.GetBodyAsBinaryData());
-	PreparedResponse.Insert("StatusCode", Response.StatusCode);
-	PreparedResponse.Insert("URL", PreparedRequest.URL);
-
-	Session.Cookies = MergeCookies(Session.Cookies, PreparedResponse.Cookies);
-
-	Return PreparedResponse;
-
-EndFunction
-
-Procedure OverrideMethod(PreparedRequest, Response)
-
-	HTTPStatusCodes = HTTPStatusCodes();
-
-	Method = PreparedRequest.Method;
-
-	// http://tools.ietf.org/html/rfc7231#section-6.4.4
-	If Response.StatusCode = HTTPStatusCodes.SeeOther_303 And Method <> "HEAD" Then
-		Method = "GET";
-	EndIf;
-
-	// Поведение браузеров
-	If Response.StatusCode = HTTPStatusCodes.MovedTemporarily_302 And Method <> "HEAD" Then
-		Method = "GET";
-	EndIf;
-
-	PreparedRequest.Method = Method;
-
-EndProcedure
-
-Function ExtractCookies(Headers, URL)
-
-	CurrentTime = CurrentUniversalDate();
-	Cookies = New Map;
-	For Each NextHeader In Headers Do
-		If Lower(NextHeader.Key) = "set-cookie" Then
-			For Each CookieHeader In SplitIntoSeparateCookiesHeaders(NextHeader.Value) Do
-				Cookie = ParseCookie(CookieHeader, URL, CurrentTime);
-				If Cookie = Undefined Then
-					Continue;
-				EndIf;
-				If Cookie.ExpiresOn <= CurrentTime Then
-					DeleteCookieFromRepository(Cookies, Cookie);
-				Else
-					AddCookieToRepository(Cookies, Cookie);
-				EndIf;
-			EndDo;
-		EndIf;
-	EndDo;
-
-	Return Cookies;
-
-EndFunction
-
-Function SplitIntoSeparateCookiesHeaders(Val Header)
-
-	Headers = New Array;
-
-	If Not ValueIsFilled(Header) Then
-		Return Headers;
-	EndIf;
-
-	HeadersParts = StrSplit(Header, ",", False);
-
-	SeparateHeader = HeadersParts[0];
-	For Index = 1 To HeadersParts.ВГраница() Do
-		Semicolon = StrFind(HeadersParts[Index], ";");
-		EqualSign = StrFind(HeadersParts[Index], "=");
-		If Semicolon And EqualSign And EqualSign < Semicolon Then
-			Headers.Add(SeparateHeader);
-			SeparateHeader = HeadersParts[Index];
-		Else
-			SeparateHeader = SeparateHeader + HeadersParts[Index];
-		EndIf;
-	EndDo;
-	Headers.Add(SeparateHeader);
-
-	Return Headers;
-
-EndFunction
-
-Function CookieConstructor(Description = "", Value = Undefined)
-
-	NewCookie = New Structure;
-	NewCookie.Insert("Description", Description);
-	NewCookie.Insert("Value", Value);
-	NewCookie.Insert("Domain", "");
-	NewCookie.Insert("Path", "");
-	NewCookie.Insert("Port");
-	NewCookie.Insert("ExpiresOn", '39990101');
-	NewCookie.Insert("OnlySecureConnection");
-
-	Return NewCookie;
-
-EndFunction
-
-Function CreateCookieAndFillBasicParameters(Parameter)
-
-	Parts = StrSplit(Parameter, "=", False);
-	Description = Parts[0];
-	If Parts.Count() > 1 Then
-		Value = Parts[1];
-	EndIf;
-
-	Return CookieConstructor(Description, Value);
-
-EndFunction
-
-Function ParseCookie(Header, URL, CurrentTime)
-
-	Cookie = Undefined;
-	Index = 0;
-
-	For Each Parameter In StrSplit(Header, ";", False) Do
-		Index = Index + 1;
-		Parameter = TrimAll(Parameter);
-
-		If Index = 1 Then
-			Cookie = CreateCookieAndFillBasicParameters(Parameter);
-			Continue;
-		EndIf;
-
-		Parts = StrSplit(Parameter, "=", False);
-		Key_ = Lower(Parts[0]);
-		If Parts.Count() > 1 Then
-			Value = Parts[1];
-		EndIf;
-
-		If Key_ = "domain" Then
-			Cookie.Domain = Value;
-		ElsIf Key_ = "path" Then
-			Cookie.Path = Value;
-		ElsIf Key_ = "secure" Then
-			Cookie.OnlySecureConnection = True;
-		ElsIf Key_ = "max-age" Then
-			ExpiresOnMaxAge = CurrentTime + NumberFromString(Value);
-		ElsIf Key_ = "expires" Then
-			Cookie.ExpiresOn = DateFromStringRFC7231(Value);
-		Else
-			Continue;
-		EndIf;
-	EndDo;
-	If ValueIsFilled(Cookie) And ValueIsFilled(ExpiresOnMaxAge) Then
-		Cookie.ExpiresOn = ExpiresOnMaxAge;
-	EndIf;
-
-	SipplementCookieWithImplicitValues(Cookie, URL);
-
-	Return Cookie;
-
-EndFunction
-
-Procedure SipplementCookieWithImplicitValues(Cookie, URL)
-
-	If Cookie = Undefined Then
-		Return;
-	EndIf;
-
-	URLComposition = ParseURL(URL);
-	If Not ValueIsFilled(Cookie.Domain) Then
-		Cookie.Domain = URLComposition.Host;
-	EndIf;
-	If Not ValueIsFilled(Cookie.Port) And ValueIsFilled(URLComposition.Port) Then
-		Cookie.Port = URLComposition.Port;
-	EndIf;
-	If Not ValueIsFilled(Cookie.Path) Then
-		LastSlashPosition = StrFind(URLComposition.Path, "/", SearchDirection.FromEnd);
-		If LastSlashPosition <= 1 Then
-			Cookie.Path = "/";
-		Else
-			Cookie.Path = Left(URLComposition.Path, LastSlashPosition - 1);
-		EndIf;
-	EndIf;
-
-EndProcedure
-
-Function HeaderValue(Header, AllHeaders, Key_ = Undefined)
-
-	For Each NextHeader In AllHeaders Do
-		If Lower(NextHeader.Key) = Lower(Header) Then
-			Key_ = NextHeader.Key;
-			Return NextHeader.Value;
-		EndIf;
-	EndDo;
-
-	Return False;
+	Return RetryOnAnyCodeStatusGreaterOrEqual500 Or CodeStatusMatchesCodeStatusRetry;
 
 EndFunction
 
@@ -1958,51 +1759,101 @@ Function IsRedirect(StatusCode, Headers)
 
 EndFunction
 
-Function ExistsLocationHeader(Headers)
+Procedure PackRequest(Request)
 
-	Return HeaderValue("location", Headers) <> False;
-
-EndFunction
-
-Function EncodingFromHeader(Val Header)
-
-	Encoding = Undefined;
-
-	Header = Lower(TrimAll(Header));
-	DelimiterIndex = StrFind(Header, ";");
-	If DelimiterIndex Then
-		ContentType = TrimAll(Left(Header, DelimiterIndex - 1));
-		EncodingKey = "charset=";
-		EncodingIndex = StrFind(Header, EncodingKey);
-		If EncodingIndex Then
-			DelimiterIndex = StrFind(Header, ";", SearchDirection.FromBegin, EncodingIndex);
-			InitialPosition = EncodingIndex + StrLen(EncodingKey);
-			If DelimiterIndex Then
-				EncodingLength = DelimiterIndex - InitialPosition;
-			Else
-				EncodingLength = StrLen(Header);
-			EndIf;
-			Encoding = Mid(Header, InitialPosition, EncodingLength);
-			Encoding = StrReplace(Encoding, """", "");
-			Encoding = StrReplace(Encoding, "'", "");
+	Header = HeaderValue("content-encoding", Request.Headers);
+	If Header <> False Then
+		If Lower(Header) = "gzip" Then
+			Request.SetBodyFromBinaryData(WriteGZip(Request.GetBodyAsBinaryData()));
 		EndIf;
-	Else
-		ContentType = Header;
 	EndIf;
 
-	If Encoding = Undefined And StrFind(ContentType, "text") Then
-		Encoding = "iso-8859-1";
+EndProcedure
+
+Function UnpackResponse(Response)
+
+	Header = HeaderValue("content-encoding", Response.Headers);
+	If Header <> False Then
+		If Lower(Header) = "gzip" Then
+			Return ReadGZip(Response.Body);
+		EndIf;
 	EndIf;
 
-	Return Encoding;
+	Return Response.Body;
 
 EndFunction
 
-Function AssembleResourceAddress(URLComposition, RequestParameters)
+#EndRegion
+
+#Region EventHandlers
+
+Procedure Code401_ResponseHandler(Session, PreparedRequest, Settings, Response)
+
+	If IsRedirect(Response.StatusCode, Response.Headers) Then
+		Return;
+	EndIf;
+
+	HTTPStatusCodes = HTTPStatusCodes();
+	If Response.StatusCode < HTTPStatusCodes.InvalidRequest_400
+		Or Response.StatusCode >= HTTPStatusCodes.InternalServerError_500 Then
+		Return;
+	EndIf;
+
+	Value = HeaderValue("www-authenticate", Response.Headers);
+	If Value <> False And StrFind(Lower(Value), "digest") Then
+		Position = StrFind(Lower(Value), "digest");
+		Value = Mid(Value, Position + StrLen("digest") + 1);
+		Value = StrReplace(Value, """", "");
+		Value = StrReplace(Value, Chars.LF, "");
+
+		DigestParameters = New Structure("algorithm,realm,nonce,qop,opaque");
+		For Each Part In SplitStringByString(Value, ", ") Do
+			KeyValue = StrSplit(Part, "=");
+			DigestParameters.Insert(KeyValue[0], KeyValue[1]);
+		EndDo;
+
+		Session.ServiceData.DigestParameters = DigestParameters;
+
+		PreparedRequest.Headers.Insert("Authorization", PrepareHeaderDigest(Session, PreparedRequest));
+		PreparedRequest.HTTPRequest.Headers = PreparedRequest.Headers;
+
+		Response = SendHTTPRequest(Session, PreparedRequest, Settings);
+	EndIf;
+
+EndProcedure
+
+#EndRegion
+
+#Region URL
+
+Function PrepareURL(Val URL, RequestParameters = Undefined)
+
+	URL = TrimL(URL);
+
+	URLComposition = ParseURL(URL);
+
+	PreparedURL = URLComposition.Scheme + "://";
+	If ValueIsFilled(URLComposition.Authentication.User) Then
+		PreparedURL = PreparedURL
+			+ URLComposition.Authentication.User + ":"
+			+ URLComposition.Authentication.Password + "@";
+	EndIf;
+	PreparedURL = PreparedURL + URLComposition.Host;
+	If ValueIsFilled(URLComposition.Port) Then
+		PreparedURL = PreparedURL + ":" + Format(URLComposition.Port, "NGS=; NG=");
+	EndIf;
+
+	PreparedURL = PreparedURL + BuildAddressResource(URLComposition, RequestParameters);
+
+	Return PreparedURL;
+
+EndFunction
+
+Function BuildAddressResource(URLComposition, RequestParameters)
 
 	ResourceAddress = URLComposition.Path;
 
-	MergedRequestParameters = MergeRequestParameters(RequestParameters, URLComposition.RequestParameters);
+	MergedRequestParameters = Merge(Copy(RequestParameters), URLComposition.RequestParameters);
 	If ValueIsFilled(MergedRequestParameters) Then
 		ResourceAddress = ResourceAddress + "?" + EncodeRequestParameters(MergedRequestParameters);
 	EndIf;
@@ -2014,22 +1865,83 @@ Function AssembleResourceAddress(URLComposition, RequestParameters)
 
 EndFunction
 
-Function SecureConnectionObject(AdditionalParameters)
+Function BuildNewURLOnRedirect(Response)
 
-	If AdditionalParameters.VerifySSL = False Then
-		CertificatesCA = Undefined;
-	ElsIf TypeOf(AdditionalParameters.VerifySSL) = Type("FileCertificationAuthorityCertificates") Then
-		CertificatesCA = AdditionalParameters.VerifySSL;
-	Else
-		CertificatesCA = New OSCertificationAuthorityCertificates;
-	EndIf;
-	ClientCertificate = Undefined;
-	If TypeOf(AdditionalParameters.ClientSSLCertificate) = Type("FileClientCertificate")
-		Or TypeOf(AdditionalParameters.ClientSSLCertificate) = Type("WindowsClientCertificate") Then
-		ClientCertificate = AdditionalParameters.ClientSSLCertificate;
+	NewURL = HeaderValue("location", Response.Headers);
+	NewURL = DecodeString(NewURL, StringEncodingMethod.URLInURLEncoding);
+
+	// Redirect without scheme
+	If StrStartWith(NewURL, "//") Then
+		URLComposition = ParseURL(Response.URL);
+		NewURL = URLComposition.Scheme + ":" + NewURL;
 	EndIf;
 
-	Return New OpenSSLSecureConnection(ClientCertificate, CertificatesCA);
+	URLComposition = ParseURL(NewURL);
+	If SplitStringByString(NewURL, "://").Count() < 2 Then
+		StructureURLResponse = ParseURL(Response.URL);
+		BaseURL = StrTemplate("%1://%2", StructureURLResponse.Scheme, StructureURLResponse.Host);
+		If ValueIsFilled(StructureURLResponse.Port) Then
+			BaseURL = BaseURL + ":" + Format(StructureURLResponse.Port, "NGS=; NG=");
+		EndIf;
+		If StrStartWith(NewURL, "/") Then
+			NewURL = BaseURL + NewURL;
+		Else
+			IndexLastSlash = StrFind(StructureURLResponse.Path, "/", SearchDirection.FromEnd);
+			ParentDirectory = Left(StructureURLResponse.Path, IndexLastSlash);
+			NewURL = BaseURL + ParentDirectory + NewURL;
+		EndIf;
+	EndIf;
+
+	Return NewURL;
+
+EndFunction
+
+Function IsStandardPort(URLComposition)
+
+	StandardPortHTTP = 80;
+	StandardPortHTTPS = 443;
+
+	Return (URLComposition.Scheme = "http" And URLComposition.Port = StandardPortHTTP)
+		Or (URLComposition.Scheme = "https" And URLComposition.Port = StandardPortHTTPS);
+
+EndFunction
+
+#EndRegion
+
+#Region WorkWithConnection
+
+Function ConnectionSettings(Session, Method, URL, AdditionalParameters)
+	
+	VerifySSLFromSession = ValueByKey(Session, "VerifySSL", True);
+	VerifySSLFromAdditionalParameters = ValueByKey(AdditionalParameters, "VerifySSL", True);
+	ClientCertificateSSLFromAdditionalParameters =
+		ValueByKey(AdditionalParameters, "ClientSSLCertificate");
+	
+	AllowRedirect =
+		ValueByKey(AdditionalParameters, "AllowRedirect", Upper(Method) <> "HEAD");
+	VerifySSL = ?(VerifySSLFromAdditionalParameters, True, VerifySSLFromSession);
+	ClientSSLCertificate =
+		SelectValue(ClientCertificateSSLFromAdditionalParameters, Session, "ClientSSLCertificate", Undefined);
+	Proxy = ValueByKey(AdditionalParameters, "Proxy", ProxyByDefault(URL));
+	MaximumNumberOfRetries = ValueByKey(AdditionalParameters, "MaximumNumberOfRetries", 0);
+	ToRetryForStatusesCodes =
+		ValueByKey(AdditionalParameters, "ToRetryForStatusesCodes", Undefined);
+	ExponentialDelayRatio =
+		ValueByKey(AdditionalParameters, "ExponentialDelayRatio", 1);
+	MaximumTimeOfRetries = ValueByKey(AdditionalParameters, "MaximumTimeOfRetries", 600);
+
+	Settings = New Structure;
+	Settings.Insert("Timeout", Timeout(AdditionalParameters));
+	Settings.Insert("AllowRedirect", AllowRedirect);
+	Settings.Insert("VerifySSL", VerifySSL);
+	Settings.Insert("ClientSSLCertificate", ClientSSLCertificate);
+	Settings.Insert("Proxy", Proxy);
+	Settings.Insert("MaximumNumberOfRetries", MaximumNumberOfRetries);
+	Settings.Insert("ToRetryForStatusesCodes", ToRetryForStatusesCodes);
+	Settings.Insert("ExponentialDelayRatio", ExponentialDelayRatio);
+	Settings.Insert("MaximumTimeOfRetries", MaximumTimeOfRetries);
+
+	Return Settings;
 
 EndFunction
 
@@ -2045,7 +1957,7 @@ Function Connection(ConnectionParameters, Authentication, AdditionalParameters, 
 
 	SecureConnection = Undefined;
 	If ConnectionParameters.Scheme = "https" Then
-		SecureConnection = SecureConnectionObject(AdditionalParameters);
+		SecureConnection = ObjectProtectedConnection(AdditionalParameters);
 	EndIf;
 
 	User = "";
@@ -2108,7 +2020,7 @@ Function ConnectionID(ConnectionParameters)
 			CalculateIDParameters.Add(Item.User);
 			CalculateIDParameters.Add(Item.Password);
 		ElsIf ItemType = Type("OpenSSLSecureConnection") Then
-			// For упрощения будет считать, что сертификаты в рамках сессии не меняются
+			// For simplicity, we'll assume that certificates do not change within a session
 			If Item.ClientCertificate = Undefined Then
 				CalculateIDParameters.Add("");
 			Else
@@ -2128,145 +2040,559 @@ Function ConnectionID(ConnectionParameters)
 
 EndFunction
 
-Function SelectValue(MainValue, AdditionalValues, Key_, ValueByDefault)
+Function ObjectProtectedConnection(AdditionalParameters)
 
-	If MainValue <> Undefined Then
-		Return MainValue;
+	If AdditionalParameters.VerifySSL = False Then
+		CertificatesCA = Undefined;
+	ElsIf TypeOf(AdditionalParameters.VerifySSL) = Type("FileCertificationAuthorityCertificates") Then
+		CertificatesCA = AdditionalParameters.VerifySSL;
+	Else
+		CertificatesCA = New OSCertificationAuthorityCertificates;
+	EndIf;
+	ClientCertificate = Undefined;
+	If TypeOf(AdditionalParameters.ClientSSLCertificate) = Type("FileClientCertificate")
+		Or TypeOf(AdditionalParameters.ClientSSLCertificate) = Type("WindowsClientCertificate") Then
+		ClientCertificate = AdditionalParameters.ClientSSLCertificate;
 	EndIf;
 
-	Value = ValueByKey(AdditionalValues, Key_);
-	If Value <> Undefined Then
-		Return Value;
-	EndIf;
-
-	Return ValueByDefault;
+	Return New OpenSSLSecureConnection(ClientCertificate, CertificatesCA);
 
 EndFunction
 
-Function FillRequestParameters(Path)
+Function Timeout(AdditionalParameters)
 
-	RequestParameters = New Map;
+	If AdditionalParameters.Property("Timeout") And AdditionalParameters.Timeout <> Undefined Then
+		Timeout = AdditionalParameters.Timeout;
+	Else
+		Timeout = TimeoutByDefault();
+	EndIf;
 
-	Query = "";
-	SplitStringByDelimiter(Query, Path, "?", True);
-	For Each KeyEqualParameterString In StrSplit(Query, "&", False) Do
-		KeyEqualParameterString = DecodeString(
-			KeyEqualParameterString, StringEncodingMethod.URLInURLEncoding);
+	Return Timeout;
 
-		EqualSignPosition = StrFind(KeyEqualParameterString, "=");
-		If EqualSignPosition = 0 Then
-			Key_ = KeyEqualParameterString;
-			Value = Undefined;
-		Else
-			Key_ = Left(KeyEqualParameterString, EqualSignPosition - 1);
-			Value = Mid(KeyEqualParameterString, EqualSignPosition + 1);
+EndFunction
+
+Function ProxyByDefault(URL)
+
+	ProxyByDefault = New InternetProxy;
+	// BSLLS:ExecuteExternalCodeInCommonModule-off
+	NameOMGetFilesSSL = "GetFilesFromInternet";
+	If Metadata.CommonModules.Find(NameOMGetFilesSSL) <> Undefined Then
+		URLComposition = ParseURL(URL);
+		Module = Eval(NameOMGetFilesSSL);
+		ProxyByDefault = Module.GetProxy(URLComposition.Scheme);
+	EndIf;
+	// BSLLS:ExecuteExternalCodeInCommonModule-on
+
+	Return ProxyByDefault;
+
+EndFunction
+
+Function CurrentSession(Session)
+
+	If Session = Undefined Then
+		Session = NewSession();
+	EndIf;
+
+	Return Session;
+
+EndFunction
+
+#EndRegion
+
+#Region Headers
+
+Function HeadersInString(Headers)
+
+	StringDelimiter = Chars.CR + Chars.LF;
+	Lines = New Array;
+
+	SortedHeaders = "Content-Disposition,Content-Type,Content-Location";
+	For Each Key_ In StrSplit(SortedHeaders, ",") Do
+		Value = HeaderValue(Key_, Headers);
+		If Value <> False And ValueIsFilled(Value) Then
+			Lines.Add(StrTemplate("%1: %2", Key_, Value));
 		EndIf;
-
-		If RequestParameters.Get(Key_) <> Undefined Then
-			If TypeOf(RequestParameters[Key_]) = Type("Array") Then
-				RequestParameters[Key_].Add(Value);
-			Else
-				Values = New Array;
-				Values.Add(RequestParameters[Key_]);
-				Values.Add(Value);
-				RequestParameters[Key_] = Values;
-			EndIf;
-		Else
-			RequestParameters.Insert(Key_, Value);
-		EndIf;
-
 	EndDo;
 
-	Return RequestParameters;
+	Keys = StrSplit(Upper(SortedHeaders), ",");
+	For Each Header In Headers Do
+		If Keys.Find(Upper(Header.Key)) = Undefined Then
+			Lines.Add(StrTemplate("%1: %2", Header.Key, Header.Value));
+		EndIf;
+	EndDo;
+	Lines.Add(StringDelimiter);
+
+	Return StrConcat(Lines, StringDelimiter);
 
 EndFunction
 
-Procedure SplitStringByDelimiter(ExtractedPart, RemainingPart, Delimiter, Inversion = False)
+Procedure RemoveHeaders(Headers, ListHeadersString)
 
-	Index = StrFind(RemainingPart, Delimiter);
-	If Index Then
-		ExtractedPart = Left(RemainingPart, Index - 1);
-		RemainingPart = Mid(RemainingPart, Index + StrLen(Delimiter));
-		If Inversion Then
-			ForValuesSwap = ExtractedPart;
-			ExtractedPart = RemainingPart;
-			RemainingPart = ForValuesSwap;
+	HeadersForDelete = New Array;
+	ListHeaders = StrSplit(ListHeadersString, ",", False);
+	For Each Header In Headers Do
+		If ListHeaders.Find(Lower(Header.Key)) <> Undefined Then
+			HeadersForDelete.Add(Header.Key);
 		EndIf;
+	EndDo;
+	For Each HeaderForDelete In HeadersForDelete Do
+		Headers.Delete(HeaderForDelete);
+	EndDo;
+
+EndProcedure
+
+Function ExistsLocationHeader(Headers)
+
+	Return HeaderValue("location", Headers) <> False;
+
+EndFunction
+
+Function EncodingFromHeader(Val Header)
+
+	Encoding = Undefined;
+
+	Header = Lower(TrimAll(Header));
+	IndexSeparator = StrFind(Header, ";");
+	If IndexSeparator Then
+		TypeContent = TrimAll(Left(Header, IndexSeparator - 1));
+		KeyEncoding = "charset=";
+		IndexEncoding = StrFind(Header, KeyEncoding);
+		If IndexEncoding Then
+			IndexSeparator = StrFind(Header, ";", SearchDirection.FromBegin, IndexEncoding);
+			InitialPosition = IndexEncoding + StrLen(KeyEncoding);
+			If IndexSeparator Then
+				LengthEncoding = IndexSeparator - InitialPosition;
+			Else
+				LengthEncoding = StrLen(Header);
+			EndIf;
+			Encoding = Mid(Header, InitialPosition, LengthEncoding);
+			Encoding = StrReplace(Encoding, """", "");
+			Encoding = StrReplace(Encoding, "'", "");
+		EndIf;
+	Else
+		TypeContent = Header;
+	EndIf;
+
+	If Encoding = Undefined And StrFind(TypeContent, "text") Then
+		Encoding = "iso-8859-1";
+	EndIf;
+
+	Return Encoding;
+
+EndFunction
+
+Function HeaderValue(Header, AllHeaders, Key_ = Undefined)
+
+	For Each NextHeader In AllHeaders Do
+		If Lower(NextHeader.Key) = Lower(Header) Then
+			Key_ = NextHeader.Key;
+			Return NextHeader.Value;
+		EndIf;
+	EndDo;
+
+	Return False;
+
+EndFunction
+
+Function CreateHostHeaderValue(URLComposition)
+
+	Host = URLComposition.Host;
+	If ValueIsFilled(URLComposition.Port) And Not IsStandardPort(URLComposition) Then
+		Host = Host + ":" + Format(URLComposition.Port, "NGS=; NG=");
+	EndIf;
+
+	Return Host;
+
+EndFunction
+
+Function PrepareHeaderDigest(Session, PreparedRequest)
+
+	DigestParameters = Session.ServiceData.DigestParameters;
+
+	Algorithm = DefineHashFunction(DigestParameters.algorithm);
+	AlgorithmString = Upper(DigestParameters.algorithm);
+	If Algorithm = Undefined Then
+		Return Undefined;
+	EndIf;
+
+	URLComposition = ParseURL(PreparedRequest.URL);
+	Path = URLComposition.Path;
+	If ValueIsFilled(URLComposition.RequestParameters) Then
+		Path = Path + "?" + EncodeRequestParameters(URLComposition.RequestParameters);
+	EndIf;
+
+	A1 = StrTemplate("%1:%2:%3",
+		PreparedRequest.Authentication.User,
+		DigestParameters.realm,
+		PreparedRequest.Authentication.Password);
+	A2 = StrTemplate("%1:%2", PreparedRequest.Method, Path);
+
+	HA1 = DataHashing(Algorithm, A1);
+	HA2 = DataHashing(Algorithm, A2);
+
+	If Not DigestParameters.Property("last_nonce") Then
+		DigestParameters.Insert("last_nonce");
+	EndIf;
+
+	If DigestParameters.nonce = DigestParameters.last_nonce Then
+		DigestParameters.nonce_count = DigestParameters.nonce_count + 1;
+	Else
+		DigestParameters.Insert("nonce_count", 1);
+	EndIf;
+
+	ValueNC = Format(DigestParameters.nonce_count, "ND=8; NLZ=; NG=");
+	ValueNonce = Left(StrReplace(Lower(New UUID), "-", ""), 16);
+
+	If AlgorithmString = "MD5-SESS" Then
+		HA1 = DataHashing(Algorithm, StrTemplate("%1:%2:%3", HA1, DigestParameters.nonce, ValueNonce));
+	EndIf;
+
+	If Not ValueIsFilled(DigestParameters.qop) Then
+		ValueResponse = DataHashing(Algorithm, StrTemplate("%1:%2:%3", HA1, DigestParameters.nonce, HA2));
+	ElsIf DigestParameters.qop = "auth"
+		Or StrSplit(DigestParameters.qop, ",", False).Find("auth") <> Undefined Then
+		ValueNonceBit = StrTemplate("%1:%2:%3:%4:%5", DigestParameters.nonce, ValueNC, ValueNonce, "auth", HA2);
+		ValueResponse = DataHashing(Algorithm, StrTemplate("%1:%2", HA1, ValueNonceBit));
+	Else
+		// INFO: auth-int is not implemented
+		Return Undefined;
+	EndIf;
+
+	DigestParameters.last_nonce = DigestParameters.nonce;
+
+	Base = StrTemplate("username=""%1"", realm=""%2"", nonce=""%3"", uri=""%4"", response=""%5""",
+		PreparedRequest.Authentication.User,
+		DigestParameters.realm,
+		DigestParameters.nonce,
+		Path,
+		ValueResponse);
+	Lines = New Array;
+	Lines.Add(Base);
+
+	If ValueIsFilled(DigestParameters.opaque) Then
+		Lines.Add(StrTemplate(", opaque=""%1""", DigestParameters.opaque));
+	EndIf;
+	If ValueIsFilled(DigestParameters.algorithm) Then
+		Lines.Add(StrTemplate(", algorithm=""%1""", DigestParameters.algorithm));
+	EndIf;
+	If ValueIsFilled(DigestParameters.qop) Then
+		Lines.Add(StrTemplate(", qop=""auth"", nc=%1, cnonce=""%2""", ValueNC, ValueNonce));
+	EndIf;
+
+	Return StrTemplate("Digest %1", StrConcat(Lines, ""));
+
+EndFunction
+
+#EndRegion
+
+#Region Cookies
+
+Procedure PrepareCookies(PreparedRequest)
+
+	HeaderCookie = PrepareHeaderCookie(PreparedRequest);
+	If ValueIsFilled(HeaderCookie) Then
+		PreparedRequest.Headers["Cookie"] = HeaderCookie;
 	EndIf;
 
 EndProcedure
 
-Function SplitByFirstFoundDelimiter(String, Delimiters)
+Function PrepareHeaderCookie(PreparedRequest)
 
-	MinimalIndex = StrLen(String);
-	FirstDelimiter = "";
+	URLComposition = ParseURL(PreparedRequest.URL);
 
-	For Each Delimiter In Delimiters Do
-		Index = StrFind(String, Delimiter);
-		If Index = 0 Then
-			Continue;
-		EndIf;
-		If Index < MinimalIndex Then
-			MinimalIndex = Index;
-			FirstDelimiter = Delimiter;
-		EndIf;
+	Cookies = New Array;
+	For Each Cookie In FilterCookiesForRequest(URLComposition, PreparedRequest.Cookies) Do
+		Cookies.Add(StrTemplate("%1=%2", Cookie.Name, Cookie.Value));
 	EndDo;
 
-	Result = New Array;
-	If ValueIsFilled(FirstDelimiter) Then
-		Result.Add(Left(String, MinimalIndex - 1));
-		Result.Add(Mid(String, MinimalIndex + StrLen(FirstDelimiter)));
-		Result.Add(FirstDelimiter);
-	Else
-		Result.Add(String);
-		Result.Add("");
-		Result.Add(Undefined);
+	Return StrConcat(Cookies, "; ");
+
+EndFunction
+
+Function MergeCookies(MainSource, AdditionalSource)
+
+	Cookies = New Map;
+	For Each Cookie In ConvertStorageCookiesInArrayCookies(MainSource) Do
+		AddCookieInStorage(Cookies, Cookie, True);
+	EndDo;
+	For Each Cookie In ConvertStorageCookiesInArrayCookies(AdditionalSource) Do
+		AddCookieInStorage(Cookies, Cookie, True);
+	EndDo;
+
+	Return Cookies;
+
+EndFunction
+
+Function ConvertStorageCookiesInArrayCookies(StorageCookies)
+
+	Cookies = New Array;
+	If TypeOf(StorageCookies) = Type("Array") Then
+		For Each Cookie In StorageCookies Do
+			NewCookie = ConstructorCookie();
+			FillPropertyValues(NewCookie, Cookie);
+			Cookies.Add(NewCookie);
+		EndDo;
+
+		Return Cookies;
 	EndIf;
+
+	For Each Domain In StorageCookies Do
+		For Each Path In Domain.Value Do
+			For Each Name In Path.Value Do
+				Cookies.Add(Name.Value);
+			EndDo;
+		EndDo;
+	EndDo;
+
+	Return Cookies;
+
+EndFunction
+
+Function FilterCookiesForRequest(URLComposition, Cookies)
+
+	ServerInRequest = AddLeadingDot(URLComposition.Host);
+
+	Result = New Array;
+	For Each Domain In Cookies Do
+		If Not StrEndsWith(ServerInRequest, Domain.Key) Then
+			Continue;
+		EndIf;
+		For Each Path In Domain.Value Do
+			If Not StrStartWith(URLComposition.Path, Path.Key) Then
+				Continue;
+			EndIf;
+			FillListFilteredCookies(Path.Value, URLComposition, Result);
+		EndDo;
+	EndDo;
 
 	Return Result;
 
 EndFunction
 
-Function SupplementJSONConversionParameters(ConversionParameters)
+Procedure FillListFilteredCookies(Cookies, URLComposition, List)
 
-	JSONConversionParameters = JSONConversionParametersByDefault();
-	If ValueIsFilled(ConversionParameters) Then
-		For Each Parameter In ConversionParameters Do
-			If JSONConversionParameters.Property(Parameter.Key) Then
-				JSONConversionParameters.Insert(Parameter.Key, Parameter.Value);
+	For Each Cookie In Cookies Do
+		If Cookie.Value.OnlySafeConnection = True And URLComposition.Scheme <> "https" Then
+			Continue;
+		EndIf;
+		// INFO: expiration check is ignored (Cookie.Value.Expires)
+		// INFO: port check is ignored
+
+		List.Add(Cookie.Value);
+	EndDo;
+
+EndProcedure
+
+Function RefillCookie(Cookies, URL)
+
+	URLComposition = ParseURL(URL);
+	NewCookies = New Array;
+	If TypeOf(Cookies) = Type("Array") Then
+		For Each Cookie In Cookies Do
+			NewCookie = ConstructorCookie(Cookie.Name, Cookie.Value);
+			FillPropertyValues(NewCookie, Cookie);
+
+			If Not ValueIsFilled(NewCookie.Domain) Then
+				NewCookie.Domain = URLComposition.Host;
 			EndIf;
+			If Not ValueIsFilled(NewCookie.Path) Then
+				NewCookie.Path = "/";
+			EndIf;
+
+			NewCookies.Add(NewCookie);
 		EndDo;
+
+		Return NewCookies;
 	EndIf;
 
-	Return JSONConversionParameters;
+	Return Cookies;
 
 EndFunction
 
-Function SupplementJSONWriterSettings(WriterSettings)
+Function ExtractCookies(Headers, URL)
 
-	JSONWriterSettings = JSONWriterSettingsByDeafult();
-	If ValueIsFilled(WriterSettings) Then
-		For Each Parameter In WriterSettings Do
-			If JSONWriterSettings.Property(Parameter.Key) Then
-				JSONWriterSettings.Insert(Parameter.Key, Parameter.Value);
-			EndIf;
-		EndDo;
-	EndIf;
+	CurrentTime = CurrentUniversalDate();
+	Cookies = New Map;
+	For Each NextHeader In Headers Do
+		If Lower(NextHeader.Key) = "set-cookie" Then
+			For Each HeaderCookie In SplitOnSeparateHeadersCookies(NextHeader.Value) Do
+				Cookie = ParseCookie(HeaderCookie, URL, CurrentTime);
+				If Cookie = Undefined Then
+					Continue;
+				EndIf;
+				If Cookie.ExpirationAction <= CurrentTime Then
+					RemoveCookieFromStorage(Cookies, Cookie);
+				Else
+					AddCookieInStorage(Cookies, Cookie);
+				EndIf;
+			EndDo;
+		EndIf;
+	EndDo;
 
-	Return JSONWriterSettings;
+	Return Cookies;
 
 EndFunction
 
-// Converts a type value into a type, that can be serialized.
+Function SplitOnSeparateHeadersCookies(Val Header)
+
+	Headers = New Array;
+
+	If Not ValueIsFilled(Header) Then
+		Return Headers;
+	EndIf;
+
+	SparesHeaders = StrSplit(Header, ",", False);
+
+	SeparateHeader = SparesHeaders[0];
+	For Index = 1 To SparesHeaders.UBound() Do
+		DotWithComma = StrFind(SparesHeaders[Index], ";");
+		equals = StrFind(SparesHeaders[Index], "=");
+		If DotWithComma And equals And equals < DotWithComma Then
+			Headers.Add(SeparateHeader);
+			SeparateHeader = SparesHeaders[Index];
+		Else
+			SeparateHeader = SeparateHeader + SparesHeaders[Index];
+		EndIf;
+	EndDo;
+	Headers.Add(SeparateHeader);
+
+	Return Headers;
+
+EndFunction
+
+Procedure AddCookieInStorage(StorageCookies, Cookie, Replace = False)
+
+	If StorageCookies.Get(Cookie.Domain) = Undefined Then
+		StorageCookies[Cookie.Domain] = New Map;
+	EndIf;
+	If StorageCookies[Cookie.Domain].Get(Cookie.Path) = Undefined Then
+		StorageCookies[Cookie.Domain][Cookie.Path] = New Map;
+	EndIf;
+	If StorageCookies[Cookie.Domain][Cookie.Path].Get(Cookie.Name) = Undefined Or Replace Then
+		StorageCookies[Cookie.Domain][Cookie.Path][Cookie.Name] = Cookie;
+	EndIf;
+
+EndProcedure
+
+Procedure RemoveCookieFromStorage(StorageCookies, Cookie)
+
+	If StorageCookies.Get(Cookie.Domain) <> Undefined
+		And StorageCookies[Cookie.Domain].Get(Cookie.Path) <> Undefined
+		And StorageCookies[Cookie.Domain][Cookie.Path].Get(Cookie.Name) <> Undefined Then
+		StorageCookies[Cookie.Domain][Cookie.Path].Delete(Cookie.Name);
+	EndIf;
+
+EndProcedure
+
+Function ParseCookie(Header, URL, CurrentTime)
+
+	Cookie = Undefined;
+	Index = 0;
+
+	For Each Parameter In StrSplit(Header, ";", False) Do
+		Index = Index + 1;
+		Parameter = TrimAll(Parameter);
+
+		If Index = 1 Then
+			Cookie = CreateCookieAndFillMainParameters(Parameter);
+			Continue;
+		EndIf;
+
+		Parts = StrSplit(Parameter, "=", False);
+		Key_ = Lower(Parts[0]);
+		If Parts.Count() > 1 Then
+			Value = Parts[1];
+		EndIf;
+
+		If Key_ = "domain" Then
+			Cookie.Domain = Value;
+		ElsIf Key_ = "path" Then
+			Cookie.Path = Value;
+		ElsIf Key_ = "secure" Then
+			Cookie.OnlySafeConnection = True;
+		ElsIf Key_ = "max-age" Then
+			ExpirationActionMaxAge = CurrentTime + NumberFromString(Value);
+		ElsIf Key_ = "expires" Then
+			Cookie.ExpirationAction = DateFromStringRFC7231(Value);
+		Else
+			Continue;
+		EndIf;
+	EndDo;
+	If ValueIsFilled(Cookie) And ValueIsFilled(ExpirationActionMaxAge) Then
+		Cookie.ExpirationAction = ExpirationActionMaxAge;
+	EndIf;
+
+	FillCookieImplicitValues(Cookie, URL);
+
+	Return Cookie;
+
+EndFunction
+
+Function CreateCookieAndFillMainParameters(Parameter)
+
+	Parts = StrSplit(Parameter, "=", False);
+	Name = Parts[0];
+	If Parts.Count() > 1 Then
+		Value = Mid(Parameter, StrLen(Name) + 2);
+	EndIf;
+
+	Return ConstructorCookie(Name, Value);
+
+EndFunction
+
+Procedure FillCookieImplicitValues(Cookie, URL)
+
+	If Cookie = Undefined Then
+		Return;
+	EndIf;
+
+	URLComposition = ParseURL(URL);
+	If Not ValueIsFilled(Cookie.Domain) Then
+		Cookie.Domain = URLComposition.Host;
+	EndIf;
+	If Not ValueIsFilled(Cookie.Port) And ValueIsFilled(URLComposition.Port) Then
+		Cookie.Port = URLComposition.Port;
+	EndIf;
+	If Not ValueIsFilled(Cookie.Path) Then
+		PositionLastSlash = StrFind(URLComposition.Path, "/", SearchDirection.FromEnd);
+		If PositionLastSlash <= 1 Then
+			Cookie.Path = "/";
+		Else
+			Cookie.Path = Left(URLComposition.Path, PositionLastSlash - 1);
+		EndIf;
+	EndIf;
+
+EndProcedure
+
+Function ConstructorCookie(Name = "", Value = Undefined)
+
+	NewCookie = New Structure;
+	NewCookie.Insert("Name", Name);
+	NewCookie.Insert("Value", Value);
+	NewCookie.Insert("Domain", "");
+	NewCookie.Insert("Path", "");
+	NewCookie.Insert("Port");
+	NewCookie.Insert("ExpirationAction", '39990101');
+	NewCookie.Insert("OnlySafeConnection");
+
+	Return NewCookie;
+
+EndFunction
+
+#EndRegion
+
+#Region ParametersWorkWithJSON
+
+// Converts a value to a type whose serialization is supported.
 //
 // Parameters:
-//   Property - String - property name, if the structure or map is writing.
-//   Value - Arbitrary - initial value.
-//   AdditionalParameters - Arbitrary - additional parameters of the WriteJSON method.
-//   Cancel - Boolean - cancel to write a property.
+//   Property - String - property name, if writing a structure or map.
+//   Value - Arbitrary - source value.
+//   AdditionalParameters - Arbitrary - additional parameters specified in the WriteJSON method call.
+//   Cancel - Boolean - cancellation of the property write.
 //
 // Returns:
-//   Arbitrary - see WriteJSON types.
+//   Arbitrary - see types in WriteJSON.
 //
 Function JsonConversion(Property, Value, AdditionalParameters, Cancel) Export
 
@@ -2275,19 +2601,47 @@ Function JsonConversion(Property, Value, AdditionalParameters, Cancel) Export
 	ElsIf TypeOf(Value) = Type("BinaryData") Then
 		Return GetBase64StringFromBinaryData(Value);
 	Else
-		// If the value doesn't support JSON serialization, an exception will be thrown
+		// If the value does not support serialization to JSON, an exception will be raised
 		Return Value;
 	EndIf;
 
 EndFunction
 
+// Restores a value of a type whose deserialization is not supported.
+//
+// Parameters:
+//   Property - String - name of the property whose value needs to be restored.
+//   Value - String - value to restore.
+//   TypesProperties - Map - property types to restore.
+//     * Key - String - property name. Equals the value of the Property parameter.
+//     property types to restore.
+//     * Key - String - property name. Equals the value of the Property parameter.
+//
+// Returns:
+//   Arbitrary - restored value.
+//
+Function RestoreJson(Property, Value, TypesProperties) Export
+
+	TypeProperties = TypesProperties.Get(Property);
+	If TypeProperties = Type("UUID") Then
+		Return New UUID(Value);
+	ElsIf TypeProperties = Type("BinaryData") Then
+		Return GetBinaryDataFromBase64String(Value);
+	Else
+		Return Value;
+	EndIf;
+
+EndFunction
+
+#EndRegion
+
 #Region AWS4Authentication
 
-Function SignatureKeyAWS4(SecretKey, Date, Region, Service)
+Function KeySignatureAWS4(SecretKey, Date, Region, Service)
 
-	DateKey = SignMessageHMAC("AWS4" + SecretKey, Date);
-	RegionKey = SignMessageHMAC(DateKey, Region);
-	ServiceKey = SignMessageHMAC(RegionKey, Service);
+	KeyDate = SignMessageHMAC("AWS4" + SecretKey, Date);
+	KeyRegion = SignMessageHMAC(KeyDate, Region);
+	ServiceKey = SignMessageHMAC(KeyRegion, Service);
 
 	Return SignMessageHMAC(ServiceKey, "aws4_request");
 
@@ -2318,8 +2672,8 @@ Procedure PrepareAuthenticationAWS4(PreparedRequest)
 	Else
 		CurrentTime = CurrentUniversalDate();
 	EndIf;
-	PreparedRequest.Headers["x-amz-date"] = Format(CurrentTime, "ДФ=yyyyMMddTHHmmssZ");
-	ScopeDate = Format(CurrentTime, "ДФ=yyyyMMdd");
+	PreparedRequest.Headers["x-amz-date"] = Format(CurrentTime, "DF=yyyyMMddTHHmmssZ");
+	ScopeDate = Format(CurrentTime, "DF=yyyyMMdd");
 
 	PreparedRequest.Headers["x-amz-content-sha256"] =
 		DataHashing(HashFunction.SHA256, PreparedRequest.HTTPRequest.GetBodyAsBinaryData());
@@ -2354,7 +2708,7 @@ Procedure PrepareAuthenticationAWS4(PreparedRequest)
 	StringForSignatureParts.Add(DataHashing(HashFunction.SHA256, CanonicalRequest));
 	StringForSignature = StrConcat(StringForSignatureParts, Chars.LF);
 
-	Key_ = SignatureKeyAWS4(
+	Key_ = KeySignatureAWS4(
 		PreparedRequest.Authentication.SecretKey,
 		ScopeDate,
 		PreparedRequest.Authentication.Region,
@@ -2373,27 +2727,6 @@ Procedure PrepareAuthenticationAWS4(PreparedRequest)
 
 EndProcedure
 
-Function IsHTTPStandardPort(URLComposition)
-
-	HTTPStandardPort = 80;
-	HTTPSStandardPort = 443;
-
-	Return (URLComposition.Scheme = "http" And URLComposition.Port = HTTPStandardPort)
-		Or (URLComposition.Scheme = "https" And URLComposition.Port = HTTPSStandardPort);
-
-EndFunction
-
-Function CreateHostHeaderValue(URLComposition)
-
-	Host = URLComposition.Host;
-	If ValueIsFilled(URLComposition.Port) And НЕ IsHTTPStandardPort(URLComposition) Then
-		Host = Host + ":" + Format(URLComposition.Port, "ЧРГ=; ЧГ=");
-	EndIf;
-
-	Return Host;
-
-EndFunction
-
 Function CanonicalHeadersAWS4(Headers, URLComposition)
 
 	List = New ValueList;
@@ -2402,16 +2735,16 @@ Function CanonicalHeadersAWS4(Headers, URLComposition)
 	DefaultHeaders = HeadersByDefaultAWS4();
 	For Each NextHeader In Headers Do
 		Header = Lower(NextHeader.Key);
-		If DefaultHeaders.Exceptions.Find(Header) <> Undefined Then
+		If DefaultHeaders.Exception.Find(Header) <> Undefined Then
 			Continue;
 		EndIf;
-		HostHeadersIsInRequest = Макс(HostHeadersIsInRequest, Header = "host");
+		HostHeadersIsInRequest = Max(HostHeadersIsInRequest, Header = "host");
 
-		If DefaultHeaders.EqualSign.Find(Header) <> Undefined Then
+		If DefaultHeaders.equals.Find(Header) <> Undefined Then
 			List.Add(Header, TrimAll(NextHeader.Value));
 		Else
 			For Each Prefix In DefaultHeaders.BeginsWith Do
-				If StrStartsWith(Header, Prefix) Then
+				If StrStartWith(Header, Prefix) Then
 					List.Add(Header, TrimAll(NextHeader.Value));
 					Break;
 				EndIf;
@@ -2462,31 +2795,33 @@ EndFunction
 Function HeadersByDefaultAWS4()
 
 	Headers = New Structure;
-	Headers.Insert("EqualSign", StrSplit("host,content-type,date", ","));
+	Headers.Insert("equals", StrSplit("host,content-type,date", ","));
 	Headers.Insert("BeginsWith", StrSplit("x-amz-", ","));
-	Headers.Insert("Exceptions", StrSplit("x-amz-client-context", ","));
+	Headers.Insert("Exception", StrSplit("x-amz-client-context", ","));
 
 	Return Headers;
 
 EndFunction
 
-#EndRegion
+#EndRegion 
 
 Procedure PrepareAuthenticationBearer(PreparedRequest)   
 	
-	If Not PreparedRequest.Authentication.Property("Token") Or Not ValueIsFilled(PreparedRequest.Authentication.Token) Then
-		// token is empty
-		Return;
+	If Not PreparedRequest.Authentication.Property("Token") Or Not ValueIsFilled(PreparedRequest.Authentication.Token) Then 
+		// Token is not set.
+		Return;	
 	EndIf;
 
 	PreparedRequest.Headers.Insert("Authorization", StrTemplate("Bearer %1", PreparedRequest.Authentication.Token));
 			
 EndProcedure
+
+
 #Region EncodingDecodingData
 
-#Region ServiceStructuresZip
+#Region ServiceStructureZip
 
-// Structures description see here https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT
+// Structure description see here https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT 
 
 Function ZipLFHSize()
 
@@ -2521,7 +2856,7 @@ Function ZipLFH()
 	Buffer.WriteInt16(6, 10);       // bit flags
 	Buffer.WriteInt16(8, 8);        // compression method
 	Buffer.WriteInt16(10, 0);       // time
-	Buffer.WriteInt16(12, 0);       // date
+	Buffer.WriteInt16(12, 0);       // Date
 	Buffer.WriteInt32(14, 0);       // crc-32
 	Buffer.WriteInt32(18, 0);       // compressed size
 	Buffer.WriteInt32(22, 0);       // uncompressed size
@@ -2556,7 +2891,7 @@ Function ZipCDH(CRC32, CompressedDataSize, UncompressedDataSize)
 	Buffer.WriteInt16(8, 10);                    // bit flags
 	Buffer.WriteInt16(10, 8);                    // compression method
 	Buffer.WriteInt16(12, 0);                    // time
-	Buffer.WriteInt16(14, 0);                    // date
+	Buffer.WriteInt16(14, 0);                    // Date
 	Buffer.WriteInt32(16, CRC32);                // crc-32
 	Buffer.WriteInt32(20, CompressedDataSize);   // compressed size
 	Buffer.WriteInt32(24, UncompressedDataSize); // uncompressed size
@@ -2594,9 +2929,9 @@ EndFunction
 
 #EndRegion
 
-#Region ServiceStructuresGZip
+#Region ServiceStructureGZip
 
-// Structures description see here https://www.ietf.org/rfc/rfc1952.txt
+// Structure description see here https://www.ietf.org/rfc/rfc1952.txt 
 
 Function GZipHeaderSize()
 
@@ -2640,21 +2975,21 @@ EndFunction
 Function ReadZip(CompressedData, ErrorText = Undefined)
 
 #If MobileAppServer Then
-	Raise(НСтр("ru = 'Работа с Zip-файлами в мобильной платформе не поддерживается'; en = 'Работа с Zip-файлами в мобильной платформе не поддерживается'"));
+	Raise(NStr("en = 'Zip files are not supported on the mobile platform'"));
 #Else
-	FolderName = GetTempFileName();
+	Directory = GetTempFileName();
 	ZipReader = New ZipFileReader(CompressedData);
 	FileName = ZipReader.Items[0].Name;
 	Try
-		ZipReader.Extract(ZipReader.Items[0], FolderName, ZIPRestoreFilePathsMode.DontRestore);
+		ZipReader.Extract(ZipReader.Items[0], Directory, ZIPRestoreFilePathsMode.DontRestore);
 	Except
-		// Игнорируем проверку целостности архива, просто читаем результат
+		// Ignoring the archive integrity check, just reading the result
 		ErrorText = DetailErrorDescription(ErrorInfo());
 	EndTry;
 	ZipReader.Close();
 
-	Result = New BinaryData(FolderName + GetPathSeparator() + FileName);
-	DeleteFiles(FolderName);
+	Result = New BinaryData(Directory + GetPathSeparator() + FileName);
+	DeleteFiles(Directory);
 
 	Return Result;
 #EndIf
@@ -2664,14 +2999,14 @@ EndFunction
 Function WriteZip(Data)
 
 #If MobileAppServer Then
-	Raise(НСтр("ru = 'Работа с Zip-файлами в мобильной платформе не поддерживается'; en = 'Работа с Zip-файлами в мобильной платформе не поддерживается'"));
+	Raise(NStr("en = 'Zip files are not supported on the mobile platform'"));
 #Else
 	TemporaryFile = GetTempFileName(".bin");
 	Data.Write(TemporaryFile);
 	ZipStream = New MemoryStream;
-	ЗаписьZip = New ZipFileWriter(ZipStream);
-	ЗаписьZip.Add(TemporaryFile);
-	ЗаписьZip.Write();
+	RecordZip = New ZipFileWriter(ZipStream);
+	RecordZip.Add(TemporaryFile);
+	RecordZip.Write();
 	DeleteFiles(TemporaryFile);
 
 	Return ZipStream.CloseAndGetBinaryData();
@@ -2680,198 +3015,6 @@ Function WriteZip(Data)
 EndFunction
 
 #EndRegion
-
-#Region EventsHandlers
-
-Procedure Code401_ResponseHandler(Session, PreparedRequest, Settings, Response)
-
-	If IsRedirect(Response.StatusCode, Response.Headers) Then
-		Return;
-	EndIf;
-
-	HTTPStatusCodes = HTTPStatusCodes();
-	If Response.StatusCode < HTTPStatusCodes.BadRequest_400
-		Or Response.StatusCode >= HTTPStatusCodes.InternalServerError_500 Then
-		Return;
-	EndIf;
-
-	Value = HeaderValue("www-authenticate", Response.Headers);
-	If Value <> False And StrFind(Lower(Value), "digest") Then
-		Position = StrFind(Lower(Value), "digest");
-		Value = Mid(Value, Position + StrLen("digest") + 1);
-		Value = StrReplace(Value, """", "");
-		Value = StrReplace(Value, Chars.LF, "");
-
-		DigestParameters = New Structure("algorithm,realm,nonce,qop,opaque");
-		For Each Part In SplitStringByString(Value, ", ") Do
-			KeyValue = StrSplit(Part, "=");
-			DigestParameters.Insert(KeyValue[0], KeyValue[1]);
-		EndDo;
-
-		Session.ServiceData.DigestParameters = DigestParameters;
-
-		PreparedRequest.Headers.Insert("Authorization", PrepareHeaderDigest(Session, PreparedRequest));
-		PreparedRequest.HTTPRequest.Headers = PreparedRequest.Headers;
-
-		Response = SendHTTPRequest(Session, PreparedRequest, Settings);
-	EndIf;
-
-EndProcedure
-
-Function DetermineHashFunction(Val Algorithm)
-
-	Algorithm = Upper(Algorithm);
-	If Not ValueIsFilled(Algorithm) Or Algorithm = "MD5" Or Algorithm = "MD5-SESS" Then
-		HashingAlgorithm = HashFunction.MD5;
-	ElsIf Algorithm = "SHA" Then
-		HashingAlgorithm = HashFunction.SHA1;
-	ElsIf Algorithm = "SHA-256" Then
-		HashingAlgorithm = HashFunction.SHA256;
-	Else
-		HashingAlgorithm = Undefined;
-	EndIf;
-
-	Return HashingAlgorithm;
-
-EndFunction
-
-Function PrepareHeaderDigest(Session, PreparedRequest)
-
-	DigestParameters = Session.ServiceData.DigestParameters;
-
-	Algorithm = DetermineHashFunction(DigestParameters.algorithm);
-	AlgorithmString = Upper(DigestParameters.algorithm);
-	If Algorithm = Undefined Then
-		Return Undefined;
-	EndIf;
-
-	URLComposition = ParseURL(PreparedRequest.URL);
-	Path = URLComposition.Path;
-	If ValueIsFilled(URLComposition.RequestParameters) Then
-		Path = Path + "?" + EncodeRequestParameters(URLComposition.RequestParameters);
-	EndIf;
-
-	A1 = StrTemplate("%1:%2:%3",
-		PreparedRequest.Authentication.User,
-		DigestParameters.realm,
-		PreparedRequest.Authentication.Password);
-	A2 = StrTemplate("%1:%2", PreparedRequest.Method, Path);
-
-	HA1 = DataHashing(Algorithm, A1);
-	HA2 = DataHashing(Algorithm, A2);
-
-	If Not DigestParameters.Property("last_nonce") Then
-		DigestParameters.Insert("last_nonce");
-	EndIf;
-
-	If DigestParameters.nonce = DigestParameters.last_nonce Then
-		DigestParameters.nonce_count = DigestParameters.nonce_count + 1;
-	Else
-		DigestParameters.Insert("nonce_count", 1);
-	EndIf;
-
-	NCValue = Format(DigestParameters.nonce_count, "ЧЦ=8; ЧВН=; ЧГ=");
-	NonceValue = Left(StrReplace(Lower(New UUID), "-", ""), 16);
-
-	If AlgorithmString = "MD5-SESS" Then
-		HA1 = DataHashing(Algorithm, StrTemplate("%1:%2:%3", HA1, DigestParameters.nonce, NonceValue));
-	EndIf;
-
-	If Not ValueIsFilled(DigestParameters.qop) Then
-		ResponseValue = DataHashing(Algorithm, StrTemplate("%1:%2:%3", HA1, DigestParameters.nonce, HA2));
-	ElsIf DigestParameters.qop = "auth"
-		Or StrSplit(DigestParameters.qop, ",", False).Find("auth") <> Undefined Then
-		NonceBitValue = StrTemplate("%1:%2:%3:%4:%5", DigestParameters.nonce, NCValue, NonceValue, "auth", HA2);
-		ResponseValue = DataHashing(Algorithm, StrTemplate("%1:%2", HA1, NonceBitValue));
-	Else
-		// INFO: auth-int не реализовано
-		Return Undefined;
-	EndIf;
-
-	DigestParameters.last_nonce = DigestParameters.nonce;
-
-	Basis = StrTemplate("username=""%1"", realm=""%2"", nonce=""%3"", uri=""%4"", response=""%5""",
-		PreparedRequest.Authentication.User,
-		DigestParameters.realm,
-		DigestParameters.nonce,
-		Path,
-		ResponseValue);
-	Strings = New Array;
-	Strings.Add(Basis);
-
-	If ValueIsFilled(DigestParameters.opaque) Then
-		Strings.Add(StrTemplate(", opaque=""%1""", DigestParameters.opaque));
-	EndIf;
-	If ValueIsFilled(DigestParameters.algorithm) Then
-		Strings.Add(StrTemplate(", algorithm=""%1""", DigestParameters.algorithm));
-	EndIf;
-	If ValueIsFilled(DigestParameters.qop) Then
-		Strings.Add(StrTemplate(", qop=""auth"", nc=%1, cnonce=""%2""", NCValue, NonceValue));
-	EndIf;
-
-	Return StrTemplate("Digest %1", StrConcat(Strings, ""));
-
-EndFunction
-
-Function DataHashing(Val Algorithm, Val Data)
-
-	If TypeOf(Data) = Type("String") Then
-		Data = GetBinaryDataFromString(Data, TextEncoding.UTF8, False);
-	ElsIf Data = Undefined Then
-		Data = GetBinaryDataFromString("", TextEncoding.UTF8, False);
-	EndIf;
-
-	Hashing = New DataHashing(Algorithm);
-	Hashing.Append(Data);
-
-	Return Lower(GetHexStringFromBinaryData(Hashing.HashSum));
-
-EndFunction
-
-Function SplitStringByString(Val String, Delimiter)
-
-	Result = New Array;
-	While True Do
-		Position = StrFind(String, Delimiter);
-		If Position = 0 And ValueIsFilled(String) Then
-			Result.Add(String);
-			Break;
-		EndIf;
-
-		FirstPart = Left(String, Position - StrLen(Delimiter) + 1);
-		Result.Add(FirstPart);
-		String = Mid(String, Position + StrLen(Delimiter));
-	EndDo;
-
-	Return Result;
-
-EndFunction
-
-#EndRegion
-
-Function UnpackResponse(Response)
-
-	Header = HeaderValue("content-encoding", Response.Headers);
-	If Header <> False Then
-		If Lower(Header) = "gzip" Then
-			Return ReadGZip(Response.Body);
-		EndIf;
-	EndIf;
-
-	Return Response.Body;
-
-EndFunction
-
-Procedure PackRequest(Query)
-
-	Header = HeaderValue("content-encoding", Query.Headers);
-	If Header <> False Then
-		If Lower(Header) = "gzip" Then
-			Query.SetBodyFromBinaryData(WriteGZip(Query.GetBodyAsBinaryData()));
-		EndIf;
-	EndIf;
-
-EndProcedure
 
 #Region ParametersByDefault
 
@@ -2902,16 +3045,21 @@ Function TimeoutByDefault()
 
 EndFunction
 
-Function JSONConversionParametersByDefault()
+Function ParametersConversionJSONByDefault()
 
 	ConversionParametersByDefault = New Structure;
 	ConversionParametersByDefault.Insert("ReadToMap", True);
-	ConversionParametersByDefault.Insert("JSONDateFormat", JSONDateFormat.ISO);
+	ConversionParametersByDefault.Insert("JSONDateFormat", JSONDateFormat.iso);
 	ConversionParametersByDefault.Insert("PropertiesNamesWithDateValues", Undefined);
 	ConversionParametersByDefault.Insert("JSONDateWritingVariant", JSONDateWritingVariant.LocalDate);
 	ConversionParametersByDefault.Insert("ConvertionFunctionName", Undefined);
 	ConversionParametersByDefault.Insert("ConvertionFunctionModule", Undefined);
 	ConversionParametersByDefault.Insert("ConvertionFunctionAdditionalParameters", Undefined);
+	ConversionParametersByDefault.Insert("NameFunctionRestore", Undefined);
+	ConversionParametersByDefault.Insert("ModuleFunctionRestore", Undefined);
+	ConversionParametersByDefault.Insert("AdditionalParametersFunctionRestore", Undefined);
+	ConversionParametersByDefault.Insert("NamesPropertiesForProcessingRestore", Undefined);
+	ConversionParametersByDefault.Insert("MaxNesting", 500);
 
 	Return ConversionParametersByDefault;
 
@@ -2920,7 +3068,7 @@ EndFunction
 Function JSONWriterSettingsByDeafult()
 
 	JSONWriterSettingsByDeafult = New Structure;
-	JSONWriterSettingsByDeafult.Insert("NewLines", ПереносСтрокJSON.Авто);
+	JSONWriterSettingsByDeafult.Insert("NewLines", JSONLineBreak.Auto);
 	JSONWriterSettingsByDeafult.Insert("PaddingSymbols", " ");
 	JSONWriterSettingsByDeafult.Insert("UseDoubleQuotes", True);
 	JSONWriterSettingsByDeafult.Insert("EscapeCharacters", JSONCharactersEscapeMode.None);
@@ -2936,146 +3084,87 @@ EndFunction
 
 #EndRegion
 
-Procedure FillAdditionalData(AdditionalParameters, RequestParameters, Data, Json)
-
-	If AdditionalParameters = Undefined Then
-		AdditionalParameters = New Structure();
-	EndIf;
-	If Not AdditionalParameters.Property("RequestParameters") Then
-		AdditionalParameters.Insert("RequestParameters", RequestParameters);
-	EndIf;
-	If Not AdditionalParameters.Property("Data") Then
-		AdditionalParameters.Insert("Data", Data);
-	EndIf;
-	If Not AdditionalParameters.Property("Json") Then
-		AdditionalParameters.Insert("Json", Json);
-	EndIf;
-
-EndProcedure
-
-Procedure Pause(StopDurationInSeconds)
-	
-	// Когда-нибудь в платформе сделают паузу и это можно будет выкинуть
-	
-	If StopDurationInSeconds < 1 Then
-		Return;
-	EndIf;
-
-	CurrentDate = CurrentUniversalDate();
-	WaitUntill = CurrentDate + StopDurationInSeconds;
-
-	// BSLLS:UsingHardcodeNetworkAddress-off
-	LocalHost = "127.0.0.0";
-	RandomFreePort = 56476;
-	// BSLLS:UsingHardcodeNetworkAddress-on
-	While CurrentDate < WaitUntill Do
-		Timeout = WaitUntill - CurrentDate;
-		Start = CurrentUniversalDateInMilliseconds();
-		Try
-			Connection = New HTTPConnection(
-				LocalHost, RandomFreePort, Undefined, Undefined, New InternetProxy(False), Timeout);
-			Connection.Get(New HTTPRequest("/does_not_matter"));
-		Except
-			RealTimeout = CurrentUniversalDateInMilliseconds() - Start;
-		EndTry;
-		MinimalTimeoutInMilliseconds = 1000;
-		If RealTimeout < MinimalTimeoutInMilliseconds Then
-			Raise(НСтр("ru = 'Процедура Pause не работает должным образом'; en = 'Процедура Pause не работает должным образом'"));
-		EndIf;
-		CurrentDate = CurrentUniversalDate();
-	EndDo;
-
-EndProcedure
-
-Function CurrentSession(Session)
-
-	If Session = Undefined Then
-		Session = NewSession();
-	EndIf;
-
-	Return Session;
-
-EndFunction
+#Region StatusCodes
 
 Function HTTPStatusesCodesDescriptions()
 
 	Codes = New Array;
 	Codes.Add(NewHTTPCode(100, "Continue_100", "Continue"));
-	Codes.Add(NewHTTPCode(101, "SwitchingProtocols_101", "Switching Protocols"));
-	Codes.Add(NewHTTPCode(102, "Processing_102", "Processing"));
-	Codes.Add(NewHTTPCode(103, "EarlyHints_103", "Early Hints"));
+	Codes.Add(NewHTTPCode(101, "SwitchProtocol_101", "Switching Protocols"));
+	Codes.Add(NewHTTPCode(102, "GoesProcessing_102", "Processing"));
+	Codes.Add(NewHTTPCode(103, "EarlyMetainformation_103", "Early Hints"));
 
 	Codes.Add(NewHTTPCode(200, "OK_200", "OK"));
 	Codes.Add(NewHTTPCode(201, "Created_201", "Created"));
 	Codes.Add(NewHTTPCode(202, "Accepted_202", "Accepted"));
-	Codes.Add(NewHTTPCode(203, "NonAuthoritativeInformation_203", "Non-Authoritative Information"));
+	Codes.Add(NewHTTPCode(203, "InformationNotAuthoritative_203", "Non-Authoritative Information"));
 	Codes.Add(NewHTTPCode(204, "NoContent_204", "No Content"));
 	Codes.Add(NewHTTPCode(205, "ResetContent_205", "Reset Content"));
 	Codes.Add(NewHTTPCode(206, "PartialContent_206", "Partial Content"));
 	Codes.Add(NewHTTPCode(207, "MultiStatus_207", "Multi-Status"));
 	Codes.Add(NewHTTPCode(208, "AlreadyReported_208", "Already Reported"));
-	Codes.Add(NewHTTPCode(226, "IMUsed_226", "IM Used"));
+	Codes.Add(NewHTTPCode(226, "UsedIM_226", "IM Used"));
 
-	Codes.Add(NewHTTPCode(300, "MultipleChoices_300", "Multiple Choices"));
+	Codes.Add(NewHTTPCode(300, "SetChoices_300", "Multiple Choices"));
 	Codes.Add(NewHTTPCode(301, "MovedPermanently_301", "Moved Permanently"));
 	Codes.Add(NewHTTPCode(302, "MovedTemporarily_302", "Moved Temporarily"));
 	Codes.Add(NewHTTPCode(303, "SeeOther_303", "See Other"));
-	Codes.Add(NewHTTPCode(304, "NotModified_304", "Not Modified"));
+	Codes.Add(NewHTTPCode(304, "NotChanged_304", "Not Modified"));
 	Codes.Add(NewHTTPCode(305, "UseProxy_305", "Use Proxy"));
 	Codes.Add(NewHTTPCode(307, "TemporaryRedirect_307", "Temporary Redirect"));
 	Codes.Add(NewHTTPCode(308, "PermanentRedirect_308", "Permanent Redirect"));
 
-	Codes.Add(NewHTTPCode(400, "BadRequest_400", "Bad Request"));
-	Codes.Add(NewHTTPCode(401, "Unauthorized_401", "Unauthorized"));
-	Codes.Add(NewHTTPCode(402, "PaymentRequired_402", "Payment Required"));
+	Codes.Add(NewHTTPCode(400, "InvalidRequest_400", "Bad Request"));
+	Codes.Add(NewHTTPCode(401, "NotAuthorized_401", "Unauthorized"));
+	Codes.Add(NewHTTPCode(402, "RequiredPayment_402", "Payment Required"));
 	Codes.Add(NewHTTPCode(403, "Forbidden_403", "Forbidden"));
 	Codes.Add(NewHTTPCode(404, "NotFound_404", "Not Found"));
-	Codes.Add(NewHTTPCode(405, "MethodNotAllowed_405", "Method Not Allowed"));
-	Codes.Add(NewHTTPCode(406, "NotAcceptable_406", "Not Acceptable"));
-	Codes.Add(NewHTTPCode(407, "ProxyAuthenticationRequired_407", "Proxy Authentication Required"));
-	Codes.Add(NewHTTPCode(408, "RequestTimeout_408", "Request Timeout"));
+	Codes.Add(NewHTTPCode(405, "MethodNotSupported_405", "Method Not Allowed"));
+	Codes.Add(NewHTTPCode(406, "Unacceptable_406", "Not Acceptable"));
+	Codes.Add(NewHTTPCode(407, "RequiredAuthenticationProxy_407", "Proxy Authentication Required"));
+	Codes.Add(NewHTTPCode(408, "ExpiredTimeWait_408", "Request Timeout"));
 	Codes.Add(NewHTTPCode(409, "Conflict_409", "Conflict"));
-	Codes.Add(NewHTTPCode(410, "Gone_410", "Gone"));
-	Codes.Add(NewHTTPCode(411, "LengthRequired_411", "Length Required"));
-	Codes.Add(NewHTTPCode(412, "PreconditionFailed_412", "Precondition Failed"));
-	Codes.Add(NewHTTPCode(413, "PayloadTooLarge_413", "Payload Too Large"));
-	Codes.Add(NewHTTPCode(414, "URITooLong_414", "URI Too Long"));
-	Codes.Add(NewHTTPCode(415, "UnsupportedMediaType_415", "Unsupported Media Type"));
-	Codes.Add(NewHTTPCode(416, "RangeNotSatisfiable_416", "Range Not Satisfiable"));
-	Codes.Add(NewHTTPCode(417, "ExpectationFailed_417", "Expectation Failed"));
-	Codes.Add(NewHTTPCode(419, "AuthenticationTimeout_419", "Authentication Timeout"));
-	Codes.Add(NewHTTPCode(421, "MisdirectedRequest_421", "Misdirected Request"));
-	Codes.Add(NewHTTPCode(422, "UnprocessableEntity_422", "Unprocessable Entity"));
-	Codes.Add(NewHTTPCode(423, "Locked_423", "Locked"));
-	Codes.Add(NewHTTPCode(424, "FailedDependency_424", "Failed Dependency"));
+	Codes.Add(NewHTTPCode(410, "Removed_410", "Gone"));
+	Codes.Add(NewHTTPCode(411, "RequiredLength_411", "Length Required"));
+	Codes.Add(NewHTTPCode(412, "ConditionFalse_412", "Precondition Failed"));
+	Codes.Add(NewHTTPCode(413, "PayloadPayloadTooLarge_413", "Payload Too Large"));
+	Codes.Add(NewHTTPCode(414, "TooLongURI_414", "URI Too Long"));
+	Codes.Add(NewHTTPCode(415, "UnsupportedTypeData_415", "Unsupported Media Type"));
+	Codes.Add(NewHTTPCode(416, "RangeNotReachable_416", "Range Not Satisfiable"));
+	Codes.Add(NewHTTPCode(417, "WaitNotSucceeded_417", "Expectation Failed"));
+	Codes.Add(NewHTTPCode(419, "ErrorCheckCSRF_419", "Authentication Timeout"));
+	Codes.Add(NewHTTPCode(421, "IncorrectlyDirectedRequest_421", "Misdirected Request"));
+	Codes.Add(NewHTTPCode(422, "UnprocessableInstance_422", "Unprocessable Entity"));
+	Codes.Add(NewHTTPCode(423, "Blocked_423", "Locked"));
+	Codes.Add(NewHTTPCode(424, "UnfulfilledDependency_424", "Failed Dependency"));
 	Codes.Add(NewHTTPCode(425, "TooEarly_425", "Too Early"));
-	Codes.Add(NewHTTPCode(426, "UpgradeRequired_426", "Upgrade Required"));
-	Codes.Add(NewHTTPCode(428, "PreconditionRequired_428", "Precondition Required"));
+	Codes.Add(NewHTTPCode(426, "RequiredUpdate_426", "Upgrade Required"));
+	Codes.Add(NewHTTPCode(428, "RequiredPrecondition_428", "Precondition Required"));
 	Codes.Add(NewHTTPCode(429, "TooManyRequests_429", "Too Many Requests"));
-	Codes.Add(NewHTTPCode(431, "RequestHeaderFieldsTooLarge_431", "Request Header Fields Too Large"));
+	Codes.Add(NewHTTPCode(431, "FieldsHeaderRequestTooLarge_431", "Request Header Fields Too Large"));
 	Codes.Add(NewHTTPCode(449, "RetryWith_449", "Retry With"));
-	Codes.Add(NewHTTPCode(451, "UnavailableForLegalReasons_451", "Unavailable For Legal Reasons"));
-	Codes.Add(NewHTTPCode(499, "ClientClosedRequest_499", "Client Closed Request"));
+	Codes.Add(NewHTTPCode(451, "UnavailableByLegalReasons_451", "Unavailable For Legal Reasons"));
+	Codes.Add(NewHTTPCode(499, "ClientClosedConnection_499", "Client Closed Request"));
 
 	Codes.Add(NewHTTPCode(500, "InternalServerError_500", "Internal Server Error"));
 	Codes.Add(NewHTTPCode(501, "NotImplemented_501", "Not Implemented"));
 	Codes.Add(NewHTTPCode(502, "BadGateway_502", "Bad Gateway"));
 	Codes.Add(NewHTTPCode(503, "ServiceUnavailable_503", "Service Unavailable"));
-	Codes.Add(NewHTTPCode(504, "GatewayTimeout_504", "Gateway Timeout"));
-	Codes.Add(NewHTTPCode(505, "HTTPVersionNotSupported_505", "HTTP Version Not Supported"));
-	Codes.Add(NewHTTPCode(506, "VariantAlsoNegotiates_506", "Variant Also Negotiates"));
-	Codes.Add(NewHTTPCode(507, "InsufficientStorage_507", "Insufficient Storage"));
-	Codes.Add(NewHTTPCode(508, "LoopDetected_508", "Loop Detected"));
-	Codes.Add(NewHTTPCode(509, "BandwidthLimitExceeded_509", "Bandwidth Limit Exceeded"));
+	Codes.Add(NewHTTPCode(504, "GatewayNotResponds_504", "Gateway Timeout"));
+	Codes.Add(NewHTTPCode(505, "VersionHTTPNotSupported_505", "HTTP Version Not Supported"));
+	Codes.Add(NewHTTPCode(506, "VariantAlsoPerformsNegotiation_506", "Variant Also Negotiates"));
+	Codes.Add(NewHTTPCode(507, "OverflowStorage_507", "Insufficient Storage"));
+	Codes.Add(NewHTTPCode(508, "DetectedInfiniteRedirect_508", "Loop Detected"));
+	Codes.Add(NewHTTPCode(509, "ExhaustedBandwidthWidthChannel_509", "Bandwidth Limit Exceeded"));
 	Codes.Add(NewHTTPCode(510, "NotExtended_510", "Not Extended"));
-	Codes.Add(NewHTTPCode(511, "NetworkAuthenticationRequired_511", "Network Authentication Required"));
+	Codes.Add(NewHTTPCode(511, "RequiredNetworkAuthentication_511", "Network Authentication Required"));
 	Codes.Add(NewHTTPCode(520, "UnknownError_520", "Unknown Error"));
-	Codes.Add(NewHTTPCode(521, "WebServerIsDown_521", "Web Server Is Down"));
-	Codes.Add(NewHTTPCode(522, "ConnectionTimedOut_522", "Connection Timed Out"));
-	Codes.Add(NewHTTPCode(523, "OriginIsUnreachable_523", "Origin Is Unreachable"));
-	Codes.Add(NewHTTPCode(524, "ATimeoutOccurred_524", "A Timeout Occurred"));
-	Codes.Add(NewHTTPCode(525, "SSLHandshakeFailed_525", "SSL Handshake Failed"));
-	Codes.Add(NewHTTPCode(526, "InvalidSSLCertificate_526", "Invalid SSL Certificate"));
+	Codes.Add(NewHTTPCode(521, "WebServerNotWorks_521", "Web Server is Down"));
+	Codes.Add(NewHTTPCode(522, "ConnectionNotResponds_522", "Connection Timed Out"));
+	Codes.Add(NewHTTPCode(523, "SourceUnavailable_523", "Origin is Unreachable"));
+	Codes.Add(NewHTTPCode(524, "TimeWaitExpired_524", "A Timeout Occurred"));
+	Codes.Add(NewHTTPCode(525, "HandshakeSSNotSucceeded_525", "SSL Handshake Failed"));
+	Codes.Add(NewHTTPCode(526, "InvalidCertificateSSL_526", "Invalid SSL Certificate"));
 
 	Return Codes;
 
@@ -3087,10 +3176,338 @@ Function NewHTTPCode(Code, Key_, Description)
 
 EndFunction
 
-Function StrStartsWith( String, SearchString ) Export
+Function IsCodeStatusOnWhichMustConsiderHeaderRetryAfter(StatusCode)
+
+	Codes = HTTPStatusCodes();
+	Return StatusCode = Codes.PayloadPayloadTooLarge_413
+		Or StatusCode = Codes.TooManyRequests_429
+		Or StatusCode = Codes.ServiceUnavailable_503;
+
+EndFunction
+
+#EndRegion
+
+#Region Other
+
+Function DefineHashFunction(Val Algorithm)
+
+	Algorithm = Upper(Algorithm);
+	If Not ValueIsFilled(Algorithm) Or Algorithm = "MD5" Or Algorithm = "MD5-SESS" Then
+		AlgorithmHashing = HashFunction.MD5;
+	ElsIf Algorithm = "SHA" Then
+		AlgorithmHashing = HashFunction.SHA1;
+	ElsIf Algorithm = "SHA-256" Then
+		AlgorithmHashing = HashFunction.SHA256;
+	Else
+		AlgorithmHashing = Undefined;
+	EndIf;
+
+	Return AlgorithmHashing;
+
+EndFunction
+
+Function DataHashing(Val Algorithm, Val Data)
+
+	If TypeOf(Data) = Type("String") Then
+		Data = GetBinaryDataFromString(Data, TextEncoding.UTF8, False);
+	ElsIf Data = Undefined Then
+		Data = GetBinaryDataFromString("", TextEncoding.UTF8, False);
+	EndIf;
+
+	Hashing = New DataHashing(Algorithm);
+	Hashing.Append(Data);
+
+	Return Lower(GetHexStringFromBinaryData(Hashing.HashSum));
+
+EndFunction
+
+Procedure Pause(DurationStopInSeconds)
+
+	// Someday the platform will implement pause and this can be removed
+
+	If DurationStopInSeconds < 1 Then
+		Return;
+	EndIf;
+
+	CurrentDate = CurrentUniversalDate();
+	WaitUntil = CurrentDate + DurationStopInSeconds;
+
+	// BSLLS:UsingHardcodeNetworkAddress-off
+	LocalHost = "127.0.0.0";
+	WhichSomeFreePort = 56476;
+	// BSLLS:UsingHardcodeNetworkAddress-on
+	While CurrentDate < WaitUntil Do
+		Timeout = WaitUntil - CurrentDate;
+		Start = CurrentUniversalDateInMilliseconds();
+		Try
+			Connection = New HTTPConnection(
+				LocalHost, WhichSomeFreePort, Undefined, Undefined, New InternetProxy(False), Timeout);
+			Connection.Get(New HTTPRequest("/does_not_matter"));
+		Except
+			RealTimeout = CurrentUniversalDateInMilliseconds() - Start;
+		EndTry;
+		MinTimeoutInMilliseconds = 1000;
+		If RealTimeout < MinTimeoutInMilliseconds Then
+			Raise(NStr("en = 'Pause procedure does not work as expected'"));
+		EndIf;
+		CurrentDate = CurrentUniversalDate();
+	EndDo;
+
+EndProcedure
+
+Function CalculateDurationPause(Retry, ExponentialDelayRatio, RetryAfterHeader, Remainder)
+
+	If RetryAfterHeader <> False Then
+		Duration = NumberFromString(RetryAfterHeader);
+
+		If Duration = 0 Then
+			Date = DateFromStringRFC7231(RetryAfterHeader);
+			If ValueIsFilled(Date) Then
+				Duration = Date - CurrentUniversalDate();
+			EndIf;
+			
+			If Duration <= 0 Then
+				Duration = 1;
+			EndIf
+		EndIf;
+	Else
+		Duration = ExponentialDelayRatio * Pow(2, Retry - 1);
+	EndIf;
+
+	Duration = Min(Duration, Remainder);
+
+	If Duration < 0 Then
+		Duration = 0;
+	EndIf;
+
+	Return Duration;
+
+EndFunction
+
+#EndRegion
+
+#Region UniversalStructureData
+
+Function SelectValue(MainValue, AdditionalValues, Key_, ValueByDefault)
+
+	If MainValue <> Undefined Then
+		Return MainValue;
+	EndIf;
+
+	Value = ValueByKey(AdditionalValues, Key_);
+	If Value <> Undefined Then
+		Return Value;
+	EndIf;
+
+	Return ValueByDefault;
+
+EndFunction
+
+Function ValueByKey(Structure, Key_, ValueByDefault = Undefined)
+
+	If TypeOf(Structure) = Type("Structure") And Structure.Property(Key_) Then
+		Value = Structure[Key_];
+	ElsIf TypeOf(Structure) = Type("Map") And Structure.Get(Key_) <> Undefined Then
+		Value = Structure.Get(Key_);
+	Else
+		Value = ValueByDefault;
+	EndIf;
+
+	Return Value;
+
+EndFunction
+
+#EndRegion
+
+#Region WorkWithLines
+
+Function NumberFromString(Val String) Export
+
+	DescriptionType = New TypeDescription("Number");
+	Return DescriptionType.AdjustValue(String);
+
+EndFunction
+
+Function DateFromString(Val String) Export
+
+	QualifierDate = New DateQualifiers(DateFractions.DateTime);
+	DescriptionType = New TypeDescription("Date", Undefined, Undefined, QualifierDate);
+	Return DescriptionType.AdjustValue(String);
+
+EndFunction
+
+Function DateFromStringRFC7231(Val String) Export
+
+	Separators = ",-:/\.";
+	For Index = 1 To StrLen(Separators) Do
+		Separator = Mid(Separators, Index, 1);
+		String = StrReplace(String, Separator, " ");
+	EndDo;
+	String = StrReplace(String, "  ", " ");
+	ComponentsDate = StrSplit(String, " ");
 	
-	Return( Left( String, StrLen( SearchString ) ) = SearchString );
+	If ComponentsDate.Count() < 7 Then
+		Return '00010101';
+	EndIf;
 	
-EndFunction // StrStartsWith
+	MonthStr = ComponentsDate[2];
+
+	Months = StrSplit("Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec", ",");
+	Month = Months.Find(MonthStr);
+	If Month = Undefined Then
+		Return '00010101';
+	EndIf;
+	
+	LengthYear = StrLen(ComponentsDate[3]);
+	Year = ?(LengthYear = 2, "20", "") + ComponentsDate[3];
+
+	Date = Year + Format(Month + 1, "ND=2; NLZ=;") + ComponentsDate[1];
+	Time = ComponentsDate[4] + ComponentsDate[5] + ComponentsDate[6];
+
+	Return DateFromString(Date + Time);
+
+EndFunction
+
+Procedure SplitStringByDelimiter(ExtractedPart, RestPart, Separator, Inversion = False)
+
+	Index = StrFind(RestPart, Separator);
+	If Index Then
+		ExtractedPart = Left(RestPart, Index - 1);
+		RestPart = Mid(RestPart, Index + StrLen(Separator));
+		If Inversion Then
+			ForExchange = ExtractedPart;
+			ExtractedPart = RestPart;
+			RestPart = ForExchange;
+		EndIf;
+	EndIf;
+
+EndProcedure
+
+Function SplitByFirstFoundSeparator(String, Separators)
+
+	MinIndex = StrLen(String);
+	FirstSeparator = "";
+
+	For Each Separator In Separators Do
+		Index = StrFind(String, Separator);
+		If Index = 0 Then
+			Continue;
+		EndIf;
+		If Index < MinIndex Then
+			MinIndex = Index;
+			FirstSeparator = Separator;
+		EndIf;
+	EndDo;
+
+	Result = New Array;
+	If ValueIsFilled(FirstSeparator) Then
+		Result.Add(Left(String, MinIndex - 1));
+		Result.Add(Mid(String, MinIndex + StrLen(FirstSeparator)));
+		Result.Add(FirstSeparator);
+	Else
+		Result.Add(String);
+		Result.Add("");
+		Result.Add(Undefined);
+	EndIf;
+
+	Return Result;
+
+EndFunction
+
+Function SplitStringByString(Val String, Separator)
+
+	Result = New Array;
+	While True Do
+		Position = StrFind(String, Separator);
+		If Position = 0 And ValueIsFilled(String) Then
+			Result.Add(String);
+			Break;
+		EndIf;
+
+		FirstPart = Left(String, Position - StrLen(Separator) + 1);
+		Result.Add(FirstPart);
+		String = Mid(String, Position + StrLen(Separator));
+	EndDo;
+
+	Return Result;
+
+EndFunction
+
+Function AddLeadingDot(Val Domain)
+
+	If Not StrStartWith(Domain, ".") Then
+		Domain = "." + Domain;
+	EndIf;
+
+	Return Domain;
+
+EndFunction
+
+Function CutText(Text, MaxLengthText = 1000)
+	
+	If FindDisallowedXMLCharacters(Text) Then
+		Return NStr("en = '<Data>'");
+	EndIf;
+	
+	If StrLen(Text) <= MaxLengthText Then
+		Result = Text;
+	Else
+		HalfMaxLengthText = MaxLengthText / 2;
+		Result = Left(Text, HalfMaxLengthText);
+		Result = Result + Chars.LF + "..." + Chars.LF;
+		Result = Result + Right(Text, HalfMaxLengthText);
+	EndIf;
+	
+	Return Result;
+	
+EndFunction
+
+Function Merge(MainSource, AdditionalSource)
+
+	Result = MainSource;
+	Supplement(MainSource, AdditionalSource);
+	Return Result;
+
+EndFunction
+
+Function Copy(Source)
+
+	#If MobileAppServer Then
+		ConversionParameters = Undefined;
+		If TypeOf(Source) =  Type("Structure") Then
+			ConversionParameters = New Structure("ReadToMap", False);	
+		EndIf;
+		Return JsonToObject(ObjectToJson(Source),, ConversionParameters);
+	#Else
+		Return ValueFromStringInternal(ValueToStringInternal(Source));
+	#EndIf
+
+EndFunction
+
+Procedure Supplement(Receiver, Source)
+	
+	If Source = Undefined Then
+		Return;
+	EndIf;
+	
+	For Each ElementSource In Source Do
+		ParameterFound = False;
+		
+		If TypeOf(Receiver) = Type("Map") Then
+			ParameterFound = Receiver.Get(ElementSource.Key) <> Undefined;
+		EndIf;
+		
+		If TypeOf(Receiver) = Type("Structure") Then
+			ParameterFound = Receiver.Property(ElementSource.Key);
+		EndIf;
+		
+		If Not ParameterFound Or ParameterFound And ElementSource.Value <> Undefined Then
+			Receiver.Insert(ElementSource.Key, ElementSource.Value);
+		EndIf;
+	EndDo;
+		
+EndProcedure
+
+#EndRegion
 
 #EndRegion

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.12">
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.20">
 	<AutoSaveDataInSettings>Use</AutoSaveDataInSettings>
-	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+	<AutoCommandBar name="FormCommandBar" id="-1">
 		<Autofill>false</Autofill>
 	</AutoCommandBar>
 	<Events>
@@ -9,44 +9,33 @@
 		<Event name="OnCreateAtServer">OnCreateAtServer</Event>
 	</Events>
 	<ChildItems>
-		<Pages name="Страницы" id="49">
+		<Pages name="Pages" id="49">
 			<Title>
 				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Страницы</v8:content>
-				</v8:item>
-				<v8:item>
 					<v8:lang>en</v8:lang>
-					<v8:content>Страницы</v8:content>
+					<v8:content>Pages</v8:content>
 				</v8:item>
 			</Title>
 			<ToolTip>
 				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Страницы</v8:content>
-				</v8:item>
-				<v8:item>
 					<v8:lang>en</v8:lang>
-					<v8:content>Страницы</v8:content>
+					<v8:content>Pages</v8:content>
 				</v8:item>
 			</ToolTip>
-			<ExtendedTooltip name="СтраницыРасширеннаяПодсказка" id="50"/>
+			<PagesRepresentation>TabsOnTop</PagesRepresentation>
+			<ExtendedTooltip name="PagesExtendedTooltip" id="50"/>
 			<ChildItems>
-				<Page name="СтраницаТесты" id="51">
+				<Page name="PageTests" id="51">
 					<Title>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Тесты</v8:content>
-						</v8:item>
-						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Тесты</v8:content>
+							<v8:content>Tests</v8:content>
 						</v8:item>
 					</Title>
 					<TitleDataPath>TestsNumber</TitleDataPath>
-					<ExtendedTooltip name="СтраницаТестыРасширеннаяПодсказка" id="52"/>
+					<ExtendedTooltip name="PageTestsExtendedTooltip" id="52"/>
 					<ChildItems>
-						<Table name="Тесты" id="55">
+						<Table name="Tests" id="55">
 							<Representation>List</Representation>
 							<ChangeRowSet>false</ChangeRowSet>
 							<ChangeRowOrder>false</ChangeRowOrder>
@@ -56,282 +45,250 @@
 							<EnableDrag>true</EnableDrag>
 							<DataPath>Tests</DataPath>
 							<RowFilter xsi:nil="true"/>
-							<ContextMenu name="ТестыКонтекстноеМеню" id="56"/>
-							<AutoCommandBar name="ТестыКоманднаяПанель" id="57">
+							<ContextMenu name="TestsContextMenu" id="56"/>
+							<AutoCommandBar name="TestsCommandBar" id="57">
 								<Autofill>false</Autofill>
 								<ChildItems>
-									<Button name="ТестыУстановитьФлажки" id="80">
+									<Button name="TestsCheck" id="80">
 										<Type>CommandBarButton</Type>
 										<CommandName>Form.Command.Check</CommandName>
-										<ExtendedTooltip name="ТестыУстановитьФлажкиРасширеннаяПодсказка" id="81"/>
+										<ExtendedTooltip name="TestsCheckExtendedTooltip" id="81"/>
 									</Button>
-									<Button name="ТестыСнятьФлажки" id="82">
+									<Button name="TestsUncheck" id="82">
 										<Type>CommandBarButton</Type>
 										<CommandName>Form.Command.Uncheck</CommandName>
-										<ExtendedTooltip name="ТестыСнятьФлажкиРасширеннаяПодсказка" id="83"/>
+										<ExtendedTooltip name="TestsUncheckExtendedTooltip" id="83"/>
 									</Button>
-									<Button name="КомандаВыполнитьТесты" id="1">
+									<Button name="CommandRunTests" id="1">
 										<Type>CommandBarButton</Type>
 										<CommandName>Form.Command.ExecuteTests</CommandName>
-										<ExtendedTooltip name="КомандаВыполнитьТестыРасширеннаяПодсказка" id="2"/>
+										<ExtendedTooltip name="CommandRunTestsExtendedTooltip" id="2"/>
 									</Button>
 								</ChildItems>
 							</AutoCommandBar>
-							<ExtendedTooltip name="ТестыРасширеннаяПодсказка" id="58"/>
-							<SearchStringAddition name="ТестыСтрокаПоиска" id="59">
+							<ExtendedTooltip name="TestsExtendedTooltip" id="58"/>
+							<SearchStringAddition name="TestsSearchString" id="59">
 								<AdditionSource>
-									<Item>Тесты</Item>
+									<Item>Tests</Item>
 									<Type>SearchStringRepresentation</Type>
 								</AdditionSource>
-								<ContextMenu name="ТестыСтрокаПоискаКонтекстноеМеню" id="60"/>
-								<ExtendedTooltip name="ТестыСтрокаПоискаРасширеннаяПодсказка" id="61"/>
+								<ContextMenu name="TestsSearchStringContextMenu" id="60"/>
+								<ExtendedTooltip name="TestsSearchStringExtendedTooltip" id="61"/>
 							</SearchStringAddition>
-							<ViewStatusAddition name="ТестыСостояниеПросмотра" id="62">
+							<ViewStatusAddition name="TestsViewStatus" id="62">
 								<AdditionSource>
-									<Item>Тесты</Item>
+									<Item>Tests</Item>
 									<Type>ViewStatusRepresentation</Type>
 								</AdditionSource>
-								<ContextMenu name="ТестыСостояниеПросмотраКонтекстноеМеню" id="63"/>
-								<ExtendedTooltip name="ТестыСостояниеПросмотраРасширеннаяПодсказка" id="64"/>
+								<ContextMenu name="TestsViewStatusContextMenu" id="63"/>
+								<ExtendedTooltip name="TestsViewStatusExtendedTooltip" id="64"/>
 							</ViewStatusAddition>
-							<SearchControlAddition name="ТестыУправлениеПоиском" id="65">
+							<SearchControlAddition name="TestsSearchControl" id="65">
 								<AdditionSource>
-									<Item>Тесты</Item>
+									<Item>Tests</Item>
 									<Type>SearchControl</Type>
 								</AdditionSource>
-								<ContextMenu name="ТестыУправлениеПоискомКонтекстноеМеню" id="66"/>
-								<ExtendedTooltip name="ТестыУправлениеПоискомРасширеннаяПодсказка" id="67"/>
+								<ContextMenu name="TestsSearchControlContextMenu" id="66"/>
+								<ExtendedTooltip name="TestsSearchControlExtendedTooltip" id="67"/>
 							</SearchControlAddition>
 							<ChildItems>
-								<CheckBoxField name="ТестыИспользование" id="68">
+								<CheckBoxField name="TestsUse" id="68">
 									<DataPath>Tests.Use</DataPath>
 									<EditMode>EnterOnInput</EditMode>
 									<ShowInHeader>false</ShowInHeader>
 									<CheckBoxType>Auto</CheckBoxType>
-									<ContextMenu name="ТестыИспользованиеКонтекстноеМеню" id="69"/>
-									<ExtendedTooltip name="ТестыИспользованиеРасширеннаяПодсказка" id="70"/>
+									<ContextMenu name="TestsUseContextMenu" id="69"/>
+									<ExtendedTooltip name="TestsUseExtendedTooltip" id="70"/>
 								</CheckBoxField>
-								<InputField name="ТестыРезультат" id="74">
+								<InputField name="TestsResult" id="74">
 									<DataPath>Tests.Result</DataPath>
 									<ReadOnly>true</ReadOnly>
 									<EditMode>EnterOnInput</EditMode>
 									<AutoMaxWidth>false</AutoMaxWidth>
 									<MaxWidth>3</MaxWidth>
-									<ContextMenu name="ТестыРезультатКонтекстноеМеню" id="75"/>
-									<ExtendedTooltip name="ТестыРезультатРасширеннаяПодсказка" id="76"/>
+									<ContextMenu name="TestsResultContextMenu" id="75"/>
+									<ExtendedTooltip name="TestsResultExtendedTooltip" id="76"/>
 								</InputField>
-								<InputField name="ТестыТест" id="71">
+								<InputField name="TestsTest" id="71">
 									<DataPath>Tests.Test</DataPath>
 									<ReadOnly>true</ReadOnly>
 									<EditMode>EnterOnInput</EditMode>
 									<Width>10</Width>
-									<ContextMenu name="ТестыТестКонтекстноеМеню" id="72"/>
-									<ExtendedTooltip name="ТестыТестРасширеннаяПодсказка" id="73"/>
+									<ContextMenu name="TestsTestContextMenu" id="72"/>
+									<ExtendedTooltip name="TestsTestExtendedTooltip" id="73"/>
 								</InputField>
-								<InputField name="ТестыОшибка" id="77">
+								<InputField name="TestsError" id="77">
 									<DataPath>Tests.Error</DataPath>
 									<ReadOnly>true</ReadOnly>
 									<EditMode>EnterOnInput</EditMode>
 									<AutoCellHeight>true</AutoCellHeight>
-									<ContextMenu name="ТестыОшибкаКонтекстноеМеню" id="78"/>
-									<ExtendedTooltip name="ТестыОшибкаРасширеннаяПодсказка" id="79"/>
+									<ContextMenu name="TestsErrorContextMenu" id="78"/>
+									<ExtendedTooltip name="TestsErrorExtendedTooltip" id="79"/>
 								</InputField>
 							</ChildItems>
 						</Table>
 					</ChildItems>
 				</Page>
-				<Page name="СтраницаНастройки" id="53">
+				<Page name="PageSettings" id="53">
 					<Title>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Настройки</v8:content>
-						</v8:item>
-						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Настройки</v8:content>
+							<v8:content>Settings</v8:content>
 						</v8:item>
 					</Title>
-					<ExtendedTooltip name="СтраницаНастройкиРасширеннаяПодсказка" id="54"/>
+					<ExtendedTooltip name="PageSettingsExtendedTooltip" id="54"/>
 					<ChildItems>
-						<UsualGroup name="Группа3" id="22">
+						<UsualGroup name="Group3" id="22">
 							<Title>
 								<v8:item>
-									<v8:lang>ru</v8:lang>
-									<v8:content>Настройки прокси-сервера</v8:content>
-								</v8:item>
-								<v8:item>
 									<v8:lang>en</v8:lang>
-									<v8:content>Настройки прокси-сервера</v8:content>
+									<v8:content>Proxy server settings</v8:content>
 								</v8:item>
 							</Title>
 							<Group>Vertical</Group>
 							<Representation>None</Representation>
-							<ExtendedTooltip name="Группа3РасширеннаяПодсказка" id="23"/>
+							<ExtendedTooltip name="Group3ExtendedTooltip" id="23"/>
 							<ChildItems>
-								<CheckBoxField name="ТестироватьСоединениеЧерезПрокси" id="3">
+								<CheckBoxField name="TestConnectionViaProxy" id="3">
 									<DataPath>Object.TestConnectionViaProxy</DataPath>
 									<TitleLocation>Right</TitleLocation>
 									<CheckBoxType>Auto</CheckBoxType>
-									<ContextMenu name="ТестироватьСоединениеЧерезПроксиКонтекстноеМеню" id="4"/>
-									<ExtendedTooltip name="ТестироватьСоединениеЧерезПроксиРасширеннаяПодсказка" id="5"/>
+									<ContextMenu name="TestConnectionViaProxyContextMenu" id="4"/>
+									<ExtendedTooltip name="TestConnectionViaProxyExtendedTooltip" id="5"/>
 									<Events>
 										<Event name="OnChange">TestConnectionViaProxyOnChange</Event>
 									</Events>
 								</CheckBoxField>
-								<UsualGroup name="ГруппаСерверПорт" id="18">
+								<UsualGroup name="GroupServerPort" id="18">
 									<Title>
 										<v8:item>
-											<v8:lang>ru</v8:lang>
-											<v8:content>Сервер и порт</v8:content>
-										</v8:item>
-										<v8:item>
 											<v8:lang>en</v8:lang>
-											<v8:content>Сервер и порт</v8:content>
+											<v8:content>Server and port</v8:content>
 										</v8:item>
 									</Title>
 									<Representation>None</Representation>
 									<ShowTitle>false</ShowTitle>
-									<ExtendedTooltip name="ГруппаСерверПортРасширеннаяПодсказка" id="19"/>
+									<ExtendedTooltip name="GroupServerPortExtendedTooltip" id="19"/>
 									<ChildItems>
-										<InputField name="ПроксиСервер" id="12">
+										<InputField name="ProxyHost" id="12">
 											<DataPath>Object.ProxyHost</DataPath>
 											<Title>
 												<v8:item>
-													<v8:lang>ru</v8:lang>
-													<v8:content>Сервер</v8:content>
-												</v8:item>
-												<v8:item>
 													<v8:lang>en</v8:lang>
-													<v8:content>Сервер</v8:content>
+													<v8:content>Server</v8:content>
 												</v8:item>
 											</Title>
-											<ContextMenu name="ПроксиСерверКонтекстноеМеню" id="13"/>
-											<ExtendedTooltip name="ПроксиСерверРасширеннаяПодсказка" id="14"/>
+											<ContextMenu name="ProxyHostContextMenu" id="13"/>
+											<ExtendedTooltip name="ProxyHostExtendedTooltip" id="14"/>
 										</InputField>
-										<InputField name="ПроксиПорт" id="15">
+										<InputField name="ProxyPort" id="15">
 											<DataPath>Object.ProxyPort</DataPath>
 											<Title>
 												<v8:item>
-													<v8:lang>ru</v8:lang>
-													<v8:content>Порт</v8:content>
-												</v8:item>
-												<v8:item>
 													<v8:lang>en</v8:lang>
-													<v8:content>Порт</v8:content>
+													<v8:content>Port</v8:content>
 												</v8:item>
 											</Title>
-											<ContextMenu name="ПроксиПортКонтекстноеМеню" id="16"/>
-											<ExtendedTooltip name="ПроксиПортРасширеннаяПодсказка" id="17"/>
+											<ContextMenu name="ProxyPortContextMenu" id="16"/>
+											<ExtendedTooltip name="ProxyPortExtendedTooltip" id="17"/>
 										</InputField>
 									</ChildItems>
 								</UsualGroup>
 							</ChildItems>
 						</UsualGroup>
-						<UsualGroup name="Группа4" id="27">
+						<UsualGroup name="Group4" id="27">
 							<Title>
 								<v8:item>
-									<v8:lang>ru</v8:lang>
-									<v8:content>Настройки аутентификации на сайтах 1С</v8:content>
-								</v8:item>
-								<v8:item>
 									<v8:lang>en</v8:lang>
-									<v8:content>Настройки аутентификации на сайтах 1С</v8:content>
+									<v8:content>1C websites authentication settings</v8:content>
 								</v8:item>
 							</Title>
 							<Group>Vertical</Group>
 							<Representation>None</Representation>
-							<ExtendedTooltip name="Группа4РасширеннаяПодсказка" id="28"/>
+							<ExtendedTooltip name="Group4ExtendedTooltip" id="28"/>
 							<ChildItems>
-								<CheckBoxField name="ТестироватьПолучениеСпискаРелизовВСайта1С" id="24">
+								<CheckBoxField name="TestReceivingReleasesListFrom1CSite" id="24">
 									<DataPath>Object.TestReceivingReleasesListFrom1CSite</DataPath>
 									<TitleLocation>Right</TitleLocation>
 									<CheckBoxType>Auto</CheckBoxType>
-									<ContextMenu name="ТестироватьПолучениеСпискаРелизовВСайта1СКонтекстноеМеню" id="25"/>
-									<ExtendedTooltip name="ТестироватьПолучениеСпискаРелизовВСайта1СРасширеннаяПодсказка" id="26"/>
+									<ContextMenu name="TestReceivingReleasesListFrom1CSiteContextMenu" id="25"/>
+									<ExtendedTooltip name="TestReceivingReleasesListFrom1CSiteExtendedTooltip" id="26"/>
 									<Events>
 										<Event name="OnChange">TestReceivingReleasesListFrom1CSiteOnChange</Event>
 									</Events>
 								</CheckBoxField>
-								<UsualGroup name="ГруппаЛогинПароль" id="20">
+								<UsualGroup name="GroupLoginPassword" id="20">
 									<Title>
 										<v8:item>
-											<v8:lang>ru</v8:lang>
-											<v8:content>Логин и пароль</v8:content>
-										</v8:item>
-										<v8:item>
 											<v8:lang>en</v8:lang>
-											<v8:content>Логин и пароль</v8:content>
+											<v8:content>Login and password</v8:content>
 										</v8:item>
 									</Title>
 									<Representation>None</Representation>
 									<ShowTitle>false</ShowTitle>
-									<ExtendedTooltip name="ГруппаЛогинПарольРасширеннаяПодсказка" id="21"/>
+									<ExtendedTooltip name="GroupLoginPasswordExtendedTooltip" id="21"/>
 									<ChildItems>
-										<InputField name="Логин" id="6">
+										<InputField name="Login" id="6">
 											<DataPath>Object.Login</DataPath>
-											<ContextMenu name="ЛогинКонтекстноеМеню" id="7"/>
-											<ExtendedTooltip name="ЛогинРасширеннаяПодсказка" id="8"/>
+											<ContextMenu name="LoginContextMenu" id="7"/>
+											<ExtendedTooltip name="LoginExtendedTooltip" id="8"/>
 										</InputField>
-										<InputField name="Пароль" id="9">
+										<InputField name="Password" id="9">
 											<DataPath>Object.Password</DataPath>
-											<ContextMenu name="ПарольКонтекстноеМеню" id="10"/>
-											<ExtendedTooltip name="ПарольРасширеннаяПодсказка" id="11"/>
+											<ContextMenu name="PasswordContextMenu" id="10"/>
+											<ExtendedTooltip name="PasswordExtendedTooltip" id="11"/>
 										</InputField>
 									</ChildItems>
 								</UsualGroup>
 							</ChildItems>
 						</UsualGroup>
-						<UsualGroup name="Группа1" id="29">
+						<UsualGroup name="Group1" id="29">
 							<Title>
 								<v8:item>
-									<v8:lang>ru</v8:lang>
-									<v8:content>Настройки аутентификации AWS4-HMAC-SHA256</v8:content>
-								</v8:item>
-								<v8:item>
 									<v8:lang>en</v8:lang>
-									<v8:content>Настройки аутентификации AWS4-HMAC-SHA256</v8:content>
+									<v8:content>AWS4-HMAC-SHA256 authentication settings</v8:content>
 								</v8:item>
 							</Title>
-							<ExtendedTooltip name="Группа1РасширеннаяПодсказка" id="30"/>
+							<ExtendedTooltip name="Group1ExtendedTooltip" id="30"/>
 							<ChildItems>
-								<CheckBoxField name="ТестироватьАутентификациюAWS4_HMAC_SHA256" id="31">
-									<DataPath>Object.TestAuthentificationAWS4_HMAC_SHA256</DataPath>
+								<CheckBoxField name="TestAuthenticationAWS4_HMAC_SHA256" id="31">
+									<DataPath>Object.TestAuthenticationAWS4_HMAC_SHA256</DataPath>
 									<TitleLocation>Right</TitleLocation>
 									<CheckBoxType>Auto</CheckBoxType>
-									<ContextMenu name="ТестироватьАутентификациюAWS4_HMAC_SHA256КонтекстноеМеню" id="32"/>
-									<ExtendedTooltip name="ТестироватьАутентификациюAWS4_HMAC_SHA256РасширеннаяПодсказка" id="33"/>
+									<ContextMenu name="TestAuthenticationAWS4_HMAC_SHA256ContextMenu" id="32"/>
+									<ExtendedTooltip name="TestAuthenticationAWS4_HMAC_SHA256ExtendedTooltip" id="33"/>
 									<Events>
-										<Event name="OnChange">TestAuthentificationAWS4_HMAC_SHA256OnChange</Event>
+										<Event name="OnChange">TestAuthenticationAWS4_HMAC_SHA256OnChange</Event>
 									</Events>
 								</CheckBoxField>
-								<InputField name="ИдентификаторКлючаДоступа" id="34">
+								<InputField name="AccessKeyID" id="34">
 									<DataPath>Object.AccessKeyID</DataPath>
-									<ContextMenu name="ИдентификаторКлючаДоступаКонтекстноеМеню" id="35"/>
-									<ExtendedTooltip name="ИдентификаторКлючаДоступаРасширеннаяПодсказка" id="36"/>
+									<ContextMenu name="AccessKeyIDContextMenu" id="35"/>
+									<ExtendedTooltip name="AccessKeyIDExtendedTooltip" id="36"/>
 								</InputField>
-								<InputField name="СекретныйКлюч" id="43">
+								<InputField name="SecretKey" id="43">
 									<DataPath>Object.SecretKey</DataPath>
-									<ContextMenu name="СекретныйКлючКонтекстноеМеню" id="44"/>
-									<ExtendedTooltip name="СекретныйКлючРасширеннаяПодсказка" id="45"/>
+									<ContextMenu name="SecretKeyContextMenu" id="44"/>
+									<ExtendedTooltip name="SecretKeyExtendedTooltip" id="45"/>
 								</InputField>
-								<InputField name="Регион" id="40">
+								<InputField name="Region" id="40">
 									<DataPath>Object.Region</DataPath>
-									<ContextMenu name="РегионКонтекстноеМеню" id="41"/>
-									<ExtendedTooltip name="РегионРасширеннаяПодсказка" id="42"/>
+									<ContextMenu name="RegionContextMenu" id="41"/>
+									<ExtendedTooltip name="RegionExtendedTooltip" id="42"/>
 								</InputField>
-								<InputField name="Очередь" id="46">
+								<InputField name="Queue" id="46">
 									<DataPath>Object.Queue</DataPath>
-									<ContextMenu name="ОчередьКонтекстноеМеню" id="47"/>
-									<ExtendedTooltip name="ОчередьРасширеннаяПодсказка" id="48"/>
+									<ContextMenu name="QueueContextMenu" id="47"/>
+									<ExtendedTooltip name="QueueExtendedTooltip" id="48"/>
 								</InputField>
 							</ChildItems>
 						</UsualGroup>
-						<CheckBoxField name="ТестироватьПовторы" id="89">
+						<CheckBoxField name="TestRetries" id="89">
 							<DataPath>Object.TestRetries</DataPath>
 							<TitleLocation>Right</TitleLocation>
 							<CheckBoxType>Auto</CheckBoxType>
-							<ContextMenu name="ТестироватьПовторыКонтекстноеМеню" id="90"/>
-							<ExtendedTooltip name="ТестироватьПовторыРасширеннаяПодсказка" id="91"/>
+							<ContextMenu name="TestRetriesContextMenu" id="90"/>
+							<ExtendedTooltip name="TestRetriesExtendedTooltip" id="91"/>
 							<Events>
 								<Event name="OnChange">TestRetriesOnChange</Event>
 							</Events>
@@ -343,41 +300,26 @@
 	</ChildItems>
 	<Attributes>
 		<Attribute name="Object" id="1">
-			<Title>
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Object</v8:content>
-				</v8:item>
-				<v8:item>
-					<v8:lang>en</v8:lang>
-					<v8:content>Object</v8:content>
-				</v8:item>
-			</Title>
 			<Type>
 				<v8:Type>cfg:DataProcessorObject.Tests</v8:Type>
 			</Type>
 			<MainAttribute>true</MainAttribute>
 			<Save>
-				<Field>1/0:5c2ecaf7-5963-404a-9e6e-39ebfb0e0dec</Field>
 				<Field>Object.AccessKeyID</Field>
 				<Field>Object.Login</Field>
-				<Field>Object.Password</Field>
-				<Field>Object.ProxyHost</Field>
-				<Field>Object.ProxyPort</Field>
 				<Field>Object.Queue</Field>
+				<Field>Object.Password</Field>
+				<Field>Object.ProxyPort</Field>
+				<Field>Object.ProxyHost</Field>
 				<Field>Object.Region</Field>
 				<Field>Object.SecretKey</Field>
-				<Field>Object.TestAuthentificationAWS4_HMAC_SHA256</Field>
-				<Field>Object.TestConnectionViaProxy</Field>
+				<Field>Object.TestAuthenticationAWS4_HMAC_SHA256</Field>
 				<Field>Object.TestReceivingReleasesListFrom1CSite</Field>
+				<Field>Object.TestConnectionViaProxy</Field>
 			</Save>
 		</Attribute>
 		<Attribute name="Tests" id="2">
 			<Title>
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Tests</v8:content>
-				</v8:item>
 				<v8:item>
 					<v8:lang>en</v8:lang>
 					<v8:content>Tests</v8:content>
@@ -390,12 +332,8 @@
 				<Column name="Use" id="1">
 					<Title>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Use</v8:content>
-						</v8:item>
-						<v8:item>
 							<v8:lang>en</v8:lang>
-							<v8:content>Use</v8:content>
+							<v8:content>Usage</v8:content>
 						</v8:item>
 					</Title>
 					<Type>
@@ -404,10 +342,6 @@
 				</Column>
 				<Column name="Test" id="2">
 					<Title>
-						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Test</v8:content>
-						</v8:item>
 						<v8:item>
 							<v8:lang>en</v8:lang>
 							<v8:content>Test</v8:content>
@@ -424,10 +358,6 @@
 				<Column name="Result" id="3">
 					<Title>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Result</v8:content>
-						</v8:item>
-						<v8:item>
 							<v8:lang>en</v8:lang>
 							<v8:content>Result</v8:content>
 						</v8:item>
@@ -442,10 +372,6 @@
 				</Column>
 				<Column name="Error" id="4">
 					<Title>
-						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Error</v8:content>
-						</v8:item>
 						<v8:item>
 							<v8:lang>en</v8:lang>
 							<v8:content>Error</v8:content>
@@ -464,12 +390,8 @@
 		<Attribute name="TestsNumber" id="3">
 			<Title>
 				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Tests number</v8:content>
-				</v8:item>
-				<v8:item>
 					<v8:lang>en</v8:lang>
-					<v8:content>Tests number</v8:content>
+					<v8:content>Test count</v8:content>
 				</v8:item>
 			</Title>
 			<Type>
@@ -485,19 +407,19 @@
 			<dcsset:item>
 				<dcsset:selection>
 					<dcsset:item>
-						<dcsset:field>ТестыРезультат</dcsset:field>
+						<dcsset:field>TestsResult</dcsset:field>
 					</dcsset:item>
 				</dcsset:selection>
 				<dcsset:filter>
 					<dcsset:item xsi:type="dcsset:FilterItemComparison">
 						<dcsset:left xsi:type="dcscor:Field">Tests.Result</dcsset:left>
-						<dcsset:comparisonType>Contains</dcsset:comparisonType>
+						<dcsset:comparisonType>Equal</dcsset:comparisonType>
 						<dcsset:right xsi:type="xs:string">FAIL</dcsset:right>
 					</dcsset:item>
 				</dcsset:filter>
 				<dcsset:appearance>
 					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
-						<dcscor:parameter>TextColor</dcscor:parameter>
+						<dcscor:parameter>ЦветТекста</dcscor:parameter>
 						<dcscor:value xsi:type="v8ui:Color">web:IndianRed</dcscor:value>
 					</dcscor:item>
 					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
@@ -510,19 +432,19 @@
 			<dcsset:item>
 				<dcsset:selection>
 					<dcsset:item>
-						<dcsset:field>ТестыРезультат</dcsset:field>
+						<dcsset:field>TestsResult</dcsset:field>
 					</dcsset:item>
 				</dcsset:selection>
 				<dcsset:filter>
 					<dcsset:item xsi:type="dcsset:FilterItemComparison">
 						<dcsset:left xsi:type="dcscor:Field">Tests.Result</dcsset:left>
-						<dcsset:comparisonType>Contains</dcsset:comparisonType>
+						<dcsset:comparisonType>Equal</dcsset:comparisonType>
 						<dcsset:right xsi:type="xs:string">OK</dcsset:right>
 					</dcsset:item>
 				</dcsset:filter>
 				<dcsset:appearance>
 					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
-						<dcscor:parameter>TextColor</dcscor:parameter>
+						<dcscor:parameter>ЦветТекста</dcscor:parameter>
 						<dcscor:value xsi:type="v8ui:Color">web:DarkSeaGreen</dcscor:value>
 					</dcscor:item>
 					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
@@ -538,22 +460,14 @@
 		<Command name="ExecuteTests" id="1">
 			<Title>
 				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Выполнить тесты</v8:content>
-				</v8:item>
-				<v8:item>
 					<v8:lang>en</v8:lang>
-					<v8:content>Выполнить тесты</v8:content>
+					<v8:content>Run tests</v8:content>
 				</v8:item>
 			</Title>
 			<ToolTip>
 				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Execute tests</v8:content>
-				</v8:item>
-				<v8:item>
 					<v8:lang>en</v8:lang>
-					<v8:content>Execute tests</v8:content>
+					<v8:content>Run tests</v8:content>
 				</v8:item>
 			</ToolTip>
 			<Action>ExecuteTests</Action>
@@ -562,24 +476,10 @@
 		<Command name="Check" id="2">
 			<Title>
 				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Установить флажки</v8:content>
-				</v8:item>
-				<v8:item>
 					<v8:lang>en</v8:lang>
-					<v8:content>Установить флажки</v8:content>
+					<v8:content>Check all</v8:content>
 				</v8:item>
 			</Title>
-			<ToolTip>
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Check</v8:content>
-				</v8:item>
-				<v8:item>
-					<v8:lang>en</v8:lang>
-					<v8:content>Check</v8:content>
-				</v8:item>
-			</ToolTip>
 			<Picture>
 				<xr:Ref>StdPicture.CheckAll</xr:Ref>
 				<xr:LoadTransparent>true</xr:LoadTransparent>
@@ -589,24 +489,10 @@
 		<Command name="Uncheck" id="3">
 			<Title>
 				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Снять флажки</v8:content>
-				</v8:item>
-				<v8:item>
 					<v8:lang>en</v8:lang>
-					<v8:content>Снять флажки</v8:content>
+					<v8:content>Uncheck all</v8:content>
 				</v8:item>
 			</Title>
-			<ToolTip>
-				<v8:item>
-					<v8:lang>ru</v8:lang>
-					<v8:content>Uncheck</v8:content>
-				</v8:item>
-				<v8:item>
-					<v8:lang>en</v8:lang>
-					<v8:content>Uncheck</v8:content>
-				</v8:item>
-			</ToolTip>
 			<Picture>
 				<xr:Ref>StdPicture.UncheckAll</xr:Ref>
 				<xr:LoadTransparent>true</xr:LoadTransparent>
